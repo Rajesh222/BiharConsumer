@@ -28,8 +28,8 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationService userServiceDetails;
 
-	@PostMapping(value = "/signUp")
-	public String registration(@RequestBody User user) {
+	@PostMapping(value = "/registerUser")
+	public String registration(@RequestBody(required=true) User user) {
 		log.info("call registration {}", user);
 		userServiceDetails.addUser(user);
 		return "redirect:/welcome";

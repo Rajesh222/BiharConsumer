@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user_master")
 public class User implements Serializable {
@@ -51,8 +53,9 @@ public class User implements Serializable {
 	private Integer attempt;
 	@Column(name = "isactive", nullable = false, columnDefinition = "boolean default false")
 	private boolean isActive = false;
-	//@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	//private UserModule module;
+	@JsonIgnore
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserModule module;
 	@Column(name = "createdBy")
 	private String createdBy;
 	@Column(name = "createdOn", nullable = false)
@@ -278,6 +281,12 @@ public class User implements Serializable {
 	 */
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
+	}
+	public UserModule getModule() {
+		return module;
+	}
+	public void setModule(UserModule module) {
+		this.module = module;
 	}
 	
 }

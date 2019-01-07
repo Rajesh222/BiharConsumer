@@ -3,8 +3,8 @@ package com.db.dao;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.db.enums.PrevilageType;
 import com.db.model.User;
 import com.db.utils.SecurityDigester;
-
-import net.sf.ehcache.constructs.scheduledrefresh.OverseerJob;
 
 @Repository("userDetailsDao")
 public class AuthenticationDao {
@@ -63,16 +62,18 @@ public class AuthenticationDao {
 	public User authUser(User user) throws UnsupportedEncodingException {
 		if (validatePhoneNumber(user.getEmail())) {
 			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.setFetchMode("module", FetchMode.JOIN).createAlias("module", "md")
 					.add(Restrictions.eq("phone", user.getEmail()).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();
+					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1).uniqueResult();
 		}else {
 			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.setFetchMode("module", FetchMode.JOIN).createAlias("modules", "md")
 					.add(Restrictions.eq("email", user.getEmail()).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();
+					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1).uniqueResult();
 		}
 		return user;
 	}
