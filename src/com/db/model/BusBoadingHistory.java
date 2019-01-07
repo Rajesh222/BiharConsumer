@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,35 +21,28 @@ public class BusBoadingHistory {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name ="system_id",nullable = false, unique= true)
 	private String id;
-	@Column(name = "base_fare")
+	@Column(name = "base_fare", columnDefinition="Decimal(10,2) default '0.00'")
 	private double baseFare;
-	@Column(name = "service_tax")
+	@Column(name = "service_tax", columnDefinition="Decimal(10,2) default '0.00'")
 	private double serviceTax;
-	@Column(name = "total_fare")
+	@Column(name = "total_fare", columnDefinition="Decimal(10,2) default '0.00'")
 	private double totalFare;
-	@Column(name ="orderBy")
-	private double order;
+	@Column(name ="orderBy", columnDefinition = "Integer default 0")
+	private Integer order;
 	@Column(name = "source_name")
 	private String source;
 	@Column(name = "destination_name")
 	private String destination;
-	@Column(name ="doj")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date doj;
 	@Column(name = "arrival_date")
-	private String arrivalDate;
-	@Column(name = "arrival_time")
-	private String arrivalTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date arrivalDate;
 	@Column(name = "departure_date")
-	private String departureDate;
-	@Column(name = "departure_time")
-	private String departureTime;
-	@Column(name = "distance")
-	private String distance;
+	private Date departureDate;
+	@Column(name = "distance", columnDefinition="Decimal(10,2) default '0.00'")
+	private double distance;
 	@Column(name = "duration")
 	private String duration;
-	@Column(name ="bus_number")
-	private String busNo;
+	
 	@Column(name ="createdOn")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date();
@@ -58,6 +53,9 @@ public class BusBoadingHistory {
 	private Date modifyOn = new Date();
 	@Column(name ="modifyBy")
 	private String modifyBy;
+	@ManyToOne
+	@JoinColumn(name="rout_id")
+	private BusRoutDetails routDetails;
 	/**
 	 * @return the id
 	 */
@@ -109,13 +107,13 @@ public class BusBoadingHistory {
 	/**
 	 * @return the order
 	 */
-	public double getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 	/**
 	 * @param order the order to set
 	 */
-	public void setOrder(double order) {
+	public void setOrder(Integer order) {
 		this.order = order;
 	}
 	/**
@@ -143,75 +141,39 @@ public class BusBoadingHistory {
 		this.destination = destination;
 	}
 	/**
-	 * @return the doj
-	 */
-	public Date getDoj() {
-		return doj;
-	}
-	/**
-	 * @param doj the doj to set
-	 */
-	public void setDoj(Date doj) {
-		this.doj = doj;
-	}
-	/**
 	 * @return the arrivalDate
 	 */
-	public String getArrivalDate() {
+	public Date getArrivalDate() {
 		return arrivalDate;
 	}
 	/**
 	 * @param arrivalDate the arrivalDate to set
 	 */
-	public void setArrivalDate(String arrivalDate) {
+	public void setArrivalDate(Date arrivalDate) {
 		this.arrivalDate = arrivalDate;
-	}
-	/**
-	 * @return the arrivalTime
-	 */
-	public String getArrivalTime() {
-		return arrivalTime;
-	}
-	/**
-	 * @param arrivalTime the arrivalTime to set
-	 */
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
 	}
 	/**
 	 * @return the departureDate
 	 */
-	public String getDepartureDate() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
 	/**
 	 * @param departureDate the departureDate to set
 	 */
-	public void setDepartureDate(String departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
-	}
-	/**
-	 * @return the departureTime
-	 */
-	public String getDepartureTime() {
-		return departureTime;
-	}
-	/**
-	 * @param departureTime the departureTime to set
-	 */
-	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
 	}
 	/**
 	 * @return the distance
 	 */
-	public String getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 	/**
 	 * @param distance the distance to set
 	 */
-	public void setDistance(String distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 	/**
@@ -225,18 +187,6 @@ public class BusBoadingHistory {
 	 */
 	public void setDuration(String duration) {
 		this.duration = duration;
-	}
-	/**
-	 * @return the busNo
-	 */
-	public String getBusNo() {
-		return busNo;
-	}
-	/**
-	 * @param busNo the busNo to set
-	 */
-	public void setBusNo(String busNo) {
-		this.busNo = busNo;
 	}
 	/**
 	 * @return the createdOn
@@ -285,6 +235,18 @@ public class BusBoadingHistory {
 	 */
 	public void setModifyBy(String modifyBy) {
 		this.modifyBy = modifyBy;
+	}
+	/**
+	 * @return the routDetails
+	 */
+	public BusRoutDetails getRoutDetails() {
+		return routDetails;
+	}
+	/**
+	 * @param routDetails the routDetails to set
+	 */
+	public void setRoutDetails(BusRoutDetails routDetails) {
+		this.routDetails = routDetails;
 	}
 	
 }
