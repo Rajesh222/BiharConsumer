@@ -15,12 +15,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.BusRoutDetails;
-import com.db.model.TravelHistory;
+import com.db.model.TopCities;
 
 @Repository("searchStationDao")
-public class TravelHistoryDao {
+public class TopCityDao {
 	
-	private static final Logger log = LoggerFactory.getLogger(TravelHistoryDao.class);
+	private static final Logger log = LoggerFactory.getLogger(TopCityDao.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -31,23 +31,23 @@ public class TravelHistoryDao {
 	}
 	
 	@Transactional
-	public List<TravelHistory> getAllStation() {
+	public List<TopCities> getAllStation() {
 		log.info("getAllStation ");
-		List<TravelHistory> list = this.sessionFactory.getCurrentSession().createCriteria(TravelHistory.class).addOrder(Order.desc("id")).list();
+		List<TopCities> list = this.sessionFactory.getCurrentSession().createCriteria(TopCities.class).addOrder(Order.desc("id")).list();
 		return list;
 	}
 	
 	@Transactional
-	public List<TravelHistory> searchStationByStationName(String stationName) {
+	public List<TopCities> searchStationByStationName(String stationName) {
 		log.info("searchStationByStationName : {}", stationName);
 		Session session = this.sessionFactory.getCurrentSession();
-		Criteria query = session.createCriteria(TravelHistory.class);
+		Criteria query = session.createCriteria(TopCities.class);
 		query.add(Restrictions.like("displayName", stationName, MatchMode.ANYWHERE).ignoreCase());
 		return query.list();
 	}
 	
 	@Transactional
-	public boolean addStationName(TravelHistory searchStation) {
+	public boolean addStationName(TopCities searchStation) {
 		log.info("addStationName : {}", searchStation);
 		Session session = this.sessionFactory.getCurrentSession();
 		long id = (long) session.save(searchStation);

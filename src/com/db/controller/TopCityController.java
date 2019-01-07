@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.BusRoutDetails;
-import com.db.model.TravelHistory;
-import com.db.service.TravelHistoryService;
+import com.db.model.TopCities;
+import com.db.service.TopCityService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 
 @RestController
 @RequestMapping(value="/api/v0/travelHistory")
-public class TravelHistoryController {
+public class TopCityController {
 
-	private static final Logger log = LoggerFactory.getLogger(TravelHistoryController.class);
+	private static final Logger log = LoggerFactory.getLogger(TopCityController.class);
 	
 	@Autowired
-	private TravelHistoryService travelHistoryService;
+	private TopCityService travelHistoryService;
 
 	@GetMapping(value = "/search/{source}/{destination}/{date}")
 	public ResponseEntity<RestResponse<List<BusRoutDetails>>> search(@PathVariable(name="source", required=true) String source,
@@ -40,15 +40,15 @@ public class TravelHistoryController {
 	}
 	
 	@GetMapping("/cities")
-	public ResponseEntity<RestResponse<List<TravelHistory>>> getAllStation() {
+	public ResponseEntity<RestResponse<List<TopCities>>> getAllStation() {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<TravelHistory> searchStations = travelHistoryService.getAllStation();
+		List<TopCities> searchStations = travelHistoryService.getAllStation();
 		log.debug("Data fetched successfully from media lookup tables");
 		return new ResponseEntity<>(new RestResponse(searchStations, status), HttpStatus.OK);
 	}
 	
 	@PostMapping("/cities")
-	public ResponseEntity<RestResponse<List<TravelHistory>>> addSearchStation(@RequestBody TravelHistory busStop,
+	public ResponseEntity<RestResponse<List<TopCities>>> addSearchStation(@RequestBody TopCities busStop,
 			Principal principal) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Search Station Added Successfully");
 		travelHistoryService.addStationName(busStop);
@@ -56,9 +56,9 @@ public class TravelHistoryController {
 	}
 	
 	@GetMapping("/cities/{stationName}")
-	public ResponseEntity<RestResponse<List<TravelHistory>>> searchStation(@PathVariable(name="stationName", required=true) String stationName) {
+	public ResponseEntity<RestResponse<List<TopCities>>> searchStation(@PathVariable(name="stationName", required=true) String stationName) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<TravelHistory> searchStations = travelHistoryService.searchStationByStationName(stationName);
+		List<TopCities> searchStations = travelHistoryService.searchStationByStationName(stationName);
 		return new ResponseEntity<>(new RestResponse(searchStations, status), HttpStatus.OK);
 	}
 }
