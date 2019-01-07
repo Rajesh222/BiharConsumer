@@ -34,7 +34,7 @@ public class AuthenticationDao {
 
 	@Transactional
 	public boolean lockUser(String userName, boolean isLock, int attempt) {
-		sessionFactory.getCurrentSession().createQuery("update User set attempt =:attempt, islock =:lock where userid =:uid")
+		sessionFactory.getCurrentSession().createQuery("update User set attempt =:attempt, islock =:lock where uid =:uid")
 				.setParameter("attempt", attempt).setParameter("lock", isLock).setParameter("uid", userName)
 				.executeUpdate();
 		return true;
@@ -55,6 +55,6 @@ public class AuthenticationDao {
 	
 	@Transactional
 	public User authUser(String email, String pass) {
-		 return (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email).ignoreCase()).add(Restrictions.eq("pass", pass).ignoreCase()).setFetchSize(1).setMaxResults(1);
+		 return (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email).ignoreCase()).add(Restrictions.eq("password", pass).ignoreCase()).setFetchSize(1).setMaxResults(1);
 	}
 }

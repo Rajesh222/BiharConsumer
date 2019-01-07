@@ -1,5 +1,6 @@
 package com.db.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,11 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "bus_details")
@@ -29,15 +31,16 @@ public class BusRoutDetails {
 	private String busName;
 	@Column(name = "bus_number")
 	private String busNumber;
-	@Column(name ="seatavailability")
+	@Column(name ="seatavailability",columnDefinition="Decimal(10,2) default '0.00'")
 	private double seatAvailability;
-	@Column(name ="totalseats")
+	@Column(name ="totalseats", columnDefinition="Decimal(10,2) default '0.00'")
 	private double totalSeats;
 	@Column(name = "bus_type")
 	private String busType;
 	@Column(name = "direction")
 	private String direction;
-	
+	@Formula(value="concat(bus_number,'-',direction)")
+	private String fullBusNo;
 	@Column(name = "createdOn")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date();
@@ -53,13 +56,10 @@ public class BusRoutDetails {
 			+ "* Refundable amount is calculated based on scheduled bus departure time from the first boarding time."
 			+ "* Partial cancellation is allowed for this ticket. Ticket cannot be cancelled after bus departure time.\n"
 			+ "* Ticket cannot be cancelled after scehduled bus departure time from the first boarding point.";
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="bus_id")  
-	//@OrderColumn(name="orderBy")  
-	private List<BusBoadingHistory> boadingHistories;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="bus_id")  
-	private List<BusSeatDetails> busSeatDetails;
+	@OneToMany(mappedBy = "routDetails", cascade = CascadeType.ALL)
+	private List<BusBoadingHistory> boadingHistories = new ArrayList<>();
+	@OneToMany(mappedBy = "routDetails", cascade = CascadeType.ALL)
+	private List<BusSeatDetails> busSeatDetails = new ArrayList<>();
 	/**
 	 * @return the id
 	 */
@@ -239,6 +239,18 @@ public class BusRoutDetails {
 	 */
 	public void setBusSeatDetails(List<BusSeatDetails> busSeatDetails) {
 		this.busSeatDetails = busSeatDetails;
+	}
+	/**
+	 * @return the fullBusNo
+	 */
+	public String getFullBusNo() {
+		return fullBusNo;
+	}
+	/**
+	 * @param fullBusNo the fullBusNo to set
+	 */
+	public void setFullBusNo(String fullBusNo) {
+		this.fullBusNo = fullBusNo;
 	}
 	
 }

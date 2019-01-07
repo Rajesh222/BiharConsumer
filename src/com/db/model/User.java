@@ -45,24 +45,22 @@ public class User implements Serializable {
 	private String state;
 	@Column(name = "country", length = 500)
 	private String country;
-	@Column(name = "islock", nullable = false)
-	private boolean isLock;
-	@Column(name = "attempt", nullable = false)
+	@Column(name = "islock", nullable = false,columnDefinition = "boolean default false")
+	private boolean isLock = false;
+	@Column(name = "attempt", nullable = false, columnDefinition = "Integer default 0")
 	private Integer attempt;
-	@Column(name = "isactive", nullable = false)
-    private boolean isActive;
+	@Column(name = "isactive", nullable = false, columnDefinition = "boolean default false")
+	private boolean isActive = false;
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private UserModule module;
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Wallet wallet;
-	@Column(name="createdBy")
+	@Column(name = "createdBy")
 	private String createdBy;
-	@Column(name="createdOn", nullable = false)
+	@Column(name = "createdOn", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date();
-	@Column(name="modifyBy")
+	@Column(name = "modifyBy")
 	private String modifyBy;
-	@Column(name="modifyOn", nullable = false)
+	@Column(name = "modifyOn", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifyOn;
 	/**
@@ -244,18 +242,6 @@ public class User implements Serializable {
 	 */
 	public void setModule(UserModule module) {
 		this.module = module;
-	}
-	/**
-	 * @return the wallet
-	 */
-	public Wallet getWallet() {
-		return wallet;
-	}
-	/**
-	 * @param wallet the wallet to set
-	 */
-	public void setWallet(Wallet wallet) {
-		this.wallet = wallet;
 	}
 	/**
 	 * @return the createdBy
