@@ -7,19 +7,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.User;
 import com.db.service.AuthenticationService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/v0/auth")
 public class AuthenticationController {
 
@@ -36,11 +36,11 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = "/serviceLoginAuth")
-	public ResponseEntity<RestResponse<User>> authUser(
+	public ResponseEntity<RestResponse<Object>> authUser(
 			@RequestParam(name = "userName", required = true) String userName,
 			@RequestParam(name = "passowrd", required = true) String password) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
-		User user = userServiceDetails.authUser(userName, password);
+		Object user = userServiceDetails.authUser(userName, password);
 		if (user == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(), "Unauthorized User Credential!");
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);

@@ -19,7 +19,7 @@ public class AuthenticationService {
 	@Autowired
 	private AuthenticationDao authenticationDao;
 
-	public User authUser(String email, String pass) throws UnsupportedEncodingException {
+	public Object authUser(String email, String pass) throws UnsupportedEncodingException {
 		log.info("call authUser()");
 		return authenticationDao.authUser(email, pass);
 	}

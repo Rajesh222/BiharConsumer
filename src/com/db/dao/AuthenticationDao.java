@@ -3,8 +3,8 @@ package com.db.dao;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.User;
 import com.db.utils.SecurityDigester;
+
+import net.sf.ehcache.constructs.scheduledrefresh.OverseerJob;
 
 @Repository("userDetailsDao")
 public class AuthenticationDao {
@@ -58,20 +60,34 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public User authUser(String email, String pass) throws UnsupportedEncodingException {
-		User user = null;
+	public Object authUser(String email, String pass) throws UnsupportedEncodingException {
+		Object user = null;
 		if (validatePhoneNumber(email))
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+			user = sessionFactory.openSession().createQuery("select uid, name,email,address from User "
+					+ "where phone =:phone and password =:password and isLock =false and isActive = true").setParameter("phone", email).
+			setParameter("password", SecurityDigester.encrypt(pass)).setMaxResults(1).uniqueResult();
+			/*user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.setProjection(Projections.property("uid")).setProjection(Projections.property("name"))
+					.setProjection(Projections.property("email")).setProjection(Projections.property("address"))
+					.setProjection(Projections.property("phone")).setProjection(Projections.property("pan"))
+					.setProjection(Projections.property("city")).setProjection(Projections.property("state"))
 					.add(Restrictions.eq("phone", email).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();
+					.setMaxResults(1).uniqueResult();*/
 		else
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+			user = sessionFactory.openSession().createQuery("select uid, name,email,address from User "
+					+ "where email =:phone and password =:password and isLock =false and isActive = true").setParameter("phone", email).
+			setParameter("password", SecurityDigester.encrypt(pass)).setMaxResults(1).uniqueResult();
+			/*user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.setProjection(Projections.property("uid")).setProjection(Projections.property("name"))
+					.setProjection(Projections.property("email")).setProjection(Projections.property("address"))
+					.setProjection(Projections.property("phone")).setProjection(Projections.property("pan"))
+					.setProjection(Projections.property("city")).setProjection(Projections.property("state"))
 					.add(Restrictions.eq("email", email).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();
+					.setMaxResults(1).uniqueResult();*/
 		return user;
 	}
 
