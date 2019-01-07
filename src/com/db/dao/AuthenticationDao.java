@@ -63,13 +63,15 @@ public class AuthenticationDao {
 		if (validatePhoneNumber(email))
 			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
 					.add(Restrictions.eq("phone", email).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.decrypt(pass)).ignoreCase()).setFetchSize(1)
-					.setMaxResults(1);
+					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
+					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
+					.setMaxResults(1).uniqueResult();
 		else
 			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
 					.add(Restrictions.eq("email", email).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.decrypt(pass)).ignoreCase()).setFetchSize(1)
-					.setMaxResults(1);
+					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
+					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
+					.setMaxResults(1).uniqueResult();
 		return user;
 	}
 

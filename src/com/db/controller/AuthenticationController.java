@@ -1,5 +1,7 @@
 package com.db.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class AuthenticationController {
 	@PostMapping(value = "/serviceLoginAuth")
 	public ResponseEntity<RestResponse<User>> authUser(
 			@RequestParam(name = "userName", required = true) String userName,
-			@RequestParam(name = "passowrd", required = true) String password) {
+			@RequestParam(name = "passowrd", required = true) String password) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
 		User user = userServiceDetails.authUser(userName, password);
 		if (user == null)

@@ -1,5 +1,6 @@
 package com.db.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ public class AuthenticationService {
 	@Autowired
 	private AuthenticationDao authenticationDao;
 
-	public User authUser(String email, String pass) {
+	public User authUser(String email, String pass) throws UnsupportedEncodingException {
 		log.info("call authUser()");
 		return authenticationDao.authUser(email, pass);
 	}
