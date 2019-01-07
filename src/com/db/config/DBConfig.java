@@ -63,9 +63,9 @@ public class DBConfig {
 		properties.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
 		properties.put(HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
 		properties.put(POOL_SIZE, env.getProperty("hibernate.connection.pool_size"));
-		properties.put(CURRENT_SESSION_CONTEXT_CLASS, env.getProperty("hibernate.current_session_context_class"));
-		properties.put("hibernate.connection.autoReconnect", env.getProperty("hibernate.connection.autoReconnect"));
-		properties.put(GLOBALLY_QUOTED_IDENTIFIERS, env.getProperty("hibernate.globally_quoted_identifiers"));
+//		properties.put(CURRENT_SESSION_CONTEXT_CLASS, env.getProperty("hibernate.current_session_context_class"));
+//		properties.put("hibernate.connection.autoReconnect", env.getProperty("hibernate.connection.autoReconnect"));
+//		properties.put(GLOBALLY_QUOTED_IDENTIFIERS, env.getProperty("hibernate.globally_quoted_identifiers"));
 		// Setting C3P0 properties
 		properties.put(C3P0_MIN_SIZE, env.getProperty("hibernate.c3p0.min_size"));
 		properties.put(C3P0_MAX_SIZE, env.getProperty("hibernate.c3p0.max_size"));
@@ -73,7 +73,7 @@ public class DBConfig {
 		properties.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
 		properties.put(C3P0_IDLE_TEST_PERIOD, env.getProperty("hibernate.c3p0.idle_test_period"));
 		properties.put(C3P0_ACQUIRE_INCREMENT, env.getProperty("hibernate.c3p0.acquire_increment"));
-		properties.put("hibernate.jdbc.lob.non_contextual_creation", "true");
+		//properties.put("hibernate.jdbc.lob.non_contextual_creation", "true");
 		return properties;
 	}
 
