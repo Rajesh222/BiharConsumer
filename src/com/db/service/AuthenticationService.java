@@ -19,9 +19,9 @@ public class AuthenticationService {
 	@Autowired
 	private AuthenticationDao authenticationDao;
 
-	public Object authUser(String email, String pass) throws UnsupportedEncodingException {
+	public User authUser(User user) throws UnsupportedEncodingException {
 		log.info("call authUser()");
-		return authenticationDao.authUser(email, pass);
+		return authenticationDao.authUser(user);
 	}
 
 	public void addUser(User user) {

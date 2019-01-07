@@ -60,34 +60,20 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public Object authUser(String email, String pass) throws UnsupportedEncodingException {
-		Object user = null;
-		if (validatePhoneNumber(email))
-			user = sessionFactory.openSession().createQuery("select uid, name,email,address from User "
-					+ "where phone =:phone and password =:password and isLock =false and isActive = true").setParameter("phone", email).
-			setParameter("password", SecurityDigester.encrypt(pass)).setMaxResults(1).uniqueResult();
-			/*user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.setProjection(Projections.property("uid")).setProjection(Projections.property("name"))
-					.setProjection(Projections.property("email")).setProjection(Projections.property("address"))
-					.setProjection(Projections.property("phone")).setProjection(Projections.property("pan"))
-					.setProjection(Projections.property("city")).setProjection(Projections.property("state"))
-					.add(Restrictions.eq("phone", email).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
+	public User authUser(User user) throws UnsupportedEncodingException {
+		if (validatePhoneNumber(user.getEmail())) {
+			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("phone", user.getEmail()).ignoreCase())
+					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();*/
-		else
-			user = sessionFactory.openSession().createQuery("select uid, name,email,address from User "
-					+ "where email =:phone and password =:password and isLock =false and isActive = true").setParameter("phone", email).
-			setParameter("password", SecurityDigester.encrypt(pass)).setMaxResults(1).uniqueResult();
-			/*user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.setProjection(Projections.property("uid")).setProjection(Projections.property("name"))
-					.setProjection(Projections.property("email")).setProjection(Projections.property("address"))
-					.setProjection(Projections.property("phone")).setProjection(Projections.property("pan"))
-					.setProjection(Projections.property("city")).setProjection(Projections.property("state"))
-					.add(Restrictions.eq("email", email).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.encrypt(pass)).ignoreCase())
+					.setMaxResults(1).uniqueResult();
+		}else {
+			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("email", user.getEmail()).ignoreCase())
+					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.setMaxResults(1).uniqueResult();*/
+					.setMaxResults(1).uniqueResult();
+		}
 		return user;
 	}
 

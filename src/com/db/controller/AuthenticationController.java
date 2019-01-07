@@ -36,14 +36,12 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = "/serviceLoginAuth")
-	public ResponseEntity<RestResponse<Object>> authUser(
-			@RequestParam(name = "userName", required = true) String userName,
-			@RequestParam(name = "passowrd", required = true) String password) throws UnsupportedEncodingException {
+	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required=true) User user) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
-		Object user = userServiceDetails.authUser(userName, password);
-		if (user == null)
+		User user1 = userServiceDetails.authUser(user);
+		if (user1 == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(), "Unauthorized User Credential!");
-		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
+		return new ResponseEntity<>(new RestResponse(user1, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/forgotPassword")
