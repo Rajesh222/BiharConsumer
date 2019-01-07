@@ -46,17 +46,20 @@ public class AuthenticationController {
 
 	@PostMapping(value = "/forgotPassword")
 	public ResponseEntity<RestResponse<Object>> forgotPassword(
-			@RequestParam(name = "username", required = true) String userName) {
+			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
+		User user = userServiceDetails.forgotPassword(email);
+		if(user == null)
+			status = new RestStatus<>(HttpStatus.OK.toString(), "Invalid Email/password. Please enter valid email!");
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/changePassword/{newPass}/{conformPass}")
+	@PostMapping(value = "/changePassword/{uid}")
 	public ResponseEntity<RestResponse<Object>> changePassword(
-			@PathVariable(name = "username", required=true) String newPass,
-			@PathVariable(name = "username", required = true) String confirmPass,
-			@RequestParam(name = "username", required = true) String userName) {
+			@PathVariable(name = "uid", required=true) String newPass,
+			@RequestParam(name = "newPassword", required = true) String confirmPass) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
+		
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 

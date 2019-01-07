@@ -2,6 +2,7 @@ package com.db.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class DataUtils {
 
@@ -31,11 +32,22 @@ public class DataUtils {
 		birthTypes.put("URB", "URB");
 		return birthTypes;
 	}
-	
-	public static Map<String, String> applicableQuotaList(){
+
+	public static Map<String, String> applicableQuotaList() {
 		Map<String, String> quotaTypes = new HashMap<>();
 		quotaTypes.put("BERTH/SR. CITIZEN", "BERTH/SR. CITIZEN");
 		quotaTypes.put("LEDIES", "LEDIES");
 		return quotaTypes;
+	}
+
+	public static String getGenerateOTP() {
+		int len = 4;
+		String numbers = "0123456789";
+		Random rnd = new Random();
+		char[] otp = new char[len];
+		for (int i = 0; i < len; i++) {
+			otp[i] = numbers.charAt(rnd.nextInt(numbers.length()));
+		}
+		return new String(otp);
 	}
 }

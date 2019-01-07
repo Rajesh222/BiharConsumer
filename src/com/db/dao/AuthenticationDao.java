@@ -48,13 +48,13 @@ public class AuthenticationDao {
 	@Transactional(readOnly = true)
 	public User forgotPassword(String email) {
 		return (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-				.add(Restrictions.eq("email", email).ignoreCase()).setFetchSize(1).setMaxResults(1);
+				.add(Restrictions.eq("email", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
 	}
 
 	@Transactional
-	public boolean changePassword(String email, String pass) {
-		sessionFactory.getCurrentSession().createQuery("update User set password =:password where userid =:uid")
-				.setParameter("password", pass).setParameter("uid", email).executeUpdate();
+	public boolean changePassword(String uid, String pass) {
+		sessionFactory.getCurrentSession().createQuery("update User set password =:password where uid =:uid")
+				.setParameter("password", pass).setParameter("uid", uid).executeUpdate();
 		return true;
 	}
 
