@@ -30,12 +30,14 @@ public class TopCityController {
 	@Autowired
 	private TopCityService travelHistoryService;
 
-	@GetMapping(value = "/search/{source}/{destination}/{date}")
+	@GetMapping(value = "/availability/{source}/{destination}/{date}")
 	public ResponseEntity<RestResponse<List<BusRoutDetails>>> search(@PathVariable(name="source", required=true) String source,
 			@PathVariable(name="destination", required=true) String destination,@PathVariable(name="date", required=true) String date) {
 		log.info("call search source:{}, destination:{}", source, destination);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		List<BusRoutDetails>  busHistories = travelHistoryService.searchBusList(source, destination, date);
+		if(busHistories.isEmpty())
+			status = new RestStatus<>(HttpStatus.OK.toString(), String.format("No bus found between '%s' and '%s' on '%s", source, destination, date));
 		return new ResponseEntity<>(new RestResponse(busHistories, status), HttpStatus.OK);
 	}
 	

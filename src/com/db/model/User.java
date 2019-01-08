@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class User implements Serializable {
 	@Column(name = "isactive", nullable = false, columnDefinition = "boolean default false")
 	private boolean isActive = false;
 	@JsonIgnore
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
 	private UserModule module;
 	@Column(name = "createdBy")
 	private String createdBy;

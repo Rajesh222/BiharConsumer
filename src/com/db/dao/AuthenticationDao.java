@@ -31,9 +31,10 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public void addUser(User user) {
+	public String addUser(User user) {
 		log.info("call addUser()");
-		sessionFactory.getCurrentSession().save(user);
+		String string = (String) sessionFactory.getCurrentSession().save(user);
+		return string;
 	}
 
 	@Transactional
@@ -46,9 +47,15 @@ public class AuthenticationDao {
 	}
 
 	@Transactional(readOnly = true)
-	public User forgotPassword(String email) {
-		return (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-				.add(Restrictions.eq("email", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
+	public User getUserDetails(String email) {
+		User user = null;
+		if (validatePhoneNumber(email))
+			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("phone", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
+		else
+			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("email", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
+		return user;
 	}
 
 	@Transactional
@@ -66,14 +73,16 @@ public class AuthenticationDao {
 					.add(Restrictions.eq("phone", user.getEmail()).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1).uniqueResult();
-		}else {
+					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1)
+					.uniqueResult();
+		} else {
 			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
 					.setFetchMode("module", FetchMode.JOIN).createAlias("modules", "md")
 					.add(Restrictions.eq("email", user.getEmail()).ignoreCase())
 					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
 					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1).uniqueResult();
+					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1)
+					.uniqueResult();
 		}
 		return user;
 	}

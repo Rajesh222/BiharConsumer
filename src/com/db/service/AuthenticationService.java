@@ -24,14 +24,14 @@ public class AuthenticationService {
 		return authenticationDao.authUser(user);
 	}
 
-	public void addUser(User user) {
+	public String addUser(User user) {
 		log.info("call addUser()");
-		authenticationDao.addUser(user);
+		return authenticationDao.addUser(user);
 	}
 
-	public User forgotPassword(String email) {
+	public User getUserDetails(String email) {
 		log.info("call forgotPassword()");
-		return authenticationDao.forgotPassword(email);
+		return authenticationDao.getUserDetails(email);
 	}
 
 	public boolean changePassword(String email, String pass) {

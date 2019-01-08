@@ -29,10 +29,13 @@ public class AuthenticationController {
 	private AuthenticationService userServiceDetails;
 
 	@PostMapping(value = "/registerUser")
-	public String registration(@RequestBody(required=true) User user) {
+	public ResponseEntity<RestResponse<Object>> registration(@RequestBody(required=true) User user) {
 		log.info("call registration {}", user);
-		userServiceDetails.addUser(user);
-		return "redirect:/welcome";
+		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Registered Successfully");
+		String id = userServiceDetails.addUser(user);
+		if(id != null)
+			status = new RestStatus<>(HttpStatus.OK.toString(), "User not Registered Successfully");
+		return new ResponseEntity<>(new RestResponse(id, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/serviceLoginAuth")
@@ -45,10 +48,10 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = "/forgotPassword")
-	public ResponseEntity<RestResponse<Object>> forgotPassword(
+	public ResponseEntity<RestResponse<Object>> getUserDetails(
 			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
-		User user = userServiceDetails.forgotPassword(email);
+		User user = userServiceDetails.getUserDetails(email);
 		if(user == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(), "Invalid Email/password. Please enter valid email!");
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
@@ -56,11 +59,11 @@ public class AuthenticationController {
 
 	@PostMapping(value = "/changePassword/{uid}")
 	public ResponseEntity<RestResponse<Object>> changePassword(
-			@PathVariable(name = "uid", required=true) String newPass,
-			@RequestParam(name = "newPassword", required = true) String confirmPass) {
+			@PathVariable(name = "uid", required=true) String uid,
+			@RequestParam(name = "newPassword", required = true) String pass) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
-		
-		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
+		userServiceDetails.changePassword(uid, pass);
+		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 
 }
