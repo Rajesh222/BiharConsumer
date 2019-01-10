@@ -20,8 +20,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.db.model.BusRoutDetails;
 import com.db.model.TopCities;
 import com.db.model.TopCityRowMapper;
+import com.db.model.vo.SearchBusVO;
 
 @Repository("topCityDao")
 public class TopCityDao {
@@ -38,17 +40,9 @@ public class TopCityDao {
 	private static final String SEARCH_TOP_CITIES_LOGS = "SEARCH_TOP_CITIES_LOGS";
 	private static final String INSERT_TOP_CITIES = "INSERT_TOP_CITIES";
 
-	/*
-	 * @Transactional public List<BusRoutDetails> searchBusList(String source,
-	 * String destination, String date) { Session session =
-	 * this.sessionFactory.getCurrentSession(); SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd"); StringBuilder query = new
-	 * StringBuilder("from BusHistory "); if (sdf != null)
-	 * query.append(" where date >= '" + sdf.format(date) + "'"); else
-	 * query.append(" where date >= now()"); query.append(" order by date"); Query
-	 * result = session.createQuery(query.toString()); return
-	 * result.getResultList(); }
-	 */
+	public List<BusRoutDetails> searchBus(SearchBusVO searchBusVO) {
+		return null;
+	}
 
 	@Transactional(readOnly = true)
 	public List<TopCities> getAllStation() {
@@ -61,7 +55,7 @@ public class TopCityDao {
 	public List<TopCities> searchStationByStationName(String stationName) {
 		String query = queriesMap.get(SEARCH_TOP_CITIES_LOGS);
 		log.debug("Running insert query for getAllStation {}", query);
-		return jdbcTemplate.query(query, new Object[] { "%"+stationName+"%" }, new TopCityRowMapper());
+		return jdbcTemplate.query(query, new Object[] { "%" + stationName + "%" }, new TopCityRowMapper());
 	}
 
 	@Transactional

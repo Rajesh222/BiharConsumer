@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db.dao.TopCityDao;
-import com.db.model.BusRoutDetails;
 import com.db.model.TopCities;
 
 @Service
@@ -18,11 +17,6 @@ public class TopCityService {
 	
 	@Autowired
 	private TopCityDao searchStationDao;
-	
-/*	public List<BusRoutDetails> searchBusList(String source, String destination, String date) {
-		log.info("call searchTravel [source :{}, destination : {}, date : {}]", source, destination, date);
-		return searchStationDao.searchBusList(source , destination, date);
-	}*/
 	
 	public List<TopCities> getAllStation() {
 		log.info("call getAllStation()");

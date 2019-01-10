@@ -60,12 +60,12 @@ public class AuthenticationController {
 		User user = userServiceDetails.getUserDetails(email);
 		if (user == null)
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Invalid Email/password. Please enter valid email!");
-		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
+		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/changePassword/{uid}")
 	public ResponseEntity<RestResponse<Object>> changePassword(@PathVariable(name = "uid", required = true) String uid,
-			@RequestParam(name = "newPassword", required = true) String pass) {
+			@RequestParam(name = "newPassword", required = true) String pass) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
 		int i = userServiceDetails.changePassword(uid, pass);
 		if(i == 0)

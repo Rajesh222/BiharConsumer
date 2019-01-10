@@ -34,7 +34,7 @@ public class AuthenticationService {
 		return authenticationDao.getUserDetails(email);
 	}
 
-	public int changePassword(String email, String pass) {
+	public int changePassword(String email, String pass) throws UnsupportedEncodingException {
 		log.info("call changePassword()");
 		return authenticationDao.changePassword(email, pass);
 	}

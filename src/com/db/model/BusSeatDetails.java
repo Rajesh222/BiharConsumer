@@ -1,170 +1,117 @@
 package com.db.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class BusSeatDetails extends BaseModel implements Serializable{
 
-@Entity
-@Table(name = "bus_seat_details")
-public class BusSeatDetails {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "system_id", nullable = false, unique = true)
+	private static final long serialVersionUID = 1L;
 	private String id;
-	@Column(name = "isbook", nullable = false, columnDefinition = "boolean default false")
-	private boolean isBook = false;
-	@Column(name = "seat_number", nullable = false)
-	private String seatNo;
-	@Column(name = "seat_location")
-	private String seatLocation;
-	@Column(name = "createdOn")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn = new Date();
-	@Column(name = "createdBy")
-	private String createdBy;
-	@Column(name = "modifyOn")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifyOn = new Date();
-	@Column(name = "modifyBy")
-	private String modifyBy;
-	@ManyToOne
-	@JoinColumn(name="rout_id")  
-	private BusRoutDetails routDetails;
-
+	private String seatNumber;
+	private String seatName;
+	private String seatCode;
+	private boolean isAvailable;
+	private boolean isLadiesSeat;
+	private boolean isLowerBerth;
+	private double fare;
+	private List droppingPoints;
+	private List boardingPoints;
+	
 	/**
 	 * @return the id
 	 */
 	public String getId() {
 		return id;
 	}
-
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	/**
-	 * @return the isBook
+	 * @return the seatNumber
 	 */
-	public boolean isBook() {
-		return isBook;
+	public String getSeatNumber() {
+		return seatNumber;
 	}
-
 	/**
-	 * @param isBook the isBook to set
+	 * @param seatNumber the seatNumber to set
 	 */
-	public void setBook(boolean isBook) {
-		this.isBook = isBook;
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
 	}
-
 	/**
-	 * @return the seatNo
+	 * @return the seatName
 	 */
-	public String getSeatNo() {
-		return seatNo;
+	public String getSeatName() {
+		return seatName;
 	}
-
 	/**
-	 * @param seatNo the seatNo to set
+	 * @param seatName the seatName to set
 	 */
-	public void setSeatNo(String seatNo) {
-		this.seatNo = seatNo;
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
 	}
-
 	/**
-	 * @return the seatLocation
+	 * @return the seatCode
 	 */
-	public String getSeatLocation() {
-		return seatLocation;
+	public String getSeatCode() {
+		return seatCode;
 	}
-
 	/**
-	 * @param seatLocation the seatLocation to set
+	 * @param seatCode the seatCode to set
 	 */
-	public void setSeatLocation(String seatLocation) {
-		this.seatLocation = seatLocation;
+	public void setSeatCode(String seatCode) {
+		this.seatCode = seatCode;
 	}
-
 	/**
-	 * @return the createdOn
+	 * @return the isAvailable
 	 */
-	public Date getCreatedOn() {
-		return createdOn;
+	public boolean isAvailable() {
+		return isAvailable;
 	}
-
 	/**
-	 * @param createdOn the createdOn to set
+	 * @param isAvailable the isAvailable to set
 	 */
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
-
 	/**
-	 * @return the createdBy
+	 * @return the isLadiesSeat
 	 */
-	public String getCreatedBy() {
-		return createdBy;
+	public boolean isLadiesSeat() {
+		return isLadiesSeat;
 	}
-
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param isLadiesSeat the isLadiesSeat to set
 	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setLadiesSeat(boolean isLadiesSeat) {
+		this.isLadiesSeat = isLadiesSeat;
 	}
-
 	/**
-	 * @return the modifyOn
+	 * @return the isLowerBerth
 	 */
-	public Date getModifyOn() {
-		return modifyOn;
+	public boolean isLowerBerth() {
+		return isLowerBerth;
 	}
-
 	/**
-	 * @param modifyOn the modifyOn to set
+	 * @param isLowerBerth the isLowerBerth to set
 	 */
-	public void setModifyOn(Date modifyOn) {
-		this.modifyOn = modifyOn;
+	public void setLowerBerth(boolean isLowerBerth) {
+		this.isLowerBerth = isLowerBerth;
 	}
-
 	/**
-	 * @return the modifyBy
+	 * @return the fare
 	 */
-	public String getModifyBy() {
-		return modifyBy;
+	public double getFare() {
+		return fare;
 	}
-
 	/**
-	 * @param modifyBy the modifyBy to set
+	 * @param fare the fare to set
 	 */
-	public void setModifyBy(String modifyBy) {
-		this.modifyBy = modifyBy;
+	public void setFare(double fare) {
+		this.fare = fare;
 	}
-
-	/**
-	 * @return the routDetails
-	 */
-	public BusRoutDetails getRoutDetails() {
-		return routDetails;
-	}
-
-	/**
-	 * @param routDetails the routDetails to set
-	 */
-	public void setRoutDetails(BusRoutDetails routDetails) {
-		this.routDetails = routDetails;
-	}
-
+	
 }

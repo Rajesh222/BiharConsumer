@@ -40,13 +40,13 @@
 		</entry>
 		<entry key="GET_USER_DETAIL_BY_PHONE">
 			<value>
-				SELECT * FROM user_master user_master.phoneNumber = ? and
+				SELECT * FROM user_master where phoneNumber = ? and
 				islock=false and isactive=true
 			</value>
 		</entry>
 		<entry key="GET_USER_DETAIL_BY_EMAIL">
 			<value>
-				SELECT * FROM user_master user_master.email = ? and
+				SELECT * FROM user_master where email = ? and
 				islock=false and isactive=true
 			</value>
 		</entry>
