@@ -1,19 +1,28 @@
 package com.db.dao;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.FetchMode;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
 import com.db.model.User;
+import com.db.model.UserRowMapper;
 import com.db.utils.SecurityDigester;
 
 @Repository("userDetailsDao")
@@ -21,68 +30,106 @@ public class AuthenticationDao {
 
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationDao.class);
 
+	@Resource(name = "queriesMap")
+	private Map<String, String> queriesMap;
+
 	@Autowired
-	private SessionFactory sessionFactory;
+	private JdbcTemplate jdbcTemplate;
+
+	private static final String INSERT_USER_LOGS = "INSERT_USER_LOGS";
+	private static final String INSERT_MODULE_LOGS = "INSERT_MODULE_LOGS";
+	private static final String UPDATE_LOCK_USER = "UPDATE_LOCK_USER";
+	private static final String GET_USER_DETAIL_BY_PHONE = "GET_USER_DETAIL_BY_PHONE";
+	private static final String GET_USER_DETAIL_BY_EMAIL = "GET_USER_DETAIL_BY_EMAIL";
+	private static final String UPDATE_USER_PASS = "UPDATE_USER_PASSWORD";
+	private static final String AUTH_USER_BY_EMAIL = "AUTH_USER_BY_EMAIL";
+	private static final String AUTH_USER_BY_PHONE = "AUTH_USER_BY_PHONE";
 
 	@Transactional(readOnly = true)
-	public List<User> getUsers() {
-		log.info("call getUsers()");
-		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
+	public List<User> findAllUser() {
+		return jdbcTemplate.query("select * from user_module", new UserRowMapper());
 	}
 
 	@Transactional
-	public String addUser(User user) {
-		log.info("call addUser()");
-		String string = (String) sessionFactory.getCurrentSession().save(user);
-		return string;
+	public User addUser(User user) {
+		String query = queriesMap.get(INSERT_USER_LOGS);
+		log.debug("Running insert query for addUser: {}", query);
+		KeyHolder holder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, user.getName());
+				ps.setString(2, user.getEmail());
+				ps.setString(3, user.getAddress());
+				ps.setString(4, user.getPhoneNumber());
+				ps.setString(5, user.getPanNumber());
+				ps.setString(6, user.getPassword());
+				ps.setString(7, user.getCity());
+				ps.setString(8, user.getState());
+				return ps;
+			}
+		}, holder);
+		String newUserId = (String) holder.getKeys().get("userid");
+		user.setUserId(String.valueOf(newUserId));
+		String query1 = queriesMap.get(INSERT_MODULE_LOGS);
+		log.debug("Running insert query for addUser {}", query);
+		KeyHolder holder1 = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query1, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, newUserId);
+				ps.setString(2, PrevilageType.RETAILER.toString());
+				return ps;
+			}
+		}, holder1);
+		return user;
 	}
 
 	@Transactional
-	public boolean lockUser(String userName, boolean isLock, int attempt) {
-		sessionFactory.getCurrentSession()
-				.createQuery("update User set attempt =:attempt, islock =:lock where uid =:uid")
-				.setParameter("attempt", attempt).setParameter("lock", isLock).setParameter("uid", userName)
-				.executeUpdate();
-		return true;
+	public int lockUser(String userName, boolean isLock, int attempt) {
+		String query = queriesMap.get(UPDATE_LOCK_USER);
+		log.debug("Running insert query for addUser {}", query);
+		return jdbcTemplate.update(query, userName, isLock, attempt);
 	}
 
 	@Transactional(readOnly = true)
 	public User getUserDetails(String email) {
 		User user = null;
-		if (validatePhoneNumber(email))
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.add(Restrictions.eq("phone", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
-		else
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.add(Restrictions.eq("email", email).ignoreCase()).setFetchSize(1).setMaxResults(1).uniqueResult();
+		if (validatePhoneNumber(email)) {
+			String query = queriesMap.get(GET_USER_DETAIL_BY_PHONE);
+			log.debug("Running insert query for getUserDetails : {}", query);
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserRowMapper());
+		} else {
+			String query = queriesMap.get(GET_USER_DETAIL_BY_EMAIL);
+			log.debug("Running insert query for getUserDetails: {}", query);
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserRowMapper());
+		}
 		return user;
 	}
 
 	@Transactional
-	public boolean changePassword(String uid, String pass) {
-		sessionFactory.getCurrentSession().createQuery("update User set password =:password where uid =:uid")
-				.setParameter("password", pass).setParameter("uid", uid).executeUpdate();
-		return true;
+	public int changePassword(String uid, String pass) {
+		String query = queriesMap.get(UPDATE_USER_PASS);
+		log.debug("Running insert query for getUserDetails {}", query);
+		return jdbcTemplate.update(query, pass, uid);
 	}
 
 	@Transactional
 	public User authUser(User user) throws UnsupportedEncodingException {
 		if (validatePhoneNumber(user.getEmail())) {
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.setFetchMode("module", FetchMode.JOIN).createAlias("module", "md")
-					.add(Restrictions.eq("phone", user.getEmail()).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
-					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1)
-					.uniqueResult();
+			String query = queriesMap.get(AUTH_USER_BY_PHONE);
+			log.debug("Running insert query for authUser {}", query);
+			user = jdbcTemplate.queryForObject(query,
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
+					new UserRowMapper());
 		} else {
-			user = (User) sessionFactory.getCurrentSession().createCriteria(User.class)
-					.setFetchMode("module", FetchMode.JOIN).createAlias("modules", "md")
-					.add(Restrictions.eq("email", user.getEmail()).ignoreCase())
-					.add(Restrictions.eq("password", SecurityDigester.encrypt(user.getPassword())).ignoreCase())
-					.add(Restrictions.eq("isLock", Boolean.FALSE)).add(Restrictions.eq("isActive", Boolean.TRUE))
-					.add(Restrictions.eq("md.name", PrevilageType.RETAILER.toString()).ignoreCase()).setMaxResults(1)
-					.uniqueResult();
+			String query = queriesMap.get(AUTH_USER_BY_EMAIL);
+			log.debug("Running insert query for authUser {}", query);
+			user = jdbcTemplate.queryForObject(query,
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
+					new UserRowMapper());
 		}
 		return user;
 	}

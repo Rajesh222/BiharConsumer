@@ -1,4 +1,4 @@
-package com.db.dao;
+/*package com.db.dao;
 
 import java.util.List;
 
@@ -49,3 +49,4 @@ public class WalletDao {
 	}
 	
 }
+*/

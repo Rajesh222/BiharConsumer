@@ -1,4 +1,4 @@
-package com.db.service;
+/*package com.db.service;
 
 import java.util.List;
 
@@ -33,3 +33,4 @@ public class WalletService {
 		return walletDao.updateWallet(addedAmount, uid);
 	}
 }
+*/

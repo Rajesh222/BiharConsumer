@@ -29,22 +29,28 @@ public class AuthenticationController {
 	private AuthenticationService userServiceDetails;
 
 	@PostMapping(value = "/registerUser")
-	public ResponseEntity<RestResponse<Object>> registration(@RequestBody(required=true) User user) {
+	public ResponseEntity<RestResponse<Object>> registration(@RequestBody(required = true) User user) {
 		log.info("call registration {}", user);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Registered Successfully");
-		String id = userServiceDetails.addUser(user);
-		if(id != null)
-			status = new RestStatus<>(HttpStatus.OK.toString(), "User not Registered Successfully");
-		return new ResponseEntity<>(new RestResponse(id, status), HttpStatus.OK);
+		User user1 = userServiceDetails.addUser(user);
+		if (user1 != null)
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "User not Registered Successfully");
+		return new ResponseEntity<>(new RestResponse(user1, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/serviceLoginAuth")
-	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required=true) User user) throws UnsupportedEncodingException {
+	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required = true) User user)
+			throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
-		User user1 = userServiceDetails.authUser(user);
-		if (user1 == null)
-			status = new RestStatus<>(HttpStatus.OK.toString(), "Unauthorized User Credential!");
-		return new ResponseEntity<>(new RestResponse(user1, status), HttpStatus.OK);
+		if (user.getPhoneNumber() != null || user.getEmail() != null)
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Please enter valid Email/Phone");
+		else {
+			user = userServiceDetails.authUser(user);
+			if (user == null)
+				status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+						"Unauthorized User. Please enter your valid credential!");
+		}
+		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/forgotPassword")
@@ -52,17 +58,18 @@ public class AuthenticationController {
 			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
 		User user = userServiceDetails.getUserDetails(email);
-		if(user == null)
-			status = new RestStatus<>(HttpStatus.OK.toString(), "Invalid Email/password. Please enter valid email!");
+		if (user == null)
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Invalid Email/password. Please enter valid email!");
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/changePassword/{uid}")
-	public ResponseEntity<RestResponse<Object>> changePassword(
-			@PathVariable(name = "uid", required=true) String uid,
+	public ResponseEntity<RestResponse<Object>> changePassword(@PathVariable(name = "uid", required = true) String uid,
 			@RequestParam(name = "newPassword", required = true) String pass) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
-		userServiceDetails.changePassword(uid, pass);
+		int i = userServiceDetails.changePassword(uid, pass);
+		if(i == 0)
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
 		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 

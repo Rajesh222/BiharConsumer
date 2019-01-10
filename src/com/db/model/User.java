@@ -1,83 +1,34 @@
 package com.db.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-@Table(name = "user_master")
-public class User implements Serializable {
+public class User extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 8773592091012906066L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "user_id", nullable = false, unique = true)
-	private String uid;
-	@Column(name = "name", length = 500)
+	private String userId;
 	private String name;
-	@Column(name = "email", length = 500)
 	private String email;
-	@Column(name = "address", length = 500)
 	private String address;
-	@Column(name = "phone_number", length = 500)
-	private String phone;
-	@Column(name = "pan_number", length = 500)
-	private String pan;
-	@Column(name = "password", length = 500)
+	private String phoneNumber;
+	private String panNumber;
 	private String password;
-	@Transient
-	private String passwordConfirm;
-	@Column(name = "city", length = 500)
 	private String city;
-	@Column(name = "state", length = 500)
 	private String state;
-	@Column(name = "country", length = 500)
 	private String country;
-	@Column(name = "islock", nullable = false,columnDefinition = "boolean default false")
 	private boolean isLock = false;
-	@Column(name = "attempt", nullable = false, columnDefinition = "Integer default 0")
 	private Integer attempt;
-	@Column(name = "isactive", nullable = false, columnDefinition = "boolean default false")
 	private boolean isActive = false;
-	@JsonIgnore
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-	private UserModule module;
-	@Column(name = "createdBy")
-	private String createdBy;
-	@Column(name = "createdOn", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn = new Date();
-	@Column(name = "modifyBy")
-	private String modifyBy;
-	@Column(name = "modifyOn", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifyOn;
 	/**
-	 * @return the uid
+	 * @return the userId
 	 */
-	public String getUid() {
-		return uid;
+	public String getUserId() {
+		return userId;
 	}
 	/**
-	 * @param uid the uid to set
+	 * @param userId the userId to set
 	 */
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	/**
 	 * @return the name
@@ -116,28 +67,28 @@ public class User implements Serializable {
 		this.address = address;
 	}
 	/**
-	 * @return the phone
+	 * @return the phoneNumber
 	 */
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 	/**
-	 * @param phone the phone to set
+	 * @param phoneNumber the phoneNumber to set
 	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	/**
-	 * @return the pan
+	 * @return the panNumber
 	 */
-	public String getPan() {
-		return pan;
+	public String getPanNumber() {
+		return panNumber;
 	}
 	/**
-	 * @param pan the pan to set
+	 * @param panNumber the panNumber to set
 	 */
-	public void setPan(String pan) {
-		this.pan = pan;
+	public void setPanNumber(String panNumber) {
+		this.panNumber = panNumber;
 	}
 	/**
 	 * @return the password
@@ -150,18 +101,6 @@ public class User implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	/**
-	 * @return the passwordConfirm
-	 */
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
-	/**
-	 * @param passwordConfirm the passwordConfirm to set
-	 */
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
 	}
 	/**
 	 * @return the city
@@ -235,59 +174,4 @@ public class User implements Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	/**
-	 * @return the createdBy
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * @return the createdOn
-	 */
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-	/**
-	 * @param createdOn the createdOn to set
-	 */
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-	/**
-	 * @return the modifyBy
-	 */
-	public String getModifyBy() {
-		return modifyBy;
-	}
-	/**
-	 * @param modifyBy the modifyBy to set
-	 */
-	public void setModifyBy(String modifyBy) {
-		this.modifyBy = modifyBy;
-	}
-	/**
-	 * @return the modifyOn
-	 */
-	public Date getModifyOn() {
-		return modifyOn;
-	}
-	/**
-	 * @param modifyOn the modifyOn to set
-	 */
-	public void setModifyOn(Date modifyOn) {
-		this.modifyOn = modifyOn;
-	}
-	public UserModule getModule() {
-		return module;
-	}
-	public void setModule(UserModule module) {
-		this.module = module;
-	}
-	
 }

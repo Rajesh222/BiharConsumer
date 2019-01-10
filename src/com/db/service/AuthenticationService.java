@@ -24,7 +24,7 @@ public class AuthenticationService {
 		return authenticationDao.authUser(user);
 	}
 
-	public String addUser(User user) {
+	public User addUser(User user) {
 		log.info("call addUser()");
 		return authenticationDao.addUser(user);
 	}
@@ -34,18 +34,18 @@ public class AuthenticationService {
 		return authenticationDao.getUserDetails(email);
 	}
 
-	public boolean changePassword(String email, String pass) {
+	public int changePassword(String email, String pass) {
 		log.info("call changePassword()");
 		return authenticationDao.changePassword(email, pass);
 	}
 
-	public boolean lockUser(String userName, boolean isLock, int attempt) {
+	public int lockUser(String userName, boolean isLock, int attempt) {
 		log.info("call lockUser()");
 		return authenticationDao.lockUser(userName, isLock, attempt);
 	}
 
 	public List<User> getUsers() {
 		log.info("call getUsers()");
-		return authenticationDao.getUsers();
+		return authenticationDao.findAllUser();
 	}
 }

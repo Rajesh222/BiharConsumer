@@ -1,28 +1,61 @@
 package com.db.config;
 
-import org.springframework.context.MessageSource;
+import javax.sql.DataSource;
+
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.db")
-@PropertySource({ "classpath:application.properties", "classpath:commondb.properties" })
+@ImportResource("classpath:/queries.xml")
+@EnableTransactionManagement
+@PropertySource({"classpath:application.properties"})
 public class WebConfig implements WebMvcConfigurer {
+
+	@Autowired
+	private Environment env;
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
+		PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+	    configurer.setIgnoreUnresolvablePlaceholders(true);
+	    configurer.setIgnoreResourceNotFound(true);
+	    return configurer;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
+	}
+
+	@Bean
+	public DataSource dataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.username"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
+		return dataSource;
 	}
 
 	@Override
@@ -30,35 +63,4 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping("/**");
 	}
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/bus-search").setViewName("bus-search");
-		registry.addViewController("/").setViewName("dashboard");
-		registry.addViewController("/busBooking").setViewName("bus/bus");
-		registry.addViewController("/contact-us").setViewName("contact-us");
-		registry.addViewController("/about-us").setViewName("about-us");
-		registry.addViewController("/cancellation-policy").setViewName("cancellation-policy");
-	}
-
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
-
-	@Bean
-	public InternalResourceViewResolver jspViewResolver() {
-		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-		bean.setPrefix("/WEB-INF/admin/");
-		bean.setSuffix(".jsp");
-		return bean;
-	}
-
-	@Bean
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		// Load file: validation.properties
-		messageSource.setBasename("classpath:validation");
-		messageSource.setDefaultEncoding("UTF-8");
-		return messageSource;
-	}
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       ">
+
+	<util:map id="queriesMap" key-type="java.lang.String"
+		value-type="java.lang.String">
+
+		<!-- START USER SERVICE QUERY -->
+		<entry key="INSERT_USER_LOGS">
+			<value>
+				INSERT INTO user_master (name, email,
+				address,phonenumber,pannumber, password, city, state, islock,
+				isactive,
+				createdby, createdon, modifyby, modifyon) VALUES
+				(? ,? , ? ,
+				? , ? , ?,?,?, false, true, Session_user, CURRENT_TIMESTAMP,
+				Session_user, CURRENT_TIMESTAMP)
+			</value>
+		</entry>
+		<entry key="INSERT_MODULE_LOGS">
+			<value>
+				INSERT INTO user_master (userid,
+				privilegename,isrecharge,isbillpayment,ismoneytransfer,isaddmoney,isexportreport,isbusbook,createdby,
+				createdon, modifyby, modifyon) VALUES
+				(?, ? ,true , true , true ,
+				true , true, true, Session_user,
+				CURRENT_TIMESTAMP, Session_user,
+				CURRENT_TIMESTAMP)
+			</value>
+		</entry>
+		<entry key="UPDATE_LOCK_USER">
+			<value>
+				UPDATE user_master SET attempt = ?,islock=? WHERE userId = ?
+			</value>
+		</entry>
+		<entry key="GET_USER_DETAIL_BY_PHONE">
+			<value>
+				SELECT * FROM user_master user_master.phoneNumber = ? and
+				islock=false and isactive=true
+			</value>
+		</entry>
+		<entry key="GET_USER_DETAIL_BY_EMAIL">
+			<value>
+				SELECT * FROM user_master user_master.email = ? and
+				islock=false and isactive=true
+			</value>
+		</entry>
+		<entry key="UPDATE_USER_PASSWORD">
+			<value>
+				UPDATE user_master SET password = ? WHERE userId = ?
+			</value>
+		</entry>
+		<entry key="AUTH_USER_BY_PHONE">
+			<value>
+				SELECT * FROM user_master left outer join user_module on
+				user_master.userId=user_module.userId where user_master.phoneNumber
+				= ? and password=? and islock=false and isactive=true and
+				user_module.privilegename='RETAILER'
+			</value>
+		</entry>
+		<entry key="AUTH_USER_BY_EMAIL">
+			<value>
+				USELECT * FROM user_master left outer join user_module on
+				user_master.userId=user_module.userId where user_master.email
+				= ? and
+				password=? and islock=false and isactive=true and
+				user_module.privilegename='RETAILER'
+			</value>
+		</entry>
+		<!-- END USER SERVICE QUERY -->
+		<!-- START TOPCITY SERVICE QUERY -->
+		<entry key="TOP_CITIES_LOGS">
+			<value>
+				select * from top_cities order by refnumber
+			</value>
+		</entry>
+		<entry key="SEARCH_TOP_CITIES_LOGS">
+			<value>
+				select * from top_cities where lower(displayName) like ? order by refnumber
+			</value>
+		</entry>
+		<entry key="INSERT_TOP_CITIES">
+			<value>
+				INSERT INTO top_cities (cityname,displayname,statename) VALUES(?,?,?)
+			</value>
+		</entry>
+		
+		<!-- END TOPCITY SERVICE QUERY -->
+	</util:map>
+</beans>

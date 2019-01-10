@@ -1,25 +1,16 @@
 package com.db.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-@Entity
-@Table(name = "top_cities")
-public class TopCities {
+public class TopCities extends BaseModel implements Serializable{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "system_id", nullable = false, unique=false)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -950330307004124256L;
 	private long id;
-	@Column(name = "display_name", nullable = false)
 	private String displayName;
-	@Column(name = "city_name", nullable = false)
 	private String city;
-	@Column(name ="state_name", nullable = false)
 	private String state;
 	/**
 	 * @return the id
