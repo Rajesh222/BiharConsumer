@@ -1,44 +1,17 @@
 package com.db.model;
 
-import java.util.Date;
+import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name="complain_info")
-public class CustomerInfo {
+public class CustomerInfo extends BaseModel implements Serializable {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="system_id", nullable = false, updatable=false)
+	private static final long serialVersionUID = 5387952680835296398L;
 	private String refId;
-	@Column(name ="name")
 	private String name;
-	@Column(name ="phone_number")
 	private long phone;
-	@Column(name ="address")
     private String address;
-	@Column(name ="message")
     private String message;
-	@Column(name ="email")
     private String email;
-	@Column(name="createdOn")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn =new Date();
-	@Column(name="createdBy")
-	private String createdBy;
-	@Column(name="modifiedOn")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifiedOn = new Date();
-	@Column(name="modifiedBy")
-	private String modifiedBy;
+	
 	/**
 	 * @return the refId
 	 */
@@ -111,53 +84,4 @@ public class CustomerInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the createdOn
-	 */
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-	/**
-	 * @param createdOn the createdOn to set
-	 */
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-	/**
-	 * @return the createdBy
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	/**
-	 * @return the modifiedOn
-	 */
-	public Date getModifiedOn() {
-		return modifiedOn;
-	}
-	/**
-	 * @param modifiedOn the modifiedOn to set
-	 */
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
-	}
-	/**
-	 * @return the modifiedBy
-	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	/**
-	 * @param modifiedBy the modifiedBy to set
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	
 }

@@ -116,13 +116,26 @@
 		</entry>
 		<!-- END WALLET SERVICE QUERY -->
 		<!-- START ROUT SERVICE QUERY -->
-		<entry key="UPDATE_WALLET_DETAILS">
+		<entry key="GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
 			<value>
-				UPDATE user_wallet set addedBalance=?,
-				currentBalance=currentBalance+addedBalance,
-				previousBalance=currentBalance where lower(userId)=?
+				select
+				rout.routid,rout.userid,rout.travelsname,rout.busnumber,rout.availableseats,rout.totalseats,rout.bustype,rout.direction,rout.createdon,rout.createdby,
+				rout.modifyon,rout.modifyby,rout.traveldate,trip.tripid,trip.basefare,trip.servicetax,trip.totalfare,trip.sourcename,trip.srccityname,trip.destinationname,
+				trip.destcityname,trip.traveldurationdays,trip.arrivaldate,trip.departuredate,trip.distance,trip.duration
+				from bus_rout_details rout
+				inner join bus_trip_details trip on
+				rout.routid = trip.routid where
+				lower(trip.srccityname) like ?
+				and
+				lower(trip.destcityname) like ?
 			</value>
 		</entry>
+		<entry key="GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID">
+			<value>
+				select bo.* from bus_boardstop_details bo where bo.tripId= ?
+			</value>
+		</entry>
+
 		
 	</util:map>
 </beans>

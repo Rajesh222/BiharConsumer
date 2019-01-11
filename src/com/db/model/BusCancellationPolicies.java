@@ -1,10 +1,9 @@
 package com.db.model;
 
-public class BusCancellationPolicies extends BaseModel{
+import java.io.Serializable;
 
-	/**
-	 * 
-	 */
+public class BusCancellationPolicies extends BaseModel implements Serializable{
+
 	private static final long serialVersionUID = -7267795731820416481L;
 	private String ruleId;
 	private String routId;

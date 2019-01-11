@@ -3,7 +3,7 @@ package com.db.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BusBoadStopDetails extends BaseModel implements Serializable {
+public class BusStopLocationDetails extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String id;
@@ -14,7 +14,7 @@ public class BusBoadStopDetails extends BaseModel implements Serializable {
 	private double lat;
 	private double lng;
 	private Date boardingDate;
-	private String reportingTime;
+	private Date reportingTime;
 	private String contactNumber;
 	    
 	/**
@@ -116,13 +116,13 @@ public class BusBoadStopDetails extends BaseModel implements Serializable {
 	/**
 	 * @return the reportingTime
 	 */
-	public String getReportingTime() {
+	public Date getReportingTime() {
 		return reportingTime;
 	}
 	/**
 	 * @param reportingTime the reportingTime to set
 	 */
-	public void setReportingTime(String reportingTime) {
+	public void setReportingTime(Date reportingTime) {
 		this.reportingTime = reportingTime;
 	}
 	/**
