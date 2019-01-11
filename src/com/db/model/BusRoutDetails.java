@@ -1,6 +1,7 @@
 package com.db.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BusRoutDetails extends BaseModel implements Serializable{
 
@@ -9,6 +10,8 @@ public class BusRoutDetails extends BaseModel implements Serializable{
 	private String userId;
 	private String travelsName;
 	private String sourceName;
+	private String srcCityName;
+	private String destCityName;
 	private String destinationName;
 	private String busNumber;
 	private double availableSeats;
@@ -16,6 +19,8 @@ public class BusRoutDetails extends BaseModel implements Serializable{
 	private String busType;
 	private String direction;
 	private String journeyDate;
+	private List<BusBoadStopDetails> boardingLocations;
+	private List<BusBoadStopDetails> droppingLocations;
 	/**
 	 * @return the routId
 	 */
@@ -63,6 +68,30 @@ public class BusRoutDetails extends BaseModel implements Serializable{
 	 */
 	public void setSourceName(String sourceName) {
 		this.sourceName = sourceName;
+	}
+	/**
+	 * @return the srcCityName
+	 */
+	public String getSrcCityName() {
+		return srcCityName;
+	}
+	/**
+	 * @param srcCityName the srcCityName to set
+	 */
+	public void setSrcCityName(String srcCityName) {
+		this.srcCityName = srcCityName;
+	}
+	/**
+	 * @return the destCityName
+	 */
+	public String getDestCityName() {
+		return destCityName;
+	}
+	/**
+	 * @param destCityName the destCityName to set
+	 */
+	public void setDestCityName(String destCityName) {
+		this.destCityName = destCityName;
 	}
 	/**
 	 * @return the destinationName
@@ -148,6 +177,28 @@ public class BusRoutDetails extends BaseModel implements Serializable{
 	public void setJourneyDate(String journeyDate) {
 		this.journeyDate = journeyDate;
 	}
-	
-	
+	/**
+	 * @return the boardingLocations
+	 */
+	public List<BusBoadStopDetails> getBoardingLocations() {
+		return boardingLocations;
+	}
+	/**
+	 * @param boardingLocations the boardingLocations to set
+	 */
+	public void setBoardingLocations(List<BusBoadStopDetails> boardingLocations) {
+		this.boardingLocations = boardingLocations;
+	}
+	/**
+	 * @return the droppingLocations
+	 */
+	public List<BusBoadStopDetails> getDroppingLocations() {
+		return droppingLocations;
+	}
+	/**
+	 * @param droppingLocations the droppingLocations to set
+	 */
+	public void setDroppingLocations(List<BusBoadStopDetails> droppingLocations) {
+		this.droppingLocations = droppingLocations;
+	}
 }
