@@ -114,6 +114,15 @@
 				previousBalance=currentBalance where lower(userId)=?
 			</value>
 		</entry>
-
+		<!-- END WALLET SERVICE QUERY -->
+		<!-- START ROUT SERVICE QUERY -->
+		<entry key="UPDATE_WALLET_DETAILS">
+			<value>
+				UPDATE user_wallet set addedBalance=?,
+				currentBalance=currentBalance+addedBalance,
+				previousBalance=currentBalance where lower(userId)=?
+			</value>
+		</entry>
+		
 	</util:map>
 </beans>
