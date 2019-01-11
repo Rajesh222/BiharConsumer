@@ -109,9 +109,9 @@
 		</entry>
 		<entry key="UPDATE_WALLET_DETAILS">
 			<value>
-				UPDATE Wallet set addedBalance=:addedBalance,
-				currentBalance=currentBalance+=:addedBalance,previousBalance=currentBalance
-				where uid=:uid
+				UPDATE user_wallet set addedBalance=?,
+				currentBalance=currentBalance+addedBalance,
+				previousBalance=currentBalance where lower(userId)=?
 			</value>
 		</entry>
 

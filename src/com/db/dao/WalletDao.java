@@ -1,14 +1,10 @@
 package com.db.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.Wallet;
-import com.db.model.mapper.UserRowMapper;
 import com.db.model.mapper.WalletRowMapper;
 
 @Repository("walletDao")
@@ -43,20 +38,17 @@ public class WalletDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Wallet> getWalletDetails(String uid) {
+	public Wallet getWalletDetails(String uid) {
 		String query = queriesMap.get(GET_WALLET_DETAILS);
 		log.debug("Running insert query for getWalletDetails: {}", query);
-		return jdbcTemplate.query(query, new Object[] { uid }, new WalletRowMapper());
+		return jdbcTemplate.queryForObject(query, new Object[] { uid }, new WalletRowMapper());
 	}
 
 	@Transactional
 	public int updateWallet(double addedAmount, String uid) {
 		String query = queriesMap.get(UPDATE_WALLET_DETAILS);
 		log.debug("Running insert query for updateWallet: {}", query);
-		final Map<String, Double> parameters = new HashMap<>();
-		parameters.put("", addedAmount);
-		parameters.put("", addedAmount);
-		return jdbcTemplate.update(query, parameters);
+		return jdbcTemplate.update(query, addedAmount,uid);
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.db.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Wallet extends BaseModel implements Serializable{
 	
@@ -11,10 +10,10 @@ public class Wallet extends BaseModel implements Serializable{
 	private double previousBalance = 0;
 	private double currentBalance = 0;
 	private double addedBalance = 0;
-	private String createdBy;
-	private Date createdOn = new Date();
-	private String modifyBy;
-	private Date modifyOn = new Date();
+	private String remark;
+	private String txId;
+	private String paymentMode;
+	private String senderName;
 	/**
 	 * @return the id
 	 */
@@ -76,51 +75,51 @@ public class Wallet extends BaseModel implements Serializable{
 		this.addedBalance = addedBalance;
 	}
 	/**
-	 * @return the createdBy
+	 * @return the remark
 	 */
-	public String getCreatedBy() {
-		return createdBy;
+	public String getRemark() {
+		return remark;
 	}
 	/**
-	 * @param createdBy the createdBy to set
+	 * @param remark the remark to set
 	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	/**
-	 * @return the createdOn
+	 * @return the txId
 	 */
-	public Date getCreatedOn() {
-		return createdOn;
+	public String getTxId() {
+		return txId;
 	}
 	/**
-	 * @param createdOn the createdOn to set
+	 * @param txId the txId to set
 	 */
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setTxId(String txId) {
+		this.txId = txId;
 	}
 	/**
-	 * @return the modifyBy
+	 * @return the paymentMode
 	 */
-	public String getModifyBy() {
-		return modifyBy;
+	public String getPaymentMode() {
+		return paymentMode;
 	}
 	/**
-	 * @param modifyBy the modifyBy to set
+	 * @param paymentMode the paymentMode to set
 	 */
-	public void setModifyBy(String modifyBy) {
-		this.modifyBy = modifyBy;
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 	/**
-	 * @return the modifyOn
+	 * @return the senderName
 	 */
-	public Date getModifyOn() {
-		return modifyOn;
+	public String getSenderName() {
+		return senderName;
 	}
 	/**
-	 * @param modifyOn the modifyOn to set
+	 * @param senderName the senderName to set
 	 */
-	public void setModifyOn(Date modifyOn) {
-		this.modifyOn = modifyOn;
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
 	}
 }

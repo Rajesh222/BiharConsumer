@@ -28,7 +28,7 @@ public class WalletController {
 	@Autowired
 	private WalletService walletService;
 
-	@PutMapping(value = "/updateWallet/{addedAmount}")
+	@PutMapping(value = "/{addedAmount}")
 	public ResponseEntity<RestResponse<Object>> updateWallet(
 			@PathVariable(name = "addedAmount", required = true) Double addedAmount,
 			@RequestParam(name = "uid", required = true) String uid) {
@@ -36,12 +36,13 @@ public class WalletController {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Wallet Updated Successfully");
 		int row = walletService.updateWallet(addedAmount, uid);
 		if (row == 0) {
-			status = new RestStatus<>(HttpStatus.BAD_REQUEST.toString(), "Wallet cannot be Successfully");
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
 		}
 		return new ResponseEntity<>(new RestResponse(row, status), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/getWalletHistory/{uid}")
+	@GetMapping(value = "/{uid}")
 	public ResponseEntity<RestResponse<List<Wallet>>> getWalletHistory(
 			@PathVariable(name = "uid", required = true) String uid) {
 		log.info("call getWalletHistory uid:{}", uid);
@@ -55,7 +56,7 @@ public class WalletController {
 			@PathVariable(name = "uid", required = true) String uid) {
 		log.info("call getWalletDetails uid:{}", uid);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<Wallet> wallets = walletService.getWalletDetails(uid);
+	    Wallet wallets = walletService.getWalletDetails(uid);
 		return new ResponseEntity<>(new RestResponse(wallets, status), HttpStatus.OK);
 	}
 
