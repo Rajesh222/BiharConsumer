@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.BusRoutDetails;
 import com.db.model.TopCities;
-import com.db.model.TopCityRowMapper;
+import com.db.model.mapper.TopCityRowMapper;
 import com.db.model.vo.SearchBusVO;
 
 @Repository("topCityDao")

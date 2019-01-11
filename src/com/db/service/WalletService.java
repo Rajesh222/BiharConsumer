@@ -1,4 +1,4 @@
-/*package com.db.service;
+package com.db.service;
 
 import java.util.List;
 
@@ -28,9 +28,8 @@ public class WalletService {
 		return walletDao.getWalletDetails(uid);
 	}
 
-	public boolean updateWallet(double addedAmount, String uid) {
+	public int updateWallet(double addedAmount, String uid) {
 		log.info("call updateWallet addedAmount: {}, UserId: {}", addedAmount, uid);
 		return walletDao.updateWallet(addedAmount, uid);
 	}
 }
-*/

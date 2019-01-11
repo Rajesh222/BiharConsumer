@@ -1,9 +1,11 @@
-package com.db.model;
+package com.db.model.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.db.model.User;
 
 public class UserRowMapper implements RowMapper<User> {
 	

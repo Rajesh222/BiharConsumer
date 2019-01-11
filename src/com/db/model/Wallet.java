@@ -1,45 +1,20 @@
 package com.db.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name="wallet_details")
-public class Wallet {
+public class Wallet extends BaseModel implements Serializable{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "system_id", nullable = false, unique = true)
+	private static final long serialVersionUID = 7198033653493021478L;
 	private String id;
-	@Column(name = "previous_balance")
+	private String userId;
 	private double previousBalance = 0;
-	@Column(name = "current_balance")
 	private double currentBalance = 0;
-	@Column(name = "added_balance")
 	private double addedBalance = 0;
-	@Column(name="createdBy")
 	private String createdBy;
-	@Column(name="createdOn", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date();
-	@Column(name="modifyBy")
 	private String modifyBy;
-	@Column(name="modifyOn", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifyOn;
-	@OneToOne
-	@JoinColumn(name="user_id")
-	private User user;
+	private Date modifyOn = new Date();
 	/**
 	 * @return the id
 	 */
@@ -51,6 +26,18 @@ public class Wallet {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	/**
 	 * @return the previousBalance
@@ -136,17 +123,4 @@ public class Wallet {
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
 	}
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
 }

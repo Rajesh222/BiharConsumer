@@ -1,4 +1,4 @@
-/*package com.db.controller;v1/api/wallet/customuserbalance
+package com.db.controller;
 
 import java.util.List;
 
@@ -29,27 +29,30 @@ public class WalletController {
 	private WalletService walletService;
 
 	@PutMapping(value = "/updateWallet/{addedAmount}")
-	public ResponseEntity<RestResponse<Object>> updateWallet(@PathVariable(name = "addedAmount", required=true) Double addedAmount,
+	public ResponseEntity<RestResponse<Object>> updateWallet(
+			@PathVariable(name = "addedAmount", required = true) Double addedAmount,
 			@RequestParam(name = "uid", required = true) String uid) {
 		log.info("call addWallet updateWallet:{}, uid:{}", addedAmount, uid);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Wallet Updated Successfully");
-		boolean flag = walletService.updateWallet(addedAmount, uid);
-		if (!flag) {
+		int row = walletService.updateWallet(addedAmount, uid);
+		if (row == 0) {
 			status = new RestStatus<>(HttpStatus.BAD_REQUEST.toString(), "Wallet cannot be Successfully");
 		}
-		return new ResponseEntity<>(new RestResponse(flag, status), HttpStatus.OK);
+		return new ResponseEntity<>(new RestResponse(row, status), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getWalletHistory/{uid}")
-	public ResponseEntity<RestResponse<List<Wallet>>> getWalletHistory(@PathVariable(name="uid", required=true) String uid) {
+	public ResponseEntity<RestResponse<List<Wallet>>> getWalletHistory(
+			@PathVariable(name = "uid", required = true) String uid) {
 		log.info("call getWalletHistory uid:{}", uid);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		List<Wallet> wallets = walletService.getWalletHistory(uid);
 		return new ResponseEntity<>(new RestResponse(wallets, status), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/getWalletDetails/{uid}")
-	public ResponseEntity<RestResponse<Wallet>> getWalletDetails(@PathVariable(name="uid", required=true) String uid) {
+	@GetMapping(value = "/customuserbalance/{uid}")
+	public ResponseEntity<RestResponse<Wallet>> getWalletDetails(
+			@PathVariable(name = "uid", required = true) String uid) {
 		log.info("call getWalletDetails uid:{}", uid);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		List<Wallet> wallets = walletService.getWalletDetails(uid);
@@ -57,4 +60,3 @@ public class WalletController {
 	}
 
 }
-*/

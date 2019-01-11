@@ -2,41 +2,17 @@ package com.db.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-
-@Entity
-@Table(name = "user_login")
 public class Login {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	@Column(name = "ref_number", unique = true, nullable = false)
 	private String id;
-	@Column(name=  "user_id")
 	private String uid;
-	@Column(name=  "user_name")
 	private String name;
-	@Column(name = "session_id", length = 500)
 	private String sessionId;
-	@Column(name = "login_date")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new Date();
-	@Column(name = "address", length = 500)
 	private String address;
-	@Column(name =  "logout_date")
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date logoutd = new Date();
-	@Column(name = "client_ip", length = 500)
 	private String clientIP;
-	@Column(name = "client_host", length =500)
 	private String chost;
 	/**
 	 * @return the id

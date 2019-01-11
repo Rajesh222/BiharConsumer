@@ -29,15 +29,6 @@ public class BusRoutController {
 	@Autowired
 	private BusRoutService busRoutService;
 
-	@GetMapping(value = "/trip/{sourceName}/{destinationName}/{date}")
-	public ResponseEntity<RestResponse<List<BusTripDetails>>> getTrip(
-			@PathVariable(name = "sourceName", required = true) String sourceName,
-			@PathVariable(name = "destinationName", required = true) String destionationName,
-			@PathVariable(name = "date", required = true) String date) {
-		List list = busRoutService.getTrip();
-		return new ResponseEntity<>(new RestResponse(list, null), HttpStatus.OK);
-	}
-
 	@GetMapping(value = "/availability")
 	public ResponseEntity<RestResponse<List<BusRoutDetails>>> searchBus(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
@@ -51,4 +42,13 @@ public class BusRoutController {
 		return new ResponseEntity<>(new RestResponse(busHistories, status), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/trip/{sourceName}/{destinationName}/{date}")
+	public ResponseEntity<RestResponse<List<BusTripDetails>>> getTrip(
+			@PathVariable(name = "sourceName", required = true) String sourceName,
+			@PathVariable(name = "destinationName", required = true) String destionationName,
+			@PathVariable(name = "date", required = true) String date) {
+		List list = busRoutService.getTrip();
+		return new ResponseEntity<>(new RestResponse(list, null), HttpStatus.OK);
+	}
+	
 }

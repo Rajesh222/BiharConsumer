@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
 import com.db.model.User;
-import com.db.model.UserRowMapper;
+import com.db.model.mapper.UserRowMapper;
 import com.db.utils.SecurityDigester;
 
 @Repository("userDetailsDao")

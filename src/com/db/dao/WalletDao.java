@@ -1,6 +1,10 @@
-/*package com.db.dao;
+package com.db.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -8,45 +12,51 @@ import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.Wallet;
+import com.db.model.mapper.UserRowMapper;
+import com.db.model.mapper.WalletRowMapper;
 
 @Repository("walletDao")
 public class WalletDao {
 
 	private static final Logger log = LoggerFactory.getLogger(WalletDao.class);
-	
-	@Autowired
-	private SessionFactory sessionFactory;
 
-	private static final Logger LOG = LoggerFactory.getLogger(WalletDao.class);
+	@Resource(name = "queriesMap")
+	private Map<String, String> queriesMap;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	private static final String GET_WALLET_HISTORY_DETAILS = "GET_WALLET_HISTORY_DETAILS";
+	private static final String GET_WALLET_DETAILS = "GET_WALLET_DETAILS";
+	private static final String UPDATE_WALLET_DETAILS = "UPDATE_WALLET_DETAILS";
 
 	@Transactional(readOnly = true)
 	public List<Wallet> getWalletHistory(String uid) {
-		LOG.info("call getWalletHistoryByUser {}", uid);
-		return this.sessionFactory.getCurrentSession().createCriteria(Wallet.class)
-				.add(Restrictions.eq("uid", uid).ignoreCase()).addOrder(Order.desc("modifiedOn")).list();
-	}
-	
-	@Transactional(readOnly = true)
-	public List<Wallet> getWalletDetails(String uid) {
-		LOG.info("call getWalletDetailsByUser {}", uid);
-		return this.sessionFactory.getCurrentSession().createCriteria(Wallet.class)
-				.add(Restrictions.eq("uid", uid).ignoreCase()).setFetchSize(1).addOrder(Order.desc("modifiedOn")).list();
+		String query = queriesMap.get(GET_WALLET_HISTORY_DETAILS);
+		log.debug("Running insert query for getWalletHistory: {}", query);
+		return jdbcTemplate.query(query, new Object[] { uid }, new WalletRowMapper());
 	}
 
 	@Transactional(readOnly = true)
-	public boolean updateWallet(double addedAmount, String uid) {
-		int i = this.sessionFactory.getCurrentSession().createQuery(
-				"UPDATE Wallet set addedBalance=:addedBalance, currentBalance=currentBalance+=:addedBalance,previousBalance=currentBalance where uid=:uid")
-				.setParameter("addedBalance", addedAmount).setParameter("uid", uid).executeUpdate();
-		if (i > 0)
-			return true;
-		else
-			return false;
+	public List<Wallet> getWalletDetails(String uid) {
+		String query = queriesMap.get(GET_WALLET_DETAILS);
+		log.debug("Running insert query for getWalletDetails: {}", query);
+		return jdbcTemplate.query(query, new Object[] { uid }, new WalletRowMapper());
 	}
-	
+
+	@Transactional
+	public int updateWallet(double addedAmount, String uid) {
+		String query = queriesMap.get(UPDATE_WALLET_DETAILS);
+		log.debug("Running insert query for updateWallet: {}", query);
+		final Map<String, Double> parameters = new HashMap<>();
+		parameters.put("", addedAmount);
+		parameters.put("", addedAmount);
+		return jdbcTemplate.update(query, parameters);
+	}
+
 }
-*/

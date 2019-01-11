@@ -47,7 +47,8 @@
 		<entry key="GET_USER_DETAIL_BY_EMAIL">
 			<value>
 				SELECT * FROM user_master where email = ? and
-				islock=false and isactive=true
+				islock=false and
+				isactive=true
 			</value>
 		</entry>
 		<entry key="UPDATE_USER_PASSWORD">
@@ -81,15 +82,38 @@
 		</entry>
 		<entry key="SEARCH_TOP_CITIES_LOGS">
 			<value>
-				select * from top_cities where lower(displayName) like ? order by refnumber
+				select * from top_cities where lower(displayName) like ? order
+				by refnumber
 			</value>
 		</entry>
 		<entry key="INSERT_TOP_CITIES">
 			<value>
-				INSERT INTO top_cities (cityname,displayname,statename) VALUES(?,?,?)
+				INSERT INTO top_cities (cityname,displayname,statename)
+				VALUES(?,?,?)
 			</value>
 		</entry>
-		
+
 		<!-- END TOPCITY SERVICE QUERY -->
+		<!-- START WALLET SERVICE QUERY -->
+		<entry key="GET_WALLET_HISTORY_DETAILS">
+			<value>
+				select * from user_wallet where lower(userId)=? order by
+				modifyon desc
+			</value>
+		</entry>
+		<entry key="GET_WALLET_DETAILS">
+			<value>
+				select * from user_wallet where lower(userId)=? order by
+				modifyon desc limit 1
+			</value>
+		</entry>
+		<entry key="UPDATE_WALLET_DETAILS">
+			<value>
+				UPDATE Wallet set addedBalance=:addedBalance,
+				currentBalance=currentBalance+=:addedBalance,previousBalance=currentBalance
+				where uid=:uid
+			</value>
+		</entry>
+
 	</util:map>
 </beans>
