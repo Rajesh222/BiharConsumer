@@ -1,6 +1,8 @@
 package com.db.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -24,20 +26,13 @@ public class DataUtils {
 		return idTypes;
 	}
 
-	public static Map<String, String> applicableBerthTypes() {
-		Map<String, String> birthTypes = new HashMap<>();
-		birthTypes.put("LB", "LB");
-		birthTypes.put("RB", "RB");
-		birthTypes.put("ULB", "ULB");
-		birthTypes.put("URB", "URB");
-		return birthTypes;
-	}
-
-	public static Map<String, String> applicableQuotaList() {
-		Map<String, String> quotaTypes = new HashMap<>();
-		quotaTypes.put("BERTH/SR. CITIZEN", "BERTH/SR. CITIZEN");
-		quotaTypes.put("LEDIES", "LEDIES");
-		return quotaTypes;
+	public static List<String> getBusType() {
+		List<String> busTypes = new ArrayList<>();
+		busTypes.add("AC");
+		busTypes.add("Non AC");
+		busTypes.add("Seater");
+		busTypes.add("Sleeper");
+		return busTypes;
 	}
 
 	public static String getGenerateOTP() {

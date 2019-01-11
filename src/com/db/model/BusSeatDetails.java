@@ -1,22 +1,19 @@
 package com.db.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class BusSeatDetails extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String siteType;
 	private String seatNumber;
 	private String seatName;
 	private String seatCode;
 	private boolean isAvailable;
 	private boolean isLadiesSeat;
+	private boolean isMenSeat;
 	private boolean isLowerBerth;
-	private double fare;
-	private List droppingPoints;
-	private List boardingPoints;
-	
 	/**
 	 * @return the id
 	 */
@@ -28,6 +25,18 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * @return the siteType
+	 */
+	public String getSiteType() {
+		return siteType;
+	}
+	/**
+	 * @param siteType the siteType to set
+	 */
+	public void setSiteType(String siteType) {
+		this.siteType = siteType;
 	}
 	/**
 	 * @return the seatNumber
@@ -90,6 +99,18 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 		this.isLadiesSeat = isLadiesSeat;
 	}
 	/**
+	 * @return the isMenSeat
+	 */
+	public boolean isMenSeat() {
+		return isMenSeat;
+	}
+	/**
+	 * @param isMenSeat the isMenSeat to set
+	 */
+	public void setMenSeat(boolean isMenSeat) {
+		this.isMenSeat = isMenSeat;
+	}
+	/**
 	 * @return the isLowerBerth
 	 */
 	public boolean isLowerBerth() {
@@ -100,18 +121,6 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	 */
 	public void setLowerBerth(boolean isLowerBerth) {
 		this.isLowerBerth = isLowerBerth;
-	}
-	/**
-	 * @return the fare
-	 */
-	public double getFare() {
-		return fare;
-	}
-	/**
-	 * @param fare the fare to set
-	 */
-	public void setFare(double fare) {
-		this.fare = fare;
 	}
 	
 }
