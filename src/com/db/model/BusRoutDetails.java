@@ -30,9 +30,6 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	private double distance;
 	private String duration;
 
-	private List<BusStopLocationDetails> boardingLocations;
-	private List<BusStopLocationDetails> droppingLocations;
-
 	/**
 	 * @return the routId
 	 */
@@ -215,33 +212,6 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.traveldate = traveldate;
 	}
 
-	/**
-	 * @return the boardingLocations
-	 */
-	public List<BusStopLocationDetails> getBoardingLocations() {
-		return boardingLocations;
-	}
-
-	/**
-	 * @param boardingLocations the boardingLocations to set
-	 */
-	public void setBoardingLocations(List<BusStopLocationDetails> boardingLocations) {
-		this.boardingLocations = boardingLocations;
-	}
-
-	/**
-	 * @return the droppingLocations
-	 */
-	public List<BusStopLocationDetails> getDroppingLocations() {
-		return droppingLocations;
-	}
-
-	/**
-	 * @param droppingLocations the droppingLocations to set
-	 */
-	public void setDroppingLocations(List<BusStopLocationDetails> droppingLocations) {
-		this.droppingLocations = droppingLocations;
-	}
 
 	/**
 	 * @return the tripId

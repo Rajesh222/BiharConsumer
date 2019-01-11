@@ -127,7 +127,7 @@
 				rout.routid = trip.routid where
 				lower(trip.srccityname) like ?
 				and
-				lower(trip.destcityname) like ?
+				lower(trip.destcityname) like ? and rout.traveldate=?
 			</value>
 		</entry>
 		<entry key="GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID">

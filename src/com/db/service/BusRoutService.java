@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.db.dao.BusRoutDao;
 import com.db.model.BusRoutDetails;
+import com.db.model.BusStopLocationDetails;
+import com.db.model.SearchBusRoutDetails;
+import com.db.model.vo.SearchBusVO;
 
 @Service("busRoutService")
 public class BusRoutService {
@@ -18,7 +21,13 @@ public class BusRoutService {
 		return null;
 	}
 
-	public List<BusRoutDetails> searchRoute() {
+	public SearchBusRoutDetails searchBusRoutDetails(SearchBusVO busVO) {
+		SearchBusRoutDetails searchBusRoutDetails = new SearchBusRoutDetails();
+		List<BusRoutDetails> busRoutDetails = busRoutDao.searchBusByAvailibleRout(busVO);
+		searchBusRoutDetails.setSearchResult(busRoutDetails);
+		List<BusStopLocationDetails> locationDetails = busRoutDao.getBusStopDetails(busRoutDetails.isEmpty() ? null:busRoutDetails.get(0).getTripId());
+        searchBusRoutDetails.setBoardingLocations(locationDetails);
+        searchBusRoutDetails.setDroppingLocations(locationDetails);
 		return null;
 	}
 
