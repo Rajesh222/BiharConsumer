@@ -20,12 +20,9 @@ public class RoutDetailsRowMapper implements RowMapper<BusRoutDetails> {
 		busRoutDetails.setTotalSeats(rs.getDouble("totalseats"));
 		busRoutDetails.setBusType(rs.getString("bustype"));
 		busRoutDetails.setDirection(rs.getString("direction"));
-		busRoutDetails.setSourceName(rs.getString("sourceName"));
 		busRoutDetails.setSrcCityName(rs.getString("srcCityName"));
-		busRoutDetails.setSourceName(rs.getString("sourceName"));
 		busRoutDetails.setDestCityName(rs.getString("destCityName"));
-		busRoutDetails.setDestinationName(rs.getString("destinationName"));
-		busRoutDetails.setTraveldate(rs.getDate("traveldate"));
+		busRoutDetails.setTraveldate(rs.getDate("traveldatetime"));
 		busRoutDetails.setCreatedOn(rs.getDate("createdon"));
 		busRoutDetails.setCreatedBy(rs.getString("createdby"));
 		busRoutDetails.setModifyOn(rs.getDate("modifyon"));

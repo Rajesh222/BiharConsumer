@@ -51,7 +51,7 @@ public class AuthenticationController {
 	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required = true) User user)
 			throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
-		if (user.getPhoneNumber() != null || user.getEmail() != null)
+		if (user.getEmail() == null)
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Please enter valid Email/Phone");
 		else {
 			user = userServiceDetails.authUser(user);

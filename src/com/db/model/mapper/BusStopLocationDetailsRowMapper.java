@@ -16,12 +16,12 @@ public class BusStopLocationDetailsRowMapper implements RowMapper<BusStopLocatio
 		locationDetails.setLocationName(rs.getString("locationName"));
 		locationDetails.setLocationAddress(rs.getString("locationAddress"));
 		locationDetails.setLandmark(rs.getString("landmark"));
-		locationDetails.setDateTime(rs.getString("dateTime"));
 		locationDetails.setLat(rs.getDouble("lat"));
 		locationDetails.setLng(rs.getDouble("lng"));
 		locationDetails.setBoardingDate(rs.getDate("boardingDate"));
 		locationDetails.setReportingTime(rs.getDate("reportingtime"));
 		locationDetails.setContactNumber(rs.getString("contactNumber"));
+		
 		return locationDetails;
 	}
 }

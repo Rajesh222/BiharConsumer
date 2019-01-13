@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -118,20 +119,24 @@ public class AuthenticationDao {
 
 	@Transactional
 	public User authUser(User user) throws UnsupportedEncodingException {
-		if (validatePhoneNumber(user.getEmail())) {
-			String query = queriesMap.get(AUTH_USER_BY_PHONE);
-			log.debug("Running insert query for authUser {}", query);
-			user = jdbcTemplate.queryForObject(query,
-					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-					new UserRowMapper());
-		} else {
-			String query = queriesMap.get(AUTH_USER_BY_EMAIL);
-			log.debug("Running insert query for authUser {}", query);
-			user = jdbcTemplate.queryForObject(query,
-					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-					new UserRowMapper());
+		try {
+			if (validatePhoneNumber(user.getEmail())) {
+				String query = queriesMap.get(AUTH_USER_BY_PHONE);
+				log.debug("Running insert query for authUser {}", query);
+				user = jdbcTemplate.queryForObject(query,
+						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
+						new UserRowMapper());
+			} else {
+				String query = queriesMap.get(AUTH_USER_BY_EMAIL);
+				log.debug("Running insert query for authUser {}", query);
+				user = jdbcTemplate.queryForObject(query,
+						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
+						new UserRowMapper());
+			}
+			return user;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
 		}
-		return user;
 	}
 
 	private static boolean validatePhoneNumber(String phoneNo) {

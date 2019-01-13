@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.BusTripDetails;
+import com.db.model.BusType;
 import com.db.model.SearchBusRoutDetails;
+import com.db.model.TopCities;
 import com.db.model.vo.SearchBusVO;
 import com.db.service.BusRoutService;
 import com.db.spring.model.RestResponse;

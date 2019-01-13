@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import com.db.model.CustomerInfo;
+import com.db.model.Complain;
 import com.db.utils.Constants;
 
 @Service("mailService")
@@ -26,7 +26,7 @@ public class MailService {
 
 	public void sendEmail(Object object) {
 		log.info("call sendEmail()");
-		CustomerInfo customerInfo = (CustomerInfo) object;
+		Complain customerInfo = (Complain) object;
 		MimeMessagePreparator preparator = getContentWtihAttachementMessagePreparator(customerInfo);
 		try {
 			mailSender.send(preparator);
@@ -35,7 +35,7 @@ public class MailService {
 		}
 	}
 
-	private MimeMessagePreparator getContentWtihAttachementMessagePreparator(final CustomerInfo customerInfo) {
+	private MimeMessagePreparator getContentWtihAttachementMessagePreparator(final Complain customerInfo) {
 		return new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");

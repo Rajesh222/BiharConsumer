@@ -1,5 +1,6 @@
 package com.db.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.db.dao.BusRoutDao;
 import com.db.model.BusRoutDetails;
 import com.db.model.BusStopLocationDetails;
+import com.db.model.BusType;
 import com.db.model.SearchBusRoutDetails;
 import com.db.model.vo.SearchBusVO;
 
@@ -17,18 +19,24 @@ public class BusRoutService {
 	@Autowired
 	private BusRoutDao busRoutDao;
 
+	
 	public List<BusRoutDetails> getTrip() {
 		return null;
 	}
 
 	public SearchBusRoutDetails searchBusRoutDetails(SearchBusVO busVO) {
 		SearchBusRoutDetails searchBusRoutDetails = new SearchBusRoutDetails();
+		searchBusRoutDetails.setBusType(busRoutDao.getBusType());
+		searchBusRoutDetails.setSearchResult(getFilterBusRoutDetails(busVO));
+		return searchBusRoutDetails;
+	}
+	
+	private List<BusRoutDetails> getFilterBusRoutDetails(SearchBusVO busVO){
 		List<BusRoutDetails> busRoutDetails = busRoutDao.searchBusByAvailibleRout(busVO);
-		searchBusRoutDetails.setSearchResult(busRoutDetails);
-		List<BusStopLocationDetails> locationDetails = busRoutDao.getBusStopDetails(busRoutDetails.isEmpty() ? null:busRoutDetails.get(0).getTripId());
-        searchBusRoutDetails.setBoardingLocations(locationDetails);
-        searchBusRoutDetails.setDroppingLocations(locationDetails);
-		return null;
+		for(BusRoutDetails details : busRoutDetails) {
+			details.setBoardingLocations(busRoutDao.getBusStopDetails(details.getTripId()));
+		}
+		return busRoutDetails;
 	}
 
 }

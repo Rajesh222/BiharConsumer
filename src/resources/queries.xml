@@ -24,7 +24,7 @@
 		</entry>
 		<entry key="INSERT_MODULE_LOGS">
 			<value>
-				INSERT INTO user_master (userid,
+				INSERT INTO user_module (userid,
 				privilegename,isrecharge,isbillpayment,ismoneytransfer,isaddmoney,isexportreport,isbusbook,createdby,
 				createdon, modifyby, modifyon) VALUES
 				(?, ? ,true , true , true ,
@@ -120,14 +120,15 @@
 			<value>
 				select
 				rout.routid,rout.userid,rout.travelsname,rout.busnumber,rout.availableseats,rout.totalseats,rout.bustype,rout.direction,rout.createdon,rout.createdby,
-				rout.modifyon,rout.modifyby,rout.traveldate,trip.tripid,trip.basefare,trip.servicetax,trip.totalfare,trip.sourcename,trip.srccityname,trip.destinationname,
-				trip.destcityname,trip.traveldurationdays,trip.arrivaldate,trip.departuredate,trip.distance,trip.duration
-				from bus_rout_details rout
-				inner join bus_trip_details trip on
+				rout.modifyon,rout.modifyby,rout.traveldatetime,trip.tripid,trip.basefare,trip.servicetax,trip.totalfare,trip.srccityname,trip.destcityname,trip.traveldurationdays,trip.arrivaldate,trip.departuredate,trip.distance,trip.duration
+				from bus_details rout
+				inner join bus_rout_details trip on
 				rout.routid = trip.routid where
 				lower(trip.srccityname) like ?
 				and
-				lower(trip.destcityname) like ? and rout.traveldate=?
+				lower(trip.destcityname) like ? 
+				<!-- and rout.traveldatetime::DATE = to_date(?,'YYYY-MM-DD') -->
+
 			</value>
 		</entry>
 		<entry key="GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID">
@@ -135,7 +136,12 @@
 				select bo.* from bus_boardstop_details bo where bo.tripId= ?
 			</value>
 		</entry>
+		<entry key="GET_BUS_TYPE">
+			<value>
+				select * from bus_type order by bustype
+			</value>
+		</entry>
 
-		
+
 	</util:map>
 </beans>
