@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,7 +64,7 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/forgotPassword")
+	@GetMapping(value = "/forgotPassword")
 	public ResponseEntity<RestResponse<Object>> getUserDetails(
 			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
@@ -73,7 +75,7 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/changePassword/{uid}")
+	@PutMapping(value = "/changePassword/{uid}")
 	public ResponseEntity<RestResponse<Object>> changePassword(@PathVariable(name = "uid", required = true) String uid,
 			@RequestParam(name = "newPassword", required = true) String pass) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
@@ -82,6 +84,19 @@ public class AuthenticationController {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
 		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/logOut/{uid}")
+	public ResponseEntity<RestResponse<Object>> logOut(
+			@PathVariable(name = "uid", required = true) String uid) {
+		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Logout Successfully");
+		int i = userServiceDetails.logOut(uid);
+		if(i == 0 ) {
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
+			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 
 }
