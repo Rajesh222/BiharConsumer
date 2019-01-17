@@ -114,7 +114,7 @@ public class AuthenticationDao {
 	public int changePassword(String uid, String pass) throws UnsupportedEncodingException {
 		String query = queriesMap.get(UPDATE_USER_PASS);
 		log.debug("Running insert query for getUserDetails {}", query);
-		return jdbcTemplate.update(query, SecurityDigester.decrypt(pass), uid);
+		return jdbcTemplate.update(query, SecurityDigester.encrypt(pass.trim()), uid);
 	}
 
 	@Transactional
@@ -139,6 +139,10 @@ public class AuthenticationDao {
 		}
 	}
 
+	@Transactional
+	public int logOut(String uid) {
+		return 0;
+	}
 	private static boolean validatePhoneNumber(String phoneNo) {
 		// validate phone numbers of format "1234567890"
 		if (phoneNo.matches("\\d{10}"))
