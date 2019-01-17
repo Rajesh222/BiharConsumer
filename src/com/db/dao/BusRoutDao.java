@@ -36,7 +36,7 @@ public class BusRoutDao {
 
 	private static final String GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID = "GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID";
 	private static final String GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC = "GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC";
-	private static final String GET_BUS_TYPE = "GET_BUS_TYPE";
+	private static final String GET_SEAT_TYPE = "GET_SEAT_TYPE";
 
 	@Transactional(readOnly = true)
 	public List<BusTripDetails> getTripDetails() {
@@ -45,7 +45,7 @@ public class BusRoutDao {
 
 	@Transactional(readOnly = true)
 	public List<BusType> getBusType() {
-		String query = queriesMap.get(GET_BUS_TYPE);
+		String query = queriesMap.get(GET_SEAT_TYPE);
 		log.debug("Running insert query for getAllStation {}", query);
 		return jdbcTemplate.query(query, new RowMapper<BusType>() {
 			public BusType mapRow(ResultSet rs, int rowNum) throws SQLException {

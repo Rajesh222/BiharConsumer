@@ -141,7 +141,7 @@
 				select bo.* from bus_boardstop_details bo where bo.tripId= ?
 			</value>
 		</entry>
-		<entry key="GET_BUS_TYPE">
+		<entry key="GET_SEAT_TYPE">
 			<value>
 				select * from bus_type order by bustype
 			</value>

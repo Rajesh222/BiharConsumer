@@ -112,7 +112,7 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public int changePassword(String uid, String pass) throws UnsupportedEncodingException {
+	public int resetPassword(String uid, String pass) throws UnsupportedEncodingException {
 		String query = queriesMap.get(UPDATE_USER_PASS);
 		log.debug("Running insert query for getUserDetails {}", query);
 		return jdbcTemplate.update(query, SecurityDigester.encrypt(pass.trim()), uid);

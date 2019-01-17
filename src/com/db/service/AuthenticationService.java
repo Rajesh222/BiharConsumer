@@ -34,9 +34,9 @@ public class AuthenticationService {
 		return authenticationDao.getUserDetails(email);
 	}
 
-	public int changePassword(String email, String pass) throws UnsupportedEncodingException {
+	public int resetPassword(String email, String pass) throws UnsupportedEncodingException {
 		log.info("call changePassword()");
-		return authenticationDao.changePassword(email, pass);
+		return authenticationDao.resetPassword(email, pass);
 	}
 
 	public int lockUser(String userName, boolean isLock, int attempt) {
