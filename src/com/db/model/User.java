@@ -18,6 +18,7 @@ public class User extends BaseModel implements Serializable {
 	private boolean isLock = false;
 	private Integer attempt;
 	private boolean isActive = false;
+	private String otp;
 	/**
 	 * @return the userId
 	 */
@@ -173,5 +174,17 @@ public class User extends BaseModel implements Serializable {
 	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	/**
+	 * @return the otp
+	 */
+	public String getOtp() {
+		return otp;
+	}
+	/**
+	 * @param otp the otp to set
+	 */
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 }

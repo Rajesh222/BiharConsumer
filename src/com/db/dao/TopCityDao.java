@@ -39,10 +39,6 @@ public class TopCityDao {
 	private static final String SEARCH_TOP_CITIES_LOGS = "SEARCH_TOP_CITIES_LOGS";
 	private static final String INSERT_TOP_CITIES = "INSERT_TOP_CITIES";
 
-	public List<BusRoutDetails> searchBus(SearchBusVO searchBusVO) {
-		return null;
-	}
-
 	@Transactional(readOnly = true)
 	public List<TopCities> getAllStation() {
 		String query = queriesMap.get(TOP_CITIES_LOGS);

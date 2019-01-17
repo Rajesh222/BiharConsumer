@@ -29,7 +29,6 @@ public class TopCityController {
 	@Autowired
 	private TopCityService travelHistoryService;
 
-
 	@GetMapping("/cities")
 	public ResponseEntity<RestResponse<List<TopCities>>> getAllStation() {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
@@ -43,9 +42,11 @@ public class TopCityController {
 			Principal principal) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Top Cities Station Added Successfully");
 		long integer = travelHistoryService.addStationName(busStop);
-		if (integer == 0)
+		if (integer == 0) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Top Cities not Registered Successfully");
+			return new ResponseEntity<>(new RestResponse(integer, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(new RestResponse(busStop, status), HttpStatus.OK);
 	}
 

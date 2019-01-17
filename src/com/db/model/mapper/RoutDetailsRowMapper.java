@@ -13,10 +13,9 @@ public class RoutDetailsRowMapper implements RowMapper<BusRoutDetails> {
 	public BusRoutDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BusRoutDetails busRoutDetails = new BusRoutDetails();
 		busRoutDetails.setRoutId(rs.getString("routid"));
-		busRoutDetails.setUserId(rs.getString("userid"));
 		busRoutDetails.setTravelsName(rs.getString("travelsname"));
 		busRoutDetails.setBusNumber(rs.getString("busnumber"));
-		busRoutDetails.setAvailableSeats(rs.getDouble("availableseats"));
+		busRoutDetails.setAvalableSeats(rs.getDouble("availableseats"));
 		busRoutDetails.setTotalSeats(rs.getDouble("totalseats"));
 		busRoutDetails.setBusType(rs.getString("bustype"));
 		busRoutDetails.setDirection(rs.getString("direction"));
@@ -37,6 +36,7 @@ public class RoutDetailsRowMapper implements RowMapper<BusRoutDetails> {
 		busRoutDetails.setDepartureDate(rs.getDate("departureDate"));
 		busRoutDetails.setDistance(rs.getDouble("distance"));
 		busRoutDetails.setDuration(rs.getString("duration"));
+		
 		return busRoutDetails;
 	}
 }

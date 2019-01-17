@@ -4,19 +4,20 @@ import java.util.List;
 
 public class SearchBusRoutDetails {
 
-	private List<BusRoutDetails> searchResult;
+	private List<BusRoutDetails> buses;
 	private List<BusType> busType;
+	private List<String> operatorNames;
 	/**
-	 * @return the searchResult
+	 * @return the buses
 	 */
-	public List<BusRoutDetails> getSearchResult() {
-		return searchResult;
+	public List<BusRoutDetails> getBuses() {
+		return buses;
 	}
 	/**
-	 * @param searchResult the searchResult to set
+	 * @param buses the buses to set
 	 */
-	public void setSearchResult(List<BusRoutDetails> searchResult) {
-		this.searchResult = searchResult;
+	public void setBuses(List<BusRoutDetails> buses) {
+		this.buses = buses;
 	}
 	/**
 	 * @return the busType
@@ -30,6 +31,16 @@ public class SearchBusRoutDetails {
 	public void setBusType(List<BusType> busType) {
 		this.busType = busType;
 	}
-	
-
+	/**
+	 * @return the operatorNames
+	 */
+	public List<String> getOperatorNames() {
+		return operatorNames;
+	}
+	/**
+	 * @param operatorNames the operatorNames to set
+	 */
+	public void setOperatorNames(List<String> operatorNames) {
+		this.operatorNames = operatorNames;
+	}
 }

@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.User;
 import com.db.service.AuthenticationService;
+import com.db.service.EmailService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
+import com.db.utils.Constants;
+import com.db.utils.DataUtils;
 
 @RestController
 @RequestMapping(value = "/api/v0/auth")
@@ -27,6 +30,8 @@ public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationService userServiceDetails;
+	@Autowired
+	private EmailService emailService;
 
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<RestResponse<Object>> registration(@RequestBody(required = true) User user) {
@@ -39,10 +44,12 @@ public class AuthenticationController {
 			status = new RestStatus<>(HttpStatus.CONFLICT.toString(),
 					"A user with this phone number already exist into system!");
 		} else {
-			 user = userServiceDetails.addUser(user);
-			if (user != null)
+			user = userServiceDetails.addUser(user);
+			if (user != null) {
 				status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-						"User not Registered Successfully");	
+						"User not Registered Successfully");
+				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
@@ -51,13 +58,16 @@ public class AuthenticationController {
 	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required = true) User user)
 			throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Login Successfully");
-		if (user.getEmail() == null)
+		if (user.getEmail() == null) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Please enter valid Email/Phone");
-		else {
+			return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
 			user = userServiceDetails.authUser(user);
-			if (user == null)
+			if (user == null) {
 				status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 						"Unauthorized User. Please enter your valid credential!");
+				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
@@ -67,9 +77,15 @@ public class AuthenticationController {
 			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
 		User user = userServiceDetails.getUserDetails(email);
-		if (user == null)
+		if (user == null) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Invalid Email/password. Please enter valid email!");
+			return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String otp = DataUtils.getGenerateOTP();
+		emailService.sendEmail(Constants.OTP_HEADER, user.getEmail(),
+				Constants.OTP_BODY.replaceAll("USER_NAME", user.getName()).replaceAll("OTP_VALUES", otp));
+		user.setOtp(otp);
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
@@ -78,9 +94,11 @@ public class AuthenticationController {
 			@RequestParam(name = "newPassword", required = true) String pass) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
 		int i = userServiceDetails.changePassword(uid, pass);
-		if (i == 0)
+		if (i == 0) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
+			return new ResponseEntity<>(new RestResponse(false, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 

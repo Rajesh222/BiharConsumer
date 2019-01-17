@@ -38,6 +38,7 @@ public class WalletController {
 		if (row == 0) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
+			return new ResponseEntity<>(new RestResponse(row, status), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(new RestResponse(row, status), HttpStatus.OK);
 	}

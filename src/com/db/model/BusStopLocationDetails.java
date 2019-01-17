@@ -16,7 +16,7 @@ public class BusStopLocationDetails extends BaseModel implements Serializable {
 	private Date boardingDate;
 	private Date reportingTime;
 	private String contactNumber;
-	    
+	
 	/**
 	 * @return the id
 	 */

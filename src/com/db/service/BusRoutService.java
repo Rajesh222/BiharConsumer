@@ -27,14 +27,14 @@ public class BusRoutService {
 	public SearchBusRoutDetails searchBusRoutDetails(SearchBusVO busVO) {
 		SearchBusRoutDetails searchBusRoutDetails = new SearchBusRoutDetails();
 		searchBusRoutDetails.setBusType(busRoutDao.getBusType());
-		searchBusRoutDetails.setSearchResult(getFilterBusRoutDetails(busVO));
+		//searchBusRoutDetails.setSearchResult(getFilterBusRoutDetails(busVO));
 		return searchBusRoutDetails;
 	}
 	
 	private List<BusRoutDetails> getFilterBusRoutDetails(SearchBusVO busVO){
 		List<BusRoutDetails> busRoutDetails = busRoutDao.searchBusByAvailibleRout(busVO);
 		for(BusRoutDetails details : busRoutDetails) {
-			details.setBoardingLocations(busRoutDao.getBusStopDetails(details.getTripId()));
+			//details.setBoardingLocations(busRoutDao.getBusStopDetails(details.getTripId()));
 		}
 		return busRoutDetails;
 	}
