@@ -45,6 +45,7 @@ public class AuthenticationDao {
 	private static final String UPDATE_USER_PASS = "UPDATE_USER_PASSWORD";
 	private static final String AUTH_USER_BY_EMAIL = "AUTH_USER_BY_EMAIL";
 	private static final String AUTH_USER_BY_PHONE = "AUTH_USER_BY_PHONE";
+	private static final String LOGOUT_USER = "LOGOUT_USER";
 
 	@Transactional(readOnly = true)
 	public List<User> findAllUser() {
@@ -140,8 +141,10 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public int logOut(String uid) {
-		return 0;
+	public int logOut(String ip, String uid) {
+		String query = queriesMap.get(LOGOUT_USER);
+		log.debug("Running insert query for addUser {}", query);
+		return jdbcTemplate.update(query, ip, uid);
 	}
 	private static boolean validatePhoneNumber(String phoneNo) {
 		// validate phone numbers of format "1234567890"

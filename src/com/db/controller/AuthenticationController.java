@@ -74,7 +74,7 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/forgotPassword")
+	@GetMapping(value = "/changePassword")
 	public ResponseEntity<RestResponse<Object>> getUserDetails(
 			@RequestParam(name = "email", required = true) String email) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot password Successfully");
@@ -91,7 +91,7 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/changePassword/{uid}")
+	@PutMapping(value = "/resetpassword/{uid}")
 	public ResponseEntity<RestResponse<Object>> changePassword(@PathVariable(name = "uid", required = true) String uid,
 			@RequestParam(name = "newPassword", required = true) String pass) throws UnsupportedEncodingException {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Forgot change Successfully");
@@ -104,11 +104,12 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/logOut/{uid}")
+	@PutMapping(value = "/logOut/{uid}/{ip}")
 	public ResponseEntity<RestResponse<Object>> logOut(
-			@PathVariable(name = "uid", required = true) String uid) {
+			@PathVariable(name = "uid", required = true) String uid,
+			@PathVariable(name = "ip", required = false) String ip) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Logout Successfully");
-		int i = userServiceDetails.logOut(uid);
+		int i = userServiceDetails.logOut(ip, uid);
 		if(i == 0 ) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");

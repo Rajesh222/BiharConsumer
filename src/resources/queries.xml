@@ -66,11 +66,16 @@
 		</entry>
 		<entry key="AUTH_USER_BY_EMAIL">
 			<value>
-				USELECT * FROM user_master left outer join user_module on
+				SELECT * FROM user_master left outer join user_module on
 				user_master.userId=user_module.userId where user_master.email
 				= ? and
 				password=? and islock=false and isactive=true and
 				user_module.privilegename='RETAILER'
+			</value>
+		</entry>
+		<entry key="LOGOUT_USER">
+			<value>
+				update user_login set logout_date= now(), clientip=? where userid =? and logout_date is null
 			</value>
 		</entry>
 		<!-- END USER SERVICE QUERY -->
