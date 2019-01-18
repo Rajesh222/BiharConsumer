@@ -1,13 +1,10 @@
 package com.db.service;
 
-import java.util.Arrays;
-
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -31,10 +28,6 @@ public class EmailService {
 				helper.setText(body);
 			}
 		};
-		try {
-			mailSender.send(preparator);
-		} catch (MailException ex) {
-			log.error(Arrays.toString(ex.getStackTrace()));
-		}
+		mailSender.send(preparator);
 	}
 }

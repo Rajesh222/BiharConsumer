@@ -30,6 +30,7 @@ public class MailConfig {
 
 	public Properties mailProperties() {
 		Properties properties = new Properties();
+		properties.put("mail.smtp.ssl.trust", env.getProperty("mail.host"));
 		properties.put("mail.smtp.starttls.enable", env.getProperty("mail.smtp.starttls.enable"));
 		properties.put("mail.smtp.starttls.required", env.getProperty("mail.smtp.starttls.required"));
 		properties.put("mail.smtp.auth", env.getProperty("mail.smtp.auth"));
