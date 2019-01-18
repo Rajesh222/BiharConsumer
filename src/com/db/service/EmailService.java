@@ -25,7 +25,7 @@ public class EmailService {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				helper.setSubject(headerValue);
 				helper.setTo(to);
-				helper.setText(body);
+				helper.setText(body, true);
 			}
 		};
 		mailSender.send(preparator);
