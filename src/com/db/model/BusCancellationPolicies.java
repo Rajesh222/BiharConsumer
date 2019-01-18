@@ -6,9 +6,9 @@ public class BusCancellationPolicies extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = -7267795731820416481L;
 	private String ruleId;
-	private String routId;
-	private String timeInterval;
-	private String moneyDeducted;
+	private String busid;
+	private String departureheading;
+	private String policyheading;
 	/**
 	 * @return the ruleId
 	 */
@@ -22,40 +22,40 @@ public class BusCancellationPolicies extends BaseModel implements Serializable{
 		this.ruleId = ruleId;
 	}
 	/**
-	 * @return the routId
+	 * @return the busid
 	 */
-	public String getRoutId() {
-		return routId;
+	public String getBusid() {
+		return busid;
 	}
 	/**
-	 * @param routId the routId to set
+	 * @param busid the busid to set
 	 */
-	public void setRoutId(String routId) {
-		this.routId = routId;
+	public void setBusid(String busid) {
+		this.busid = busid;
 	}
 	/**
-	 * @return the timeInterval
+	 * @return the departureheading
 	 */
-	public String getTimeInterval() {
-		return timeInterval;
+	public String getDepartureheading() {
+		return departureheading;
 	}
 	/**
-	 * @param timeInterval the timeInterval to set
+	 * @param departureheading the departureheading to set
 	 */
-	public void setTimeInterval(String timeInterval) {
-		this.timeInterval = timeInterval;
+	public void setDepartureheading(String departureheading) {
+		this.departureheading = departureheading;
 	}
 	/**
-	 * @return the moneyDeducted
+	 * @return the policyheading
 	 */
-	public String getMoneyDeducted() {
-		return moneyDeducted;
+	public String getPolicyheading() {
+		return policyheading;
 	}
 	/**
-	 * @param moneyDeducted the moneyDeducted to set
+	 * @param policyheading the policyheading to set
 	 */
-	public void setMoneyDeducted(String moneyDeducted) {
-		this.moneyDeducted = moneyDeducted;
+	public void setPolicyheading(String policyheading) {
+		this.policyheading = policyheading;
 	}
 	
 }

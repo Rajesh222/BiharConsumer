@@ -15,10 +15,12 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.db.model.BusAmenities;
+import com.db.model.BusBoadingStopingDetails;
+import com.db.model.BusCancellationPolicies;
 import com.db.model.BusRoutDetails;
-import com.db.model.BusStopLocationDetails;
-import com.db.model.BusTripDetails;
 import com.db.model.BusType;
+import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.RoutDetailsRowMapper;
 import com.db.model.vo.SearchBusVO;
@@ -36,16 +38,36 @@ public class BusRoutDao {
 
 	private static final String GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID = "GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID";
 	private static final String GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC = "GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC";
-	private static final String GET_SEAT_TYPE = "GET_SEAT_TYPE";
+	private static final String SELECT_BUSTYPE_BY_BUSID = "SELECT_BUSTYPE_BY_BUSID";
+	private static final String SELECT_CANCELLATION_POLICIES_BY_BUSID = "SELECT_CANCELLATION_POLICIES_BY_BUSID";
+	private static final String SELECT_BUS_AMENITIES_BY_BUSID = "SELECT_BUS_AMENITIES_BY_BUSID";
 
 	@Transactional(readOnly = true)
-	public List<BusTripDetails> getTripDetails() {
-		return null;
+	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
+		String query = queriesMap.get(SELECT_BUS_AMENITIES_BY_BUSID);
+		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
+		return jdbcTemplate.query(query, new BusAmenitiesExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<BusCancellationPolicies> getCancellationPoliciesByBusId(String bid) {
+		String query = queriesMap.get(SELECT_CANCELLATION_POLICIES_BY_BUSID);
+		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
+		return jdbcTemplate.query(query, new RowMapper<BusCancellationPolicies>() {
+			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
+				BusCancellationPolicies busCancellation = new BusCancellationPolicies();
+				busCancellation.setRuleId(rs.getString("ruleid"));
+				busCancellation.setBusid(rs.getString("busid"));
+				busCancellation.setDepartureheading(rs.getString("departureheading"));
+				busCancellation.setPolicyheading(rs.getString("policyheading"));
+				return busCancellation;
+			}
+		});
 	}
 
 	@Transactional(readOnly = true)
 	public List<BusType> getBusType() {
-		String query = queriesMap.get(GET_SEAT_TYPE);
+		String query = queriesMap.get(SELECT_BUSTYPE_BY_BUSID);
 		log.debug("Running insert query for getAllStation {}", query);
 		return jdbcTemplate.query(query, new RowMapper<BusType>() {
 			public BusType mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -67,7 +89,7 @@ public class BusRoutDao {
 				new RoutDetailsRowMapper());
 	}
 
-	public List<BusStopLocationDetails> getBusStopDetails(String routId) {
+	public List<BusBoadingStopingDetails> getBusStopDetails(String routId) {
 		String query = queriesMap.get(GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
 		return jdbcTemplate.query(query, new Object[] { routId }, new BusStopLocationDetailsRowMapper());

@@ -25,9 +25,10 @@ public class CorsFilter extends OncePerRequestFilter {
 
 		// CORS "pre-flight" request
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
 		response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE,OPTIONS");
 		response.addHeader("Access-Control-Allow-Headers",
-				"Content-Type,Accept,X-Requested-With,userContext,Access-Control-Allow-Origin");
+				"Content-Type,Accept,X-Requested-With,userContext,Access-Control-Allow-Origin,Key,Authorization,Origin");
 		response.addHeader("Access-Control-Max-Age", "1800");// 30 min
 
 		if(crossOriginRequestFiler(request, response)){

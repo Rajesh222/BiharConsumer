@@ -21,7 +21,7 @@ import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 
 @RestController
-@RequestMapping(value = "/api/v0/travelHistory")
+@RequestMapping(value = "/api/v0")
 public class TopCityController {
 
 	private static final Logger log = LoggerFactory.getLogger(TopCityController.class);

@@ -1,18 +1,23 @@
 package com.db.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class BusRoutDetails extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private List<BusBoadingStopingDetails> boardingLocations = new ArrayList<>();
+	private List<BusBoadingStopingDetails> droppingLocations = new ArrayList<>();
+	private List<BusDetails> busDetailsinfo = new ArrayList<>();
 	private String routId;
 	private String travelsName;
-	private String busNumber;
+	private String busType;
 	private double avalableSeats;
 	private double totalSeats;
-	private String busType;
+	private boolean idProofRequired;
+	private int reviewCount;
 	private String direction;
 	private Date traveldate;
 	private String tripId;
@@ -23,23 +28,62 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	private String source;
 	private String destination;
 	private String destCityName;
-	private int travelDurationDays;
-	private Date arrivalDate;
-	private Date departureDate;
-	private String departureTime;
-	private String boardingTime;
-	private String reportingTime;
 	private double distance;
 	private String duration;
-	private String busTypeTags;
 	private String sourceId;
 	private String destinationId;
-	private List<BusStopLocationDetails> boardingPoints;
-	private List<BusStopLocationDetails> droppingPoints;
-	private List<BusCancellationPolicies> cancellationPolicy;
-	private List<String> amenities;
-	private List<BusType> busTypes;
 	
+	private int travelDurationDays;
+	private String arrivalDate;
+	private String arrivalTime;
+	private String departureDate;
+	private String departureTime;
+	private String travelDate;
+	private String seatType;
+	private String boardingTime;
+	private String reportingTime;
+	
+	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
+	private List<String> amenities = new ArrayList<>();
+	private List<BusType> busTypeTags= new ArrayList<>();
+	
+	private String busNumber;
+	/**
+	 * @return the boardingLocations
+	 */
+	public List<BusBoadingStopingDetails> getBoardingLocations() {
+		return boardingLocations;
+	}
+	/**
+	 * @param boardingLocations the boardingLocations to set
+	 */
+	public void setBoardingLocations(List<BusBoadingStopingDetails> boardingLocations) {
+		this.boardingLocations = boardingLocations;
+	}
+	/**
+	 * @return the droppingLocations
+	 */
+	public List<BusBoadingStopingDetails> getDroppingLocations() {
+		return droppingLocations;
+	}
+	/**
+	 * @param droppingLocations the droppingLocations to set
+	 */
+	public void setDroppingLocations(List<BusBoadingStopingDetails> droppingLocations) {
+		this.droppingLocations = droppingLocations;
+	}
+	/**
+	 * @return the busDetailsinfo
+	 */
+	public List<BusDetails> getBusDetailsinfo() {
+		return busDetailsinfo;
+	}
+	/**
+	 * @param busDetailsinfo the busDetailsinfo to set
+	 */
+	public void setBusDetailsinfo(List<BusDetails> busDetailsinfo) {
+		this.busDetailsinfo = busDetailsinfo;
+	}
 	/**
 	 * @return the routId
 	 */
@@ -65,16 +109,16 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.travelsName = travelsName;
 	}
 	/**
-	 * @return the busNumber
+	 * @return the busType
 	 */
-	public String getBusNumber() {
-		return busNumber;
+	public String getBusType() {
+		return busType;
 	}
 	/**
-	 * @param busNumber the busNumber to set
+	 * @param busType the busType to set
 	 */
-	public void setBusNumber(String busNumber) {
-		this.busNumber = busNumber;
+	public void setBusType(String busType) {
+		this.busType = busType;
 	}
 	/**
 	 * @return the avalableSeats
@@ -101,16 +145,28 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.totalSeats = totalSeats;
 	}
 	/**
-	 * @return the busType
+	 * @return the idProofRequired
 	 */
-	public String getBusType() {
-		return busType;
+	public boolean isIdProofRequired() {
+		return idProofRequired;
 	}
 	/**
-	 * @param busType the busType to set
+	 * @param idProofRequired the idProofRequired to set
 	 */
-	public void setBusType(String busType) {
-		this.busType = busType;
+	public void setIdProofRequired(boolean idProofRequired) {
+		this.idProofRequired = idProofRequired;
+	}
+	/**
+	 * @return the reviewCount
+	 */
+	public int getReviewCount() {
+		return reviewCount;
+	}
+	/**
+	 * @param reviewCount the reviewCount to set
+	 */
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 	/**
 	 * @return the direction
@@ -233,78 +289,6 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.destCityName = destCityName;
 	}
 	/**
-	 * @return the travelDurationDays
-	 */
-	public int getTravelDurationDays() {
-		return travelDurationDays;
-	}
-	/**
-	 * @param travelDurationDays the travelDurationDays to set
-	 */
-	public void setTravelDurationDays(int travelDurationDays) {
-		this.travelDurationDays = travelDurationDays;
-	}
-	/**
-	 * @return the arrivalDate
-	 */
-	public Date getArrivalDate() {
-		return arrivalDate;
-	}
-	/**
-	 * @param arrivalDate the arrivalDate to set
-	 */
-	public void setArrivalDate(Date arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-	/**
-	 * @return the departureDate
-	 */
-	public Date getDepartureDate() {
-		return departureDate;
-	}
-	/**
-	 * @param departureDate the departureDate to set
-	 */
-	public void setDepartureDate(Date departureDate) {
-		this.departureDate = departureDate;
-	}
-	/**
-	 * @return the departureTime
-	 */
-	public String getDepartureTime() {
-		return departureTime;
-	}
-	/**
-	 * @param departureTime the departureTime to set
-	 */
-	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
-	}
-	/**
-	 * @return the boardingTime
-	 */
-	public String getBoardingTime() {
-		return boardingTime;
-	}
-	/**
-	 * @param boardingTime the boardingTime to set
-	 */
-	public void setBoardingTime(String boardingTime) {
-		this.boardingTime = boardingTime;
-	}
-	/**
-	 * @return the reportingTime
-	 */
-	public String getReportingTime() {
-		return reportingTime;
-	}
-	/**
-	 * @param reportingTime the reportingTime to set
-	 */
-	public void setReportingTime(String reportingTime) {
-		this.reportingTime = reportingTime;
-	}
-	/**
 	 * @return the distance
 	 */
 	public double getDistance() {
@@ -327,18 +311,6 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	 */
 	public void setDuration(String duration) {
 		this.duration = duration;
-	}
-	/**
-	 * @return the busTypeTags
-	 */
-	public String getBusTypeTags() {
-		return busTypeTags;
-	}
-	/**
-	 * @param busTypeTags the busTypeTags to set
-	 */
-	public void setBusTypeTags(String busTypeTags) {
-		this.busTypeTags = busTypeTags;
 	}
 	/**
 	 * @return the sourceId
@@ -365,28 +337,112 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.destinationId = destinationId;
 	}
 	/**
-	 * @return the boardingPoints
+	 * @return the travelDurationDays
 	 */
-	public List<BusStopLocationDetails> getBoardingPoints() {
-		return boardingPoints;
+	public int getTravelDurationDays() {
+		return travelDurationDays;
 	}
 	/**
-	 * @param boardingPoints the boardingPoints to set
+	 * @param travelDurationDays the travelDurationDays to set
 	 */
-	public void setBoardingPoints(List<BusStopLocationDetails> boardingPoints) {
-		this.boardingPoints = boardingPoints;
+	public void setTravelDurationDays(int travelDurationDays) {
+		this.travelDurationDays = travelDurationDays;
 	}
 	/**
-	 * @return the droppingPoints
+	 * @return the arrivalDate
 	 */
-	public List<BusStopLocationDetails> getDroppingPoints() {
-		return droppingPoints;
+	public String getArrivalDate() {
+		return arrivalDate;
 	}
 	/**
-	 * @param droppingPoints the droppingPoints to set
+	 * @param arrivalDate the arrivalDate to set
 	 */
-	public void setDroppingPoints(List<BusStopLocationDetails> droppingPoints) {
-		this.droppingPoints = droppingPoints;
+	public void setArrivalDate(String arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+	/**
+	 * @return the arrivalTime
+	 */
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+	/**
+	 * @param arrivalTime the arrivalTime to set
+	 */
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+	/**
+	 * @return the departureDate
+	 */
+	public String getDepartureDate() {
+		return departureDate;
+	}
+	/**
+	 * @param departureDate the departureDate to set
+	 */
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
+	}
+	/**
+	 * @return the departureTime
+	 */
+	public String getDepartureTime() {
+		return departureTime;
+	}
+	/**
+	 * @param departureTime the departureTime to set
+	 */
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+	/**
+	 * @return the travelDate
+	 */
+	public String getTravelDate() {
+		return travelDate;
+	}
+	/**
+	 * @param travelDate the travelDate to set
+	 */
+	public void setTravelDate(String travelDate) {
+		this.travelDate = travelDate;
+	}
+	/**
+	 * @return the seatType
+	 */
+	public String getSeatType() {
+		return seatType;
+	}
+	/**
+	 * @param seatType the seatType to set
+	 */
+	public void setSeatType(String seatType) {
+		this.seatType = seatType;
+	}
+	/**
+	 * @return the boardingTime
+	 */
+	public String getBoardingTime() {
+		return boardingTime;
+	}
+	/**
+	 * @param boardingTime the boardingTime to set
+	 */
+	public void setBoardingTime(String boardingTime) {
+		this.boardingTime = boardingTime;
+	}
+	/**
+	 * @return the reportingTime
+	 */
+	public String getReportingTime() {
+		return reportingTime;
+	}
+	/**
+	 * @param reportingTime the reportingTime to set
+	 */
+	public void setReportingTime(String reportingTime) {
+		this.reportingTime = reportingTime;
 	}
 	/**
 	 * @return the cancellationPolicy
@@ -413,16 +469,28 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.amenities = amenities;
 	}
 	/**
-	 * @return the busTypes
+	 * @return the busTypeTags
 	 */
-	public List<BusType> getBusTypes() {
-		return busTypes;
+	public List<BusType> getBusTypeTags() {
+		return busTypeTags;
 	}
 	/**
-	 * @param busTypes the busTypes to set
+	 * @param busTypeTags the busTypeTags to set
 	 */
-	public void setBusTypes(List<BusType> busTypes) {
-		this.busTypes = busTypes;
+	public void setBusTypeTags(List<BusType> busTypeTags) {
+		this.busTypeTags = busTypeTags;
+	}
+	/**
+	 * @return the busNumber
+	 */
+	public String getBusNumber() {
+		return busNumber;
+	}
+	/**
+	 * @param busNumber the busNumber to set
+	 */
+	public void setBusNumber(String busNumber) {
+		this.busNumber = busNumber;
 	}
 	
 }

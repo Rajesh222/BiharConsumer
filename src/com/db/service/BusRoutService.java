@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.db.dao.BusRoutDao;
 import com.db.model.BusRoutDetails;
-import com.db.model.BusStopLocationDetails;
+import com.db.model.BusBoadingStopingDetails;
 import com.db.model.BusType;
 import com.db.model.SearchBusRoutDetails;
 import com.db.model.vo.SearchBusVO;

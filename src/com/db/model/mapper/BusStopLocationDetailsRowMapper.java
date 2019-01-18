@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.db.model.BusStopLocationDetails;
+import com.db.model.BusBoadingStopingDetails;
 
-public class BusStopLocationDetailsRowMapper implements RowMapper<BusStopLocationDetails> {
+public class BusStopLocationDetailsRowMapper implements RowMapper<BusBoadingStopingDetails> {
 
 	@Override
-	public BusStopLocationDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-		BusStopLocationDetails locationDetails = new BusStopLocationDetails();
-		locationDetails.setId(rs.getString("id"));
+	public BusBoadingStopingDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+		BusBoadingStopingDetails locationDetails = new BusBoadingStopingDetails();
+		locationDetails.setLocationId(rs.getString("id"));
 		locationDetails.setLocationName(rs.getString("locationName"));
 		locationDetails.setLocationAddress(rs.getString("locationAddress"));
 		locationDetails.setLandmark(rs.getString("landmark"));

@@ -32,8 +32,8 @@ public class RoutDetailsRowMapper implements RowMapper<BusRoutDetails> {
 		busRoutDetails.setServicetax(rs.getDouble("servicetax"));
 		busRoutDetails.setTotalfare(rs.getDouble("totalfare"));
 		busRoutDetails.setTravelDurationDays(rs.getInt("travelDurationDays"));
-		busRoutDetails.setArrivalDate(rs.getDate("arrivalDate"));
-		busRoutDetails.setDepartureDate(rs.getDate("departureDate"));
+		busRoutDetails.setArrivalDate(rs.getDate("arrivalDate").toString());
+		busRoutDetails.setDepartureDate(rs.getDate("departureDate").toString());
 		busRoutDetails.setDistance(rs.getDouble("distance"));
 		busRoutDetails.setDuration(rs.getString("duration"));
 		

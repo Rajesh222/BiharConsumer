@@ -5,8 +5,12 @@ import java.io.Serializable;
 public class BusSeatDetails extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private String siteType;
+	private int row;
+	private int column;
+	private int width;
+	private int length;
+	private String routId;
+	private String seatType;
 	private String seatNumber;
 	private String seatName;
 	private String seatCode;
@@ -14,29 +18,79 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	private boolean isLadiesSeat;
 	private boolean isMenSeat;
 	private boolean isLowerBerth;
+	private boolean isReservedForLadies;
+	private double fare;
 	/**
-	 * @return the id
+	 * @return the row
 	 */
-	public String getId() {
-		return id;
+	public int getRow() {
+		return row;
 	}
 	/**
-	 * @param id the id to set
+	 * @param row the row to set
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setRow(int row) {
+		this.row = row;
 	}
 	/**
-	 * @return the siteType
+	 * @return the column
 	 */
-	public String getSiteType() {
-		return siteType;
+	public int getColumn() {
+		return column;
 	}
 	/**
-	 * @param siteType the siteType to set
+	 * @param column the column to set
 	 */
-	public void setSiteType(String siteType) {
-		this.siteType = siteType;
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	/**
+	 * @return the length
+	 */
+	public int getLength() {
+		return length;
+	}
+	/**
+	 * @param length the length to set
+	 */
+	public void setLength(int length) {
+		this.length = length;
+	}
+	/**
+	 * @return the routId
+	 */
+	public String getRoutId() {
+		return routId;
+	}
+	/**
+	 * @param routId the routId to set
+	 */
+	public void setRoutId(String routId) {
+		this.routId = routId;
+	}
+	/**
+	 * @return the seatType
+	 */
+	public String getSeatType() {
+		return seatType;
+	}
+	/**
+	 * @param seatType the seatType to set
+	 */
+	public void setSeatType(String seatType) {
+		this.seatType = seatType;
 	}
 	/**
 	 * @return the seatNumber
@@ -122,5 +176,28 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	public void setLowerBerth(boolean isLowerBerth) {
 		this.isLowerBerth = isLowerBerth;
 	}
-	
+	/**
+	 * @return the isReservedForLadies
+	 */
+	public boolean isReservedForLadies() {
+		return isReservedForLadies;
+	}
+	/**
+	 * @param isReservedForLadies the isReservedForLadies to set
+	 */
+	public void setReservedForLadies(boolean isReservedForLadies) {
+		this.isReservedForLadies = isReservedForLadies;
+	}
+	/**
+	 * @return the fare
+	 */
+	public double getFare() {
+		return fare;
+	}
+	/**
+	 * @param fare the fare to set
+	 */
+	public void setFare(double fare) {
+		this.fare = fare;
+	}
 }

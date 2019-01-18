@@ -141,12 +141,21 @@
 				select bo.* from bus_boardstop_details bo where bo.tripId= ?
 			</value>
 		</entry>
-		<entry key="GET_SEAT_TYPE">
+		<entry key="SELECT_BUSTYPE_BY_BUSID">
 			<value>
 				select * from bus_type order by bustype
 			</value>
 		</entry>
-
+		<entry key="SELECT_CANCELLATION_POLICIES_BY_BUSID">
+			<value>
+				select * from bus_cancellation_policies order by createdon
+			</value>
+		</entry>
+		<entry key="SELECT_BUS_AMENITIES_BY_BUSID">
+			<value>
+				select * from bus_amenities order by id
+			</value>
+		</entry>
 
 	</util:map>
 </beans>

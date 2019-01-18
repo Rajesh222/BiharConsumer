@@ -3,10 +3,11 @@ package com.db.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BusStopLocationDetails extends BaseModel implements Serializable {
+public class BusBoadingStopingDetails extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private String locationId;
+	private String displayName;
 	private String locationName;
 	private String locationAddress;
 	private String landmark;
@@ -16,18 +17,29 @@ public class BusStopLocationDetails extends BaseModel implements Serializable {
 	private Date boardingDate;
 	private Date reportingTime;
 	private String contactNumber;
-	
 	/**
-	 * @return the id
+	 * @return the locationId
 	 */
-	public String getId() {
-		return id;
+	public String getLocationId() {
+		return locationId;
 	}
 	/**
-	 * @param id the id to set
+	 * @param locationId the locationId to set
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setLocationId(String locationId) {
+		this.locationId = locationId;
+	}
+	/**
+	 * @return the displayName
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
+	/**
+	 * @param displayName the displayName to set
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	/**
 	 * @return the locationName
