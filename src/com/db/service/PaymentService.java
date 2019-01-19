@@ -3,9 +3,11 @@ package com.db.service;
 import org.springframework.stereotype.Service;
 
 @Service("ticketService")
-public interface PaymentService  {
+public class PaymentService  {
 
-	
+	public String createPayment() {
+		return null;
+	}
 
 	
 }

@@ -14,8 +14,8 @@ public class TopCityRowMapper implements RowMapper<TopCities> {
 		TopCities user = new TopCities();
 		user.setId(rs.getInt("refnumber"));
 		user.setDisplayName(rs.getString("displayname"));
-		user.setCity(rs.getString("cityname"));
-		user.setState(rs.getString("statename"));
+		user.setCityName(rs.getString("cityname"));
+		user.setStateName(rs.getString("statename"));
 		return user;
 	}
 }

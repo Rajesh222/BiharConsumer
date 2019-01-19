@@ -2,7 +2,6 @@ package com.db.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BusRoutDetails extends BaseModel implements Serializable {
@@ -10,29 +9,25 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<BusBoadingStopingDetails> boardingLocations = new ArrayList<>();
 	private List<BusBoadingStopingDetails> droppingLocations = new ArrayList<>();
-	private List<BusDetails> busDetailsinfo = new ArrayList<>();
-	private String routId;
+	private List<BusDetails> busInfo = new ArrayList<>();
+	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
+	private List<String> amenities = new ArrayList<>();
+	private List<BusType> busTypes = new ArrayList<>();
+	//private List<String> fares = new ArrayList<>();
+	private String busId;
 	private String travelsName;
 	private String busType;
-	private double avalableSeats;
-	private double totalSeats;
-	private boolean idProofRequired;
-	private int reviewCount;
-	private String direction;
-	private Date traveldate;
-	private String tripId;
-	private double basefare;
-	private double servicetax;
-	private double totalfare;
-	private String srcCityName;
-	private String source;
-	private String destination;
-	private String destCityName;
-	private double distance;
 	private String duration;
+	private double fare;
+	private boolean idProofRequired;
+	private boolean isAc = false;
+	private String rating;
+	private boolean isSleaper = false;
 	private String sourceId;
 	private String destinationId;
-	
+	private String routId;
+	private double totalSeats;
+	private double avalableSeats;
 	private int travelDurationDays;
 	private String arrivalDate;
 	private String arrivalTime;
@@ -42,11 +37,8 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	private String seatType;
 	private String boardingTime;
 	private String reportingTime;
-	
-	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
-	private List<String> amenities = new ArrayList<>();
-	private List<BusType> busTypeTags= new ArrayList<>();
-	
+	private String source;
+	private String destination;
 	private String busNumber;
 	/**
 	 * @return the boardingLocations
@@ -73,28 +65,64 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.droppingLocations = droppingLocations;
 	}
 	/**
-	 * @return the busDetailsinfo
+	 * @return the busInfo
 	 */
-	public List<BusDetails> getBusDetailsinfo() {
-		return busDetailsinfo;
+	public List<BusDetails> getBusInfo() {
+		return busInfo;
 	}
 	/**
-	 * @param busDetailsinfo the busDetailsinfo to set
+	 * @param busInfo the busInfo to set
 	 */
-	public void setBusDetailsinfo(List<BusDetails> busDetailsinfo) {
-		this.busDetailsinfo = busDetailsinfo;
+	public void setBusInfo(List<BusDetails> busInfo) {
+		this.busInfo = busInfo;
 	}
 	/**
-	 * @return the routId
+	 * @return the cancellationPolicy
 	 */
-	public String getRoutId() {
-		return routId;
+	public List<BusCancellationPolicies> getCancellationPolicy() {
+		return cancellationPolicy;
 	}
 	/**
-	 * @param routId the routId to set
+	 * @param cancellationPolicy the cancellationPolicy to set
 	 */
-	public void setRoutId(String routId) {
-		this.routId = routId;
+	public void setCancellationPolicy(List<BusCancellationPolicies> cancellationPolicy) {
+		this.cancellationPolicy = cancellationPolicy;
+	}
+	/**
+	 * @return the amenities
+	 */
+	public List<String> getAmenities() {
+		return amenities;
+	}
+	/**
+	 * @param amenities the amenities to set
+	 */
+	public void setAmenities(List<String> amenities) {
+		this.amenities = amenities;
+	}
+	/**
+	 * @return the busTypes
+	 */
+	public List<BusType> getBusTypes() {
+		return busTypes;
+	}
+	/**
+	 * @param busTypes the busTypes to set
+	 */
+	public void setBusTypes(List<BusType> busTypes) {
+		this.busTypes = busTypes;
+	}
+	/**
+	 * @return the busId
+	 */
+	public String getBusId() {
+		return busId;
+	}
+	/**
+	 * @param busId the busId to set
+	 */
+	public void setBusId(String busId) {
+		this.busId = busId;
 	}
 	/**
 	 * @return the travelsName
@@ -121,28 +149,28 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.busType = busType;
 	}
 	/**
-	 * @return the avalableSeats
+	 * @return the duration
 	 */
-	public double getAvalableSeats() {
-		return avalableSeats;
+	public String getDuration() {
+		return duration;
 	}
 	/**
-	 * @param avalableSeats the avalableSeats to set
+	 * @param duration the duration to set
 	 */
-	public void setAvalableSeats(double avalableSeats) {
-		this.avalableSeats = avalableSeats;
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 	/**
-	 * @return the totalSeats
+	 * @return the fare
 	 */
-	public double getTotalSeats() {
-		return totalSeats;
+	public double getFare() {
+		return fare;
 	}
 	/**
-	 * @param totalSeats the totalSeats to set
+	 * @param fare the fare to set
 	 */
-	public void setTotalSeats(double totalSeats) {
-		this.totalSeats = totalSeats;
+	public void setFare(double fare) {
+		this.fare = fare;
 	}
 	/**
 	 * @return the idProofRequired
@@ -157,160 +185,40 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.idProofRequired = idProofRequired;
 	}
 	/**
-	 * @return the reviewCount
+	 * @return the isAc
 	 */
-	public int getReviewCount() {
-		return reviewCount;
+	public boolean isAc() {
+		return isAc;
 	}
 	/**
-	 * @param reviewCount the reviewCount to set
+	 * @param isAc the isAc to set
 	 */
-	public void setReviewCount(int reviewCount) {
-		this.reviewCount = reviewCount;
+	public void setAc(boolean isAc) {
+		this.isAc = isAc;
 	}
 	/**
-	 * @return the direction
+	 * @return the rating
 	 */
-	public String getDirection() {
-		return direction;
+	public String getRating() {
+		return rating;
 	}
 	/**
-	 * @param direction the direction to set
+	 * @param rating the rating to set
 	 */
-	public void setDirection(String direction) {
-		this.direction = direction;
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 	/**
-	 * @return the traveldate
+	 * @return the isSleaper
 	 */
-	public Date getTraveldate() {
-		return traveldate;
+	public boolean isSleaper() {
+		return isSleaper;
 	}
 	/**
-	 * @param traveldate the traveldate to set
+	 * @param isSleaper the isSleaper to set
 	 */
-	public void setTraveldate(Date traveldate) {
-		this.traveldate = traveldate;
-	}
-	/**
-	 * @return the tripId
-	 */
-	public String getTripId() {
-		return tripId;
-	}
-	/**
-	 * @param tripId the tripId to set
-	 */
-	public void setTripId(String tripId) {
-		this.tripId = tripId;
-	}
-	/**
-	 * @return the basefare
-	 */
-	public double getBasefare() {
-		return basefare;
-	}
-	/**
-	 * @param basefare the basefare to set
-	 */
-	public void setBasefare(double basefare) {
-		this.basefare = basefare;
-	}
-	/**
-	 * @return the servicetax
-	 */
-	public double getServicetax() {
-		return servicetax;
-	}
-	/**
-	 * @param servicetax the servicetax to set
-	 */
-	public void setServicetax(double servicetax) {
-		this.servicetax = servicetax;
-	}
-	/**
-	 * @return the totalfare
-	 */
-	public double getTotalfare() {
-		return totalfare;
-	}
-	/**
-	 * @param totalfare the totalfare to set
-	 */
-	public void setTotalfare(double totalfare) {
-		this.totalfare = totalfare;
-	}
-	/**
-	 * @return the srcCityName
-	 */
-	public String getSrcCityName() {
-		return srcCityName;
-	}
-	/**
-	 * @param srcCityName the srcCityName to set
-	 */
-	public void setSrcCityName(String srcCityName) {
-		this.srcCityName = srcCityName;
-	}
-	/**
-	 * @return the source
-	 */
-	public String getSource() {
-		return source;
-	}
-	/**
-	 * @param source the source to set
-	 */
-	public void setSource(String source) {
-		this.source = source;
-	}
-	/**
-	 * @return the destination
-	 */
-	public String getDestination() {
-		return destination;
-	}
-	/**
-	 * @param destination the destination to set
-	 */
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
-	/**
-	 * @return the destCityName
-	 */
-	public String getDestCityName() {
-		return destCityName;
-	}
-	/**
-	 * @param destCityName the destCityName to set
-	 */
-	public void setDestCityName(String destCityName) {
-		this.destCityName = destCityName;
-	}
-	/**
-	 * @return the distance
-	 */
-	public double getDistance() {
-		return distance;
-	}
-	/**
-	 * @param distance the distance to set
-	 */
-	public void setDistance(double distance) {
-		this.distance = distance;
-	}
-	/**
-	 * @return the duration
-	 */
-	public String getDuration() {
-		return duration;
-	}
-	/**
-	 * @param duration the duration to set
-	 */
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setSleaper(boolean isSleaper) {
+		this.isSleaper = isSleaper;
 	}
 	/**
 	 * @return the sourceId
@@ -335,6 +243,42 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	 */
 	public void setDestinationId(String destinationId) {
 		this.destinationId = destinationId;
+	}
+	/**
+	 * @return the routId
+	 */
+	public String getRoutId() {
+		return routId;
+	}
+	/**
+	 * @param routId the routId to set
+	 */
+	public void setRoutId(String routId) {
+		this.routId = routId;
+	}
+	/**
+	 * @return the totalSeats
+	 */
+	public double getTotalSeats() {
+		return totalSeats;
+	}
+	/**
+	 * @param totalSeats the totalSeats to set
+	 */
+	public void setTotalSeats(double totalSeats) {
+		this.totalSeats = totalSeats;
+	}
+	/**
+	 * @return the avalableSeats
+	 */
+	public double getAvalableSeats() {
+		return avalableSeats;
+	}
+	/**
+	 * @param avalableSeats the avalableSeats to set
+	 */
+	public void setAvalableSeats(double avalableSeats) {
+		this.avalableSeats = avalableSeats;
 	}
 	/**
 	 * @return the travelDurationDays
@@ -445,40 +389,28 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 		this.reportingTime = reportingTime;
 	}
 	/**
-	 * @return the cancellationPolicy
+	 * @return the source
 	 */
-	public List<BusCancellationPolicies> getCancellationPolicy() {
-		return cancellationPolicy;
+	public String getSource() {
+		return source;
 	}
 	/**
-	 * @param cancellationPolicy the cancellationPolicy to set
+	 * @param source the source to set
 	 */
-	public void setCancellationPolicy(List<BusCancellationPolicies> cancellationPolicy) {
-		this.cancellationPolicy = cancellationPolicy;
+	public void setSource(String source) {
+		this.source = source;
 	}
 	/**
-	 * @return the amenities
+	 * @return the destination
 	 */
-	public List<String> getAmenities() {
-		return amenities;
+	public String getDestination() {
+		return destination;
 	}
 	/**
-	 * @param amenities the amenities to set
+	 * @param destination the destination to set
 	 */
-	public void setAmenities(List<String> amenities) {
-		this.amenities = amenities;
-	}
-	/**
-	 * @return the busTypeTags
-	 */
-	public List<BusType> getBusTypeTags() {
-		return busTypeTags;
-	}
-	/**
-	 * @param busTypeTags the busTypeTags to set
-	 */
-	public void setBusTypeTags(List<BusType> busTypeTags) {
-		this.busTypeTags = busTypeTags;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 	/**
 	 * @return the busNumber
@@ -492,5 +424,4 @@ public class BusRoutDetails extends BaseModel implements Serializable {
 	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
-	
 }

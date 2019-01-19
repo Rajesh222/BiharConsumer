@@ -2,16 +2,15 @@ package com.db.model;
 
 import java.io.Serializable;
 
-public class TopCities extends BaseModel implements Serializable{
-	
-	/**
-	 * 
-	 */
+public class TopCities extends BaseModel implements Serializable {
+
 	private static final long serialVersionUID = -950330307004124256L;
 	private long id;
 	private String displayName;
-	private String city;
-	private String state;
+	private String cityName;
+	private String stateName;
+	private String country;
+	private String district;
 	/**
 	 * @return the id
 	 */
@@ -37,28 +36,51 @@ public class TopCities extends BaseModel implements Serializable{
 		this.displayName = displayName;
 	}
 	/**
-	 * @return the city
+	 * @return the cityName
 	 */
-	public String getCity() {
-		return city;
+	public String getCityName() {
+		return cityName;
 	}
 	/**
-	 * @param city the city to set
+	 * @param cityName the cityName to set
 	 */
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 	/**
-	 * @return the state
+	 * @return the stateName
 	 */
-	public String getState() {
-		return state;
+	public String getStateName() {
+		return stateName;
 	}
 	/**
-	 * @param state the state to set
+	 * @param stateName the stateName to set
 	 */
-	public void setState(String state) {
-		this.state = state;
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
 	}
-	
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	/**
+	 * @return the district
+	 */
+	public String getDistrict() {
+		return district;
+	}
+	/**
+	 * @param district the district to set
+	 */
+	public void setDistrict(String district) {
+		this.district = district;
+	}
 }

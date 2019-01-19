@@ -9,7 +9,7 @@ public class Constants {
 	public static final String FAUILER = "failure";
 	public static final String HEADER = "Booking Confirmation on DIGITAL BIHAR, Bus: 22914, 25-Dec-2018, 3A, PNBE - UDN";
 	public static final String OTP_HEADER = "Your OTP for new device sign-in";
-	public static final String OTP_BODY = "<html><body><p> Dear <a href=\"#\" target=\"_blank\">USER_NAME</a>,<br> <br> We detected that you are trying to sign-in into a new browser. Your <b>OTP</b> for logging in is : <b>OTP_VALUES</b><br>For security reasons, please do not share this OTP with anyone.<br><br>Thank you,<br>Team Digital Bihar</p></body></html>";
+	public static final String OTP_BODY = "<html><body><p> Dear USER_NAME,<br> <br> We detected that you are trying to sign-in into a new browser. Your <b>OTP</b> for logging in is : <b>OTP_VALUES</b><br>For security reasons, please do not share this OTP with anyone.<br><br>Thank you,<br>Team Digital Bihar</p></body></html>";
 	
 	public static final String HTML_CONTENT = "<table width=\"100%\">\r\n" + "	<tbody>\r\n" + "		<tr>\r\n"
 			+ "			<td colspan=\"2\"\r\n"

@@ -4,10 +4,9 @@ public class BusDetails {
 
 	private String busId;
 	private String ownerId;
-	private String operatorName;
+	private String travelsName;
 	private String routeId;
 	private String routeName;
-	private String routeTime;
 	private String distance;
 	private String busType;
 	private String busTypeName;
@@ -17,7 +16,6 @@ public class BusDetails {
 	private String journeyDate;
 	private boolean isAc;
 	private String chartCode;
-	
 	/**
 	 * @return the busId
 	 */
@@ -43,16 +41,16 @@ public class BusDetails {
 		this.ownerId = ownerId;
 	}
 	/**
-	 * @return the operatorName
+	 * @return the travelsName
 	 */
-	public String getOperatorName() {
-		return operatorName;
+	public String getTravelsName() {
+		return travelsName;
 	}
 	/**
-	 * @param operatorName the operatorName to set
+	 * @param travelsName the travelsName to set
 	 */
-	public void setOperatorName(String operatorName) {
-		this.operatorName = operatorName;
+	public void setTravelsName(String travelsName) {
+		this.travelsName = travelsName;
 	}
 	/**
 	 * @return the routeId
@@ -77,18 +75,6 @@ public class BusDetails {
 	 */
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
-	}
-	/**
-	 * @return the routeTime
-	 */
-	public String getRouteTime() {
-		return routeTime;
-	}
-	/**
-	 * @param routeTime the routeTime to set
-	 */
-	public void setRouteTime(String routeTime) {
-		this.routeTime = routeTime;
 	}
 	/**
 	 * @return the distance
@@ -174,4 +160,29 @@ public class BusDetails {
 	public void setJourneyDate(String journeyDate) {
 		this.journeyDate = journeyDate;
 	}
+	/**
+	 * @return the isAc
+	 */
+	public boolean isAc() {
+		return isAc;
+	}
+	/**
+	 * @param isAc the isAc to set
+	 */
+	public void setAc(boolean isAc) {
+		this.isAc = isAc;
+	}
+	/**
+	 * @return the chartCode
+	 */
+	public String getChartCode() {
+		return chartCode;
+	}
+	/**
+	 * @param chartCode the chartCode to set
+	 */
+	public void setChartCode(String chartCode) {
+		this.chartCode = chartCode;
+	}
+     
 }

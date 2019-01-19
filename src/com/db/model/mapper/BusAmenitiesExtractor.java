@@ -13,7 +13,7 @@ public class BusAmenitiesExtractor implements ResultSetExtractor<List<BusAmeniti
 
 	@Override
 	public List<BusAmenities> extractData(ResultSet rs) throws SQLException {
-		List<BusAmenities> amenities = new ArrayList<>();
+		List<BusAmenities> amenitiesList = new ArrayList<>();
 		while (rs.next()) {
 			BusAmenities busAmenities = new BusAmenities();
 			busAmenities.setId(rs.getString("id"));
@@ -21,9 +21,9 @@ public class BusAmenitiesExtractor implements ResultSetExtractor<List<BusAmeniti
 			busAmenities.setLabel(rs.getString("label"));
 			busAmenities.setName(rs.getString("name"));
 			busAmenities.setIcon(rs.getString("icon"));
-			amenities.add(busAmenities);
+			amenitiesList.add(busAmenities);
 		}
-		return amenities;
+		return amenitiesList;
 	}
 
 }

@@ -2,7 +2,7 @@ package com.db.model;
 
 import java.io.Serializable;
 
-public class Complain extends BaseModel implements Serializable {
+public class Complain implements Serializable {
 	
 	private static final long serialVersionUID = 5387952680835296398L;
 	private String refId;

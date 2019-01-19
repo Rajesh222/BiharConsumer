@@ -75,7 +75,8 @@
 		</entry>
 		<entry key="LOGOUT_USER">
 			<value>
-				update user_login set logout_date= now(), clientip=? where userid =? and logout_date is null
+				update user_login set logout_date= now(), clientip=? where
+				userid =? and logout_date is null
 			</value>
 		</entry>
 		<!-- END USER SERVICE QUERY -->
@@ -128,10 +129,11 @@
 				rout.modifyon,rout.modifyby,rout.traveldatetime,trip.tripid,trip.basefare,trip.servicetax,trip.totalfare,trip.srccityname,trip.destcityname,trip.traveldurationdays,trip.arrivaldate,trip.departuredate,trip.distance,trip.duration
 				from bus_details rout
 				inner join bus_rout_details trip on
-				rout.routid = trip.routid where
+				rout.routid
+				= trip.routid where
 				lower(trip.srccityname) like ?
 				and
-				lower(trip.destcityname) like ? 
+				lower(trip.destcityname) like ?
 				<!-- and rout.traveldatetime::DATE = to_date(?,'YYYY-MM-DD') -->
 
 			</value>
@@ -156,6 +158,12 @@
 				select * from bus_amenities order by id
 			</value>
 		</entry>
-
+		<entry key="SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION">
+			<value>
+				select * from bus_details where sourceid = (select refnumber
+				from top_cities where displayname like ? ) and destinationid =
+				(select refnumber from top_cities where displayname like ? )
+			</value>
+		</entry>
 	</util:map>
 </beans>

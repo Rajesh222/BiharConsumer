@@ -19,10 +19,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.db.model.BusRoutDetails;
 import com.db.model.TopCities;
 import com.db.model.mapper.TopCityRowMapper;
-import com.db.model.vo.SearchBusVO;
 
 @Repository("topCityDao")
 public class TopCityDao {
@@ -62,9 +60,9 @@ public class TopCityDao {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 				PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-				ps.setString(1, topCities.getCity());
+				ps.setString(1, topCities.getCityName());
 				ps.setString(2, topCities.getDisplayName());
-				ps.setString(3, topCities.getState());
+				ps.setString(3, topCities.getStateName());
 				return ps;
 			}
 		}, holder);

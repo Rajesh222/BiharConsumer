@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.db.model.BusAmenities;
 import com.db.model.BusBoadingStopingDetails;
 import com.db.model.BusCancellationPolicies;
+import com.db.model.BusDetails;
 import com.db.model.BusRoutDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
+import com.db.model.mapper.BusDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.RoutDetailsRowMapper;
 import com.db.model.vo.SearchBusVO;
@@ -41,11 +43,12 @@ public class BusRoutDao {
 	private static final String SELECT_BUSTYPE_BY_BUSID = "SELECT_BUSTYPE_BY_BUSID";
 	private static final String SELECT_CANCELLATION_POLICIES_BY_BUSID = "SELECT_CANCELLATION_POLICIES_BY_BUSID";
 	private static final String SELECT_BUS_AMENITIES_BY_BUSID = "SELECT_BUS_AMENITIES_BY_BUSID";
+	private static final String SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION = "SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION";
 
 	@Transactional(readOnly = true)
 	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
 		String query = queriesMap.get(SELECT_BUS_AMENITIES_BY_BUSID);
-		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
+		log.debug("Running insert query for getBusAmenitiesByBusId {}", query);
 		return jdbcTemplate.query(query, new BusAmenitiesExtractor());
 	}
 	
@@ -68,7 +71,7 @@ public class BusRoutDao {
 	@Transactional(readOnly = true)
 	public List<BusType> getBusType() {
 		String query = queriesMap.get(SELECT_BUSTYPE_BY_BUSID);
-		log.debug("Running insert query for getAllStation {}", query);
+		log.debug("Running insert query for getBusType {}", query);
 		return jdbcTemplate.query(query, new RowMapper<BusType>() {
 			public BusType mapRow(ResultSet rs, int rowNum) throws SQLException {
 				BusType busType = new BusType();
@@ -81,6 +84,13 @@ public class BusRoutDao {
 	}
 
 	@Transactional(readOnly = true)
+	public List<BusDetails> getBusDetails(String source, String destination){
+		String query = queriesMap.get(SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION);
+		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
+		return jdbcTemplate.query(query,new Object[] { "%" + source + "%", "%" + destination + "%" }, new BusDetailsExtractor());
+	}
+	
+	@Transactional(readOnly = true)
 	public List<BusRoutDetails> searchBusByAvailibleRout(SearchBusVO vo) {
 		String query = queriesMap.get(GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
@@ -89,6 +99,7 @@ public class BusRoutDao {
 				new RoutDetailsRowMapper());
 	}
 
+	@Transactional(readOnly = true)
 	public List<BusBoadingStopingDetails> getBusStopDetails(String routId) {
 		String query = queriesMap.get(GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
