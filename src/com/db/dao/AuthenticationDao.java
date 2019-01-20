@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
 import com.db.model.User;
-import com.db.model.mapper.UserRowMapper;
+import com.db.model.mapper.UserExtrator;
 import com.db.utils.SecurityDigester;
 
 @Repository("userDetailsDao")
@@ -49,7 +49,7 @@ public class AuthenticationDao {
 
 	@Transactional(readOnly = true)
 	public List<User> findAllUser() {
-		return jdbcTemplate.query("select * from user_module", new UserRowMapper());
+		return jdbcTemplate.query("select * from user_module", new UserExtrator());
 	}
 
 	@Transactional
@@ -102,11 +102,11 @@ public class AuthenticationDao {
 		if (validatePhoneNumber(email)) {
 			String query = queriesMap.get(GET_USER_DETAIL_BY_PHONE);
 			log.debug("Running insert query for getUserDetails : {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserRowMapper());
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserExtrator());
 		} else {
 			String query = queriesMap.get(GET_USER_DETAIL_BY_EMAIL);
 			log.debug("Running insert query for getUserDetails: {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserRowMapper());
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserExtrator());
 		}
 		return user;
 	}
@@ -126,13 +126,13 @@ public class AuthenticationDao {
 				log.debug("Running insert query for authUser {}", query);
 				user = jdbcTemplate.queryForObject(query,
 						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-						new UserRowMapper());
+						new UserExtrator());
 			} else {
 				String query = queriesMap.get(AUTH_USER_BY_EMAIL);
 				log.debug("Running insert query for authUser {}", query);
 				user = jdbcTemplate.queryForObject(query,
 						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-						new UserRowMapper());
+						new UserExtrator());
 			}
 			return user;
 		} catch (EmptyResultDataAccessException e) {

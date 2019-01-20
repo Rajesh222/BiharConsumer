@@ -2,6 +2,7 @@ package com.db.model.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -12,7 +13,26 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 
 	@Override
 	public List<BusSeatDetails> extractData(ResultSet rs) throws SQLException {
-		return null;
+		List<BusSeatDetails> busSeatDetails = new ArrayList<>();
+		while (rs.next()) {
+			BusSeatDetails seatDetails = new BusSeatDetails();
+			seatDetails.setRow(rs.getInt("rowname"));
+			seatDetails.setColumn(rs.getInt("columnname"));
+			seatDetails.setLength(rs.getInt("length"));
+			seatDetails.setWidth(rs.getInt("width"));
+			seatDetails.setBusId(rs.getString("busid"));
+			seatDetails.setSeatType(rs.getString("seattype"));
+			seatDetails.setSeatNumber(rs.getString("seatnumber"));
+			seatDetails.setAvailable(rs.getBoolean("isavailable"));
+			seatDetails.setLadiesSeat(rs.getBoolean("isladiesseat"));
+			seatDetails.setMenSeat(rs.getBoolean("ismenseat"));
+			seatDetails.setLowerBerth(rs.getBoolean("islowerberth"));
+			seatDetails.setReservedForLadies(rs.getBoolean("isreservedforladies"));
+			seatDetails.setFare(rs.getDouble("fare"));
+			seatDetails.setServiceTaxPercent(0);
+			busSeatDetails.add(seatDetails);
+		}
+		return busSeatDetails;
 	}
 
 }
