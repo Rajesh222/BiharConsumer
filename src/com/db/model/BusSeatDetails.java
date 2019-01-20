@@ -9,17 +9,16 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	private int column;
 	private int width;
 	private int length;
-	private String routId;
+	private String busId;
 	private String seatType;
 	private String seatNumber;
-	private String seatName;
-	private String seatCode;
 	private boolean isAvailable;
 	private boolean isLadiesSeat;
 	private boolean isMenSeat;
 	private boolean isLowerBerth;
 	private boolean isReservedForLadies;
 	private double fare;
+	private double serviceTaxPercent;
 	/**
 	 * @return the row
 	 */
@@ -69,16 +68,16 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 		this.length = length;
 	}
 	/**
-	 * @return the routId
+	 * @return the busId
 	 */
-	public String getRoutId() {
-		return routId;
+	public String getBusId() {
+		return busId;
 	}
 	/**
-	 * @param routId the routId to set
+	 * @param busId the busId to set
 	 */
-	public void setRoutId(String routId) {
-		this.routId = routId;
+	public void setBusId(String busId) {
+		this.busId = busId;
 	}
 	/**
 	 * @return the seatType
@@ -103,30 +102,6 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	 */
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
-	}
-	/**
-	 * @return the seatName
-	 */
-	public String getSeatName() {
-		return seatName;
-	}
-	/**
-	 * @param seatName the seatName to set
-	 */
-	public void setSeatName(String seatName) {
-		this.seatName = seatName;
-	}
-	/**
-	 * @return the seatCode
-	 */
-	public String getSeatCode() {
-		return seatCode;
-	}
-	/**
-	 * @param seatCode the seatCode to set
-	 */
-	public void setSeatCode(String seatCode) {
-		this.seatCode = seatCode;
 	}
 	/**
 	 * @return the isAvailable
@@ -199,5 +174,17 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	 */
 	public void setFare(double fare) {
 		this.fare = fare;
+	}
+	/**
+	 * @return the serviceTaxPercent
+	 */
+	public double getServiceTaxPercent() {
+		return serviceTaxPercent;
+	}
+	/**
+	 * @param serviceTaxPercent the serviceTaxPercent to set
+	 */
+	public void setServiceTaxPercent(double serviceTaxPercent) {
+		this.serviceTaxPercent = serviceTaxPercent;
 	}
 }

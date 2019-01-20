@@ -122,7 +122,7 @@
 		</entry>
 		<!-- END WALLET SERVICE QUERY -->
 		<!-- START ROUT SERVICE QUERY -->
-		<entry key="GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
+		<entry key="SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
 			<value>
 				select
 				rout.routid,rout.userid,rout.travelsname,rout.busnumber,rout.availableseats,rout.totalseats,rout.bustype,rout.direction,rout.createdon,rout.createdby,
@@ -138,7 +138,7 @@
 
 			</value>
 		</entry>
-		<entry key="GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID">
+		<entry key="SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID">
 			<value>
 				select bo.* from bus_boardstop_details bo where bo.tripId= ?
 			</value>

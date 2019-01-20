@@ -19,10 +19,12 @@ import com.db.model.BusAmenities;
 import com.db.model.BusBoadingStopingDetails;
 import com.db.model.BusCancellationPolicies;
 import com.db.model.BusDetails;
-import com.db.model.BusRoutDetails;
+import com.db.model.BusRoutDetailsAvailability;
+import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusDetailsExtractor;
+import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.RoutDetailsRowMapper;
 import com.db.model.vo.SearchBusVO;
@@ -38,8 +40,8 @@ public class BusRoutDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID = "GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID";
-	private static final String GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC = "GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC";
+	private static final String SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID = "SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID";
+	private static final String SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC = "SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC";
 	private static final String SELECT_BUSTYPE_BY_BUSID = "SELECT_BUSTYPE_BY_BUSID";
 	private static final String SELECT_CANCELLATION_POLICIES_BY_BUSID = "SELECT_CANCELLATION_POLICIES_BY_BUSID";
 	private static final String SELECT_BUS_AMENITIES_BY_BUSID = "SELECT_BUS_AMENITIES_BY_BUSID";
@@ -91,8 +93,8 @@ public class BusRoutDao {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<BusRoutDetails> searchBusByAvailibleRout(SearchBusVO vo) {
-		String query = queriesMap.get(GET_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
+	public List<BusRoutDetailsAvailability> searchBusByAvailibleRout(SearchBusVO vo) {
+		String query = queriesMap.get(SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
 		return jdbcTemplate.query(query,
 				new Object[] { "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%" },
@@ -100,9 +102,17 @@ public class BusRoutDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusBoadingStopingDetails> getBusStopDetails(String routId) {
-		String query = queriesMap.get(GET_BUS_ROUT_STOP_DETAILS_BY_TRIPID);
+	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String routId) {
+		String query = queriesMap.get(SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
 		return jdbcTemplate.query(query, new Object[] { routId }, new BusStopLocationDetailsRowMapper());
 	}
+	
+	@Transactional(readOnly = true)
+	public List<BusSeatDetails> getTripsDetails(String busId, String date){
+		String query = queriesMap.get(SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID);
+		log.debug("Running select query for getTripsDetails: {}", query);
+		return jdbcTemplate.query(query, new Object[] { busId, date }, new BusSeatDetailsExtractor());
+	}
+	
 }

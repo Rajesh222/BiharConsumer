@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.db.model.BusRoutDetails;
+import com.db.model.BusRoutDetailsAvailability;
+import com.db.model.BusSeatDetailsAvailability;
 import com.db.model.vo.SearchBusVO;
 import com.db.service.BusRoutService;
 import com.db.spring.model.RestResponse;
@@ -28,15 +30,27 @@ public class BusRoutController {
 	private BusRoutService busRoutService;
 
 	@PostMapping(value = "/availability")
-	public ResponseEntity<RestResponse<List<BusRoutDetails>>> searchBusRoutDetails(
+	public ResponseEntity<RestResponse<List<BusRoutDetailsAvailability>>> searchBusRoutDetails(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<BusRoutDetails> busRoutDetails = busRoutService.searchBusRoutDetails(searchBusVO);
+		List<BusRoutDetailsAvailability> busRoutDetails = busRoutService.searchBusRoutDetails(searchBusVO);
 		if (busRoutDetails != null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
 							searchBusVO.getDestinationName(), searchBusVO.getDate()));
 		return new ResponseEntity<>(new RestResponse(busRoutDetails, status), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/trips")
+	public ResponseEntity<RestResponse<BusSeatDetailsAvailability>> getSeatAvailability(
+			@RequestParam(name = "busId") String busId, @RequestParam(name = "date") String date) {
+		log.info("call search getSeatAvailability:{} {}", busId, date);
+		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
+		BusSeatDetailsAvailability busSeatDetailsAvailability = busRoutService.getSeatAvailability(busId, date);
+		if (busSeatDetailsAvailability != null)
+			status = new RestStatus<>(HttpStatus.OK.toString(),
+					String.format("No Seats found these bus '%s' on '%s", busId, date));
+		return new ResponseEntity<>(new RestResponse(busSeatDetailsAvailability, status), HttpStatus.OK);
 	}
 }
