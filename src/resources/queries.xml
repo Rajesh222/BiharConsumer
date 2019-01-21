@@ -134,13 +134,17 @@
 		<entry key="SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
 			<value>
 				select *,
-				(select string_agg(distinct seattype,'/') from bus_seat_details_transaction
+				(select string_agg(distinct seattype,'/') from
+				bus_seat_details_transaction
 				where busid=bus.busid and travelDate
 				::Date = ? ::date) seattype
-				from bus_rout_details_transaction rout inner join
+				from bus_rout_details_transaction rout
+				inner join
 				bus_details_transaction bus on rout.busid=bus.busid
-				where lower(rout.srccityname) like ? or lower(rout.destcityname)
-				like ? and travaldate::date = ? ::date
+				where
+				lower(rout.srccityname) like ? or lower(rout.destcityname)
+				like ? and
+				travaldate::date = ? ::date
 			</value>
 		</entry>
 		<entry
@@ -178,6 +182,14 @@
 				traveldate::Date = ? ::date
 			</value>
 		</entry>
+		<entry key="INSERT_BOOK_BUS_TICKET">
+			<value>
+				INSERT INTO customer_bus_booking_details
+				(userid,busname,busnumber,seatnumber,srccityname,destcityname,arrivaldatetime,departuredatetime,seattype,totalfare,customername,age,email,
+				phonenumber,idtype,idnumber,islicence,createdon,createdby,modifyon,modifyby)
+				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,Session_user,CURRENT_TIMESTAMP,Session_user,CURRENT_TIMESTAMP)
 
+			</value>
+		</entry>
 	</util:map>
 </beans>

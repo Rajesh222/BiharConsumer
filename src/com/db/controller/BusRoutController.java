@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetailsAvailability;
+import com.db.model.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 import com.db.service.BusRoutService;
 import com.db.spring.model.RestResponse;
@@ -51,5 +53,15 @@ public class BusRoutController {
 		if (busSeatDetailsAvailability != null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),"There are no seats available in this bus. Please select a different bus.");
 		return new ResponseEntity<>(new RestResponse(busSeatDetailsAvailability, status), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/bookedBusTicket")
+	public ResponseEntity<RestResponse<Object>> bookedBusTicket(@RequestBody(required=true)CustomerBusTicketVO busTicketVO) {
+		log.info("call search bookedBusTicket:{}", busTicketVO);
+		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Bus Ticket booked Successfully");
+		CustomerBusTicketVO customerBusTicketVO = busRoutService.bookedBusTicket(busTicketVO);
+		if (customerBusTicketVO != null)
+			status = new RestStatus<>(HttpStatus.OK.toString(),"There are no seats available in this bus. Please select a different bus.");
+		return new ResponseEntity<>(new RestResponse(customerBusTicketVO, status), HttpStatus.OK);
 	}
 }

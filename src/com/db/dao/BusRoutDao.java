@@ -1,7 +1,10 @@
 package com.db.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +28,7 @@ import com.db.model.BusDetails;
 import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
+import com.db.model.CustomerBusTicketVO;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusInformationDetailsExtractor;
 import com.db.model.mapper.BusSeatDetailsExtractor;
@@ -48,6 +55,7 @@ public class BusRoutDao {
 	private static final String SELECT_BUS_AMENITIES_BY_BUSID = "SELECT_BUS_AMENITIES_BY_BUSID";
 	private static final String SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION = "SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION";
 	private static final String SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE = "SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE";
+	private static final String INSERT_BOOK_BUS_TICKET = "INSERT_BOOK_BUS_TICKET";
 
 	@Transactional(readOnly = true)
 	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
@@ -99,9 +107,8 @@ public class BusRoutDao {
 	public List<BusRoutDetailsAvailability> searchBusByAvailibleRout(SearchBusVO vo) {
 		String query = queriesMap.get(SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
-		return jdbcTemplate.query(query,
-				new Object[] { vo.getDate(), "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%", vo.getDate() },
-				new BusRoutDetailsExtrator());
+		return jdbcTemplate.query(query, new Object[] { vo.getDate(), "%" + vo.getSourceName() + "%",
+				"%" + vo.getDestinationName() + "%", vo.getDate() }, new BusRoutDetailsExtrator());
 	}
 
 	@Transactional(readOnly = true)
@@ -118,6 +125,38 @@ public class BusRoutDao {
 		return jdbcTemplate.query(query,
 				new Object[] { busId, DataUtils.convertDateToStringFormat(date, "dd-mm-yyyy") },
 				new BusSeatDetailsExtractor());
+	}
+
+	@Transactional
+	public CustomerBusTicketVO bookedBusTicket(CustomerBusTicketVO busVO) {
+		String query = queriesMap.get(INSERT_BOOK_BUS_TICKET);
+		log.debug("Running insert query for addUser: {}", query);
+		KeyHolder holder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, busVO.getUserid());
+				ps.setString(2, busVO.getBusname());
+				ps.setString(3, busVO.getBusnumber());
+				ps.setString(4, busVO.getSeatnumber());
+				ps.setString(5, busVO.getSrccityname());
+				ps.setString(6, busVO.getDestcityname());
+				ps.setString(7, busVO.getArrivaldatetime());
+				ps.setString(8, busVO.getDeparturedatetime());
+				ps.setString(9, busVO.getSeattype());
+				ps.setDouble(10, busVO.getTotalfare());
+				ps.setString(11, busVO.getCustomername());
+				ps.setInt(12, busVO.getAge());
+				ps.setString(13, busVO.getEmail());
+				ps.setString(13, busVO.getPhonenumber());
+				ps.setString(15, busVO.getIdtype());
+				ps.setString(16, busVO.getIdnumber());
+				ps.setBoolean(17, busVO.isIslicence());
+				return ps;
+			}
+		}, holder);
+		return (CustomerBusTicketVO) holder.getKeys();
 	}
 
 }
