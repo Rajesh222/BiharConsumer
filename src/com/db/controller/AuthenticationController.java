@@ -67,7 +67,7 @@ public class AuthenticationController {
 			user = userServiceDetails.authUser(user);
 			if (user == null) {
 				status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-						"Unauthorized User. Please enter your valid credential!");
+						"Unauthorized User. Please login with your valid credential!");
 				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
