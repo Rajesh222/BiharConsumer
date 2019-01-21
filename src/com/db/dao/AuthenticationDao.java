@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -40,16 +39,19 @@ public class AuthenticationDao {
 	private static final String INSERT_USER_LOGS = "INSERT_USER_LOGS";
 	private static final String INSERT_MODULE_LOGS = "INSERT_MODULE_LOGS";
 	private static final String UPDATE_LOCK_USER = "UPDATE_LOCK_USER";
-	private static final String GET_USER_DETAIL_BY_PHONE = "GET_USER_DETAIL_BY_PHONE";
-	private static final String GET_USER_DETAIL_BY_EMAIL = "GET_USER_DETAIL_BY_EMAIL";
+	private static final String SELECT_USER_DETAIL_BY_PHONE = "SELECT_USER_DETAIL_BY_PHONE";
+	private static final String SELECT_USER_DETAIL_BY_EMAIL = "SELECT_USER_DETAIL_BY_EMAIL";
 	private static final String UPDATE_USER_PASS = "UPDATE_USER_PASSWORD";
 	private static final String AUTH_USER_BY_EMAIL = "AUTH_USER_BY_EMAIL";
 	private static final String AUTH_USER_BY_PHONE = "AUTH_USER_BY_PHONE";
 	private static final String LOGOUT_USER = "LOGOUT_USER";
+	private static final String SELECT_USER = "SELECT_USER";
 
 	@Transactional(readOnly = true)
 	public List<User> findAllUser() {
-		return jdbcTemplate.query("select * from user_module", new UserExtrator());
+		String query = queriesMap.get(SELECT_USER);
+		log.debug("Running insert query for addUser: {}", query);
+		return jdbcTemplate.query(query, new UserExtrator());
 	}
 
 	@Transactional
@@ -100,13 +102,13 @@ public class AuthenticationDao {
 	public User getUserDetails(String email) {
 		User user = null;
 		if (validatePhoneNumber(email)) {
-			String query = queriesMap.get(GET_USER_DETAIL_BY_PHONE);
+			String query = queriesMap.get(SELECT_USER_DETAIL_BY_PHONE);
 			log.debug("Running insert query for getUserDetails : {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserExtrator());
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, User.class);
 		} else {
-			String query = queriesMap.get(GET_USER_DETAIL_BY_EMAIL);
+			String query = queriesMap.get(SELECT_USER_DETAIL_BY_EMAIL);
 			log.debug("Running insert query for getUserDetails: {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, new UserExtrator());
+			user = jdbcTemplate.queryForObject(query, new Object[] { email }, User.class);
 		}
 		return user;
 	}
@@ -120,24 +122,18 @@ public class AuthenticationDao {
 
 	@Transactional
 	public User authUser(User user) throws UnsupportedEncodingException {
-		try {
-			if (validatePhoneNumber(user.getEmail())) {
-				String query = queriesMap.get(AUTH_USER_BY_PHONE);
-				log.debug("Running insert query for authUser {}", query);
-				user = jdbcTemplate.queryForObject(query,
-						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-						new UserExtrator());
-			} else {
-				String query = queriesMap.get(AUTH_USER_BY_EMAIL);
-				log.debug("Running insert query for authUser {}", query);
-				user = jdbcTemplate.queryForObject(query,
-						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
-						new UserExtrator());
-			}
-			return user;
-		} catch (EmptyResultDataAccessException e) {
-			return null;
+		if (validatePhoneNumber(user.getEmail())) {
+			String query = queriesMap.get(AUTH_USER_BY_PHONE);
+			log.debug("Running insert query for authUser {}", query);
+			user = jdbcTemplate.queryForObject(query,
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) }, User.class);
+		} else {
+			String query = queriesMap.get(AUTH_USER_BY_EMAIL);
+			log.debug("Running insert query for authUser {}", query);
+			user = jdbcTemplate.queryForObject(query,
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) }, User.class);
 		}
+		return user;
 	}
 
 	@Transactional
@@ -146,6 +142,7 @@ public class AuthenticationDao {
 		log.debug("Running insert query for addUser {}", query);
 		return jdbcTemplate.update(query, ip, uid);
 	}
+
 	private static boolean validatePhoneNumber(String phoneNo) {
 		// validate phone numbers of format "1234567890"
 		if (phoneNo.matches("\\d{10}"))

@@ -9,7 +9,12 @@
 
 	<util:map id="queriesMap" key-type="java.lang.String"
 		value-type="java.lang.String">
-
+		<entry key="SELECT_USER">
+			<value>
+				select * from user_master
+			</value>
+		</entry>
+		
 		<!-- START USER SERVICE QUERY -->
 		<entry key="INSERT_USER_LOGS">
 			<value>
@@ -38,13 +43,13 @@
 				UPDATE user_master SET attempt = ?,islock=? WHERE userId = ?
 			</value>
 		</entry>
-		<entry key="GET_USER_DETAIL_BY_PHONE">
+		<entry key="SELECT_USER_DETAIL_BY_PHONE">
 			<value>
 				SELECT * FROM user_master where phoneNumber = ? and
 				islock=false and isactive=true
 			</value>
 		</entry>
-		<entry key="GET_USER_DETAIL_BY_EMAIL">
+		<entry key="SELECT_USER_DETAIL_BY_EMAIL">
 			<value>
 				SELECT * FROM user_master where email = ? and
 				islock=false and
@@ -138,7 +143,8 @@
 
 			</value>
 		</entry>
-		<entry key="SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID">
+		<entry
+			key="SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID">
 			<value>
 				select bo.* from bus_boardstop_details bo where bo.tripId= ?
 			</value>
