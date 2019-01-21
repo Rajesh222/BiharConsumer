@@ -1,5 +1,6 @@
 package com.db.utils;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,6 +61,11 @@ public class DataUtils {
 		return busTypes;
 	}
 
+	public static Date convertTimeStampToDate(Timestamp timestamp) {
+		Date date=new Date(timestamp.getTime());
+		return date;
+	}
+	
 	public Date convertLocalDateToDateFormat(LocalDate localDate) {
 		DateFormat dateFormatLD = new SimpleDateFormat("yyyy-MM-dd");
 		String strDate = dateFormatLD.format(localDate);

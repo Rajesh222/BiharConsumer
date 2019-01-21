@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.db.model.BusDetails;
 
-public class BusDetailsExtractor implements ResultSetExtractor<List<BusDetails>> {
+public class BusInformationDetailsExtractor implements ResultSetExtractor<List<BusDetails>> {
 
 	@Override
 	public List<BusDetails> extractData(ResultSet rs) throws SQLException {

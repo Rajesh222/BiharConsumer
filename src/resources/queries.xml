@@ -14,7 +14,7 @@
 				select * from user_master
 			</value>
 		</entry>
-		
+
 		<!-- START USER SERVICE QUERY -->
 		<entry key="INSERT_USER_LOGS">
 			<value>
@@ -45,7 +45,7 @@
 		</entry>
 		<entry key="SELECT_USER_DETAIL_BY_PHONE">
 			<value>
-			SELECT * FROM user_master left outer join user_module on
+				SELECT * FROM user_master left outer join user_module on
 				user_master.userId=user_module.userId where user_master.phoneNumber
 				= ? and islock=false and isactive=true and
 				user_module.privilegename='RETAILER' limit 1
@@ -55,7 +55,8 @@
 			<value>
 				SELECT * FROM user_master left outer join user_module on
 				user_master.userId=user_module.userId where user_master.email
-				= ? and islock=false and isactive=true and
+				= ? and
+				islock=false and isactive=true and
 				user_module.privilegename='RETAILER' limit 1
 			</value>
 		</entry>
@@ -132,24 +133,21 @@
 		<!-- START ROUT SERVICE QUERY -->
 		<entry key="SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
 			<value>
-				select
-				rout.routid,rout.userid,rout.travelsname,rout.busnumber,rout.availableseats,rout.totalseats,rout.bustype,rout.direction,rout.createdon,rout.createdby,
-				rout.modifyon,rout.modifyby,rout.traveldatetime,trip.tripid,trip.basefare,trip.servicetax,trip.totalfare,trip.srccityname,trip.destcityname,trip.traveldurationdays,trip.arrivaldate,trip.departuredate,trip.distance,trip.duration
-				from bus_details rout
-				inner join bus_rout_details trip on
-				rout.routid
-				= trip.routid where
-				lower(trip.srccityname) like ?
-				and
-				lower(trip.destcityname) like ?
-				<!-- and rout.traveldatetime::DATE = to_date(?,'YYYY-MM-DD') -->
-
+				select *,
+				(select string_agg(distinct seattype,'/') from bus_seat_details_transaction
+				where busid=bus.busid and travelDate
+				::Date = ? ::date) seattype
+				from bus_rout_details_transaction rout inner join
+				bus_details_transaction bus on rout.busid=bus.busid
+				where lower(rout.srccityname) like ? or lower(rout.destcityname)
+				like ? and travaldate::date = ? ::date
 			</value>
 		</entry>
 		<entry
 			key="SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID">
 			<value>
-				select * from bus_boardingstopingpoint_details where busid ='1' 
+				select * from bus_boardingstopingpoint_details where busid
+				='1'
 			</value>
 		</entry>
 		<entry key="SELECT_BUSTYPE_BY_BUSID">
@@ -176,9 +174,10 @@
 		</entry>
 		<entry key="SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE">
 			<value>
-				select * from bus_seat_details_transaction where busId=? and traveldate::Date = ? ::date
+				select * from bus_seat_details_transaction where busId=? and
+				traveldate::Date = ? ::date
 			</value>
 		</entry>
-		
+
 	</util:map>
 </beans>

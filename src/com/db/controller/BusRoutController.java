@@ -35,7 +35,7 @@ public class BusRoutController {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		List<BusRoutDetailsAvailability> busRoutDetails = busRoutService.searchBusRoutDetails(searchBusVO);
-		if (busRoutDetails != null)
+		if (busRoutDetails == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
 							searchBusVO.getDestinationName(), searchBusVO.getDate()));

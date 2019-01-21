@@ -22,10 +22,7 @@ public class BusRoutService {
 	}
 
 	public List<BusRoutDetailsAvailability> searchBusRoutDetails(SearchBusVO busVO) {
-		//BusRoutDetailsObject searchBusRoutDetails = new BusRoutDetailsObject();
-		//searchBusRoutDetails.setBusType(busRoutDao.getBusType());
-		//searchBusRoutDetails.setSearchResult(getFilterBusRoutDetails(busVO));
-		return null;
+		return busRoutDao.searchBusByAvailibleRout(busVO);
 	}
 	
 	public BusSeatDetailsAvailability getSeatAvailability(String busId, String date) {

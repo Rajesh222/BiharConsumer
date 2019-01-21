@@ -13,13 +13,13 @@ public class BusRoutDetailsAvailability extends BaseModel implements Serializabl
 	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
 	private List<String> amenities = new ArrayList<>();
 	private List<BusType> busTypes = new ArrayList<>();
-	//private List<String> fares = new ArrayList<>();
+	private List<Double> fare = new ArrayList<>();
+	private String classType;
 	private String busId;
 	private String travelsName;
 	private String busType;
 	private String duration;
-	private double fare;
-	private boolean idProofRequired;
+	private boolean idProofRequired = false;
 	private boolean isAc = false;
 	private String rating;
 	private boolean isSleaper = false;
@@ -113,6 +113,30 @@ public class BusRoutDetailsAvailability extends BaseModel implements Serializabl
 		this.busTypes = busTypes;
 	}
 	/**
+	 * @return the fare
+	 */
+	public List<Double> getFare() {
+		return fare;
+	}
+	/**
+	 * @param fare the fare to set
+	 */
+	public void setFare(List<Double> fare) {
+		this.fare = fare;
+	}
+	/**
+	 * @return the classType
+	 */
+	public String getClassType() {
+		return classType;
+	}
+	/**
+	 * @param classType the classType to set
+	 */
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
+	/**
 	 * @return the busId
 	 */
 	public String getBusId() {
@@ -159,18 +183,6 @@ public class BusRoutDetailsAvailability extends BaseModel implements Serializabl
 	 */
 	public void setDuration(String duration) {
 		this.duration = duration;
-	}
-	/**
-	 * @return the fare
-	 */
-	public double getFare() {
-		return fare;
-	}
-	/**
-	 * @param fare the fare to set
-	 */
-	public void setFare(double fare) {
-		this.fare = fare;
 	}
 	/**
 	 * @return the idProofRequired
@@ -424,4 +436,5 @@ public class BusRoutDetailsAvailability extends BaseModel implements Serializabl
 	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
+	
 }

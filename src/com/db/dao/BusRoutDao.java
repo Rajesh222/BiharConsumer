@@ -23,10 +23,10 @@ import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
-import com.db.model.mapper.BusDetailsExtractor;
+import com.db.model.mapper.BusInformationDetailsExtractor;
 import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
-import com.db.model.mapper.RoutDetailsRowMapper;
+import com.db.model.mapper.BusRoutDetailsExtrator;
 import com.db.model.vo.SearchBusVO;
 import com.db.utils.DataUtils;
 
@@ -92,7 +92,7 @@ public class BusRoutDao {
 		String query = queriesMap.get(SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION);
 		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
 		return jdbcTemplate.query(query, new Object[] { "%" + source + "%", "%" + destination + "%" },
-				new BusDetailsExtractor());
+				new BusInformationDetailsExtractor());
 	}
 
 	@Transactional(readOnly = true)
@@ -100,8 +100,8 @@ public class BusRoutDao {
 		String query = queriesMap.get(SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
 		return jdbcTemplate.query(query,
-				new Object[] { "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%" },
-				new RoutDetailsRowMapper());
+				new Object[] { vo.getDate(), "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%", vo.getDate() },
+				new BusRoutDetailsExtrator());
 	}
 
 	@Transactional(readOnly = true)
