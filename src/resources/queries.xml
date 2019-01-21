@@ -45,15 +45,18 @@
 		</entry>
 		<entry key="SELECT_USER_DETAIL_BY_PHONE">
 			<value>
-				SELECT * FROM user_master where phoneNumber = ? and
-				islock=false and isactive=true
+			SELECT * FROM user_master left outer join user_module on
+				user_master.userId=user_module.userId where user_master.phoneNumber
+				= ? and islock=false and isactive=true and
+				user_module.privilegename='RETAILER' limit 1
 			</value>
 		</entry>
 		<entry key="SELECT_USER_DETAIL_BY_EMAIL">
 			<value>
-				SELECT * FROM user_master where email = ? and
-				islock=false and
-				isactive=true
+				SELECT * FROM user_master left outer join user_module on
+				user_master.userId=user_module.userId where user_master.email
+				= ? and islock=false and isactive=true and
+				user_module.privilegename='RETAILER' limit 1
 			</value>
 		</entry>
 		<entry key="UPDATE_USER_PASSWORD">
@@ -66,7 +69,7 @@
 				SELECT * FROM user_master left outer join user_module on
 				user_master.userId=user_module.userId where user_master.phoneNumber
 				= ? and password=? and islock=false and isactive=true and
-				user_module.privilegename='RETAILER'
+				user_module.privilegename='RETAILER' limit 1
 			</value>
 		</entry>
 		<entry key="AUTH_USER_BY_EMAIL">
@@ -75,7 +78,7 @@
 				user_master.userId=user_module.userId where user_master.email
 				= ? and
 				password=? and islock=false and isactive=true and
-				user_module.privilegename='RETAILER'
+				user_module.privilegename='RETAILER' limit 1
 			</value>
 		</entry>
 		<entry key="LOGOUT_USER">
