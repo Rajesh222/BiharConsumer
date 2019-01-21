@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.db.dao.BusRoutDao;
 import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetailsAvailability;
-import com.db.model.CustomerBusTicketVO;
+import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 
 @Service("busRoutService")

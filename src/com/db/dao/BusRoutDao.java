@@ -28,12 +28,12 @@ import com.db.model.BusDetails;
 import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
-import com.db.model.CustomerBusTicketVO;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusInformationDetailsExtractor;
 import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.BusRoutDetailsExtrator;
+import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 import com.db.utils.DataUtils;
 

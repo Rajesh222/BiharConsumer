@@ -1,4 +1,4 @@
-package com.db.model;
+package com.db.model.vo;
 
 public class CustomerBusTicketVO {
 
