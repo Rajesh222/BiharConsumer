@@ -188,7 +188,20 @@
 				(userid,busname,busnumber,seatnumber,srccityname,destcityname,arrivaldatetime,departuredatetime,seattype,totalfare,customername,age,email,
 				phonenumber,idtype,idnumber,islicence,createdon,createdby,modifyon,modifyby)
 				VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,Session_user,CURRENT_TIMESTAMP,Session_user,CURRENT_TIMESTAMP)
-
+			</value>
+		</entry>
+		<entry key="SELECT_BUS_TICKET_HISTORY">
+			<value>
+				select * from customer_bus_booking_details where lower(userid)=? limit ?
+			</value>
+		</entry>
+		<entry key="SELECT_CAB_TICKET_PRICE">
+			<value>
+				select * from cab_booking_price_details
+			</value>
+		</entry><entry key="SELECT_CAB_TICKET_PRICE_BY_TYPE">
+			<value>
+				select * from cab_booking_price_details where cabtype=?
 			</value>
 		</entry>
 	</util:map>

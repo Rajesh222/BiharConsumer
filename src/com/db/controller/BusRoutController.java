@@ -7,11 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.BusRoutDetailsAvailability;
@@ -51,17 +52,33 @@ public class BusRoutController {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		BusSeatDetailsAvailability busSeatDetailsAvailability = busRoutService.getSeatAvailability(busId, date);
 		if (busSeatDetailsAvailability != null)
-			status = new RestStatus<>(HttpStatus.OK.toString(),"There are no seats available in this bus. Please select a different bus.");
+			status = new RestStatus<>(HttpStatus.OK.toString(),
+					"There are no seats available in this bus. Please select a different bus.");
 		return new ResponseEntity<>(new RestResponse(busSeatDetailsAvailability, status), HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/bookedBusTicket")
-	public ResponseEntity<RestResponse<Object>> bookedBusTicket(@RequestBody(required=true)CustomerBusTicketVO busTicketVO) {
+	public ResponseEntity<RestResponse<Object>> bookedBusTicket(
+			@RequestBody(required = true) CustomerBusTicketVO busTicketVO) {
 		log.info("call search bookedBusTicket:{}", busTicketVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Bus Ticket booked Successfully");
 		CustomerBusTicketVO customerBusTicketVO = busRoutService.bookedBusTicket(busTicketVO);
 		if (customerBusTicketVO != null)
-			status = new RestStatus<>(HttpStatus.OK.toString(),"There are no seats available in this bus. Please select a different bus.");
+			status = new RestStatus<>(HttpStatus.OK.toString(),
+					"There are no seats available in this bus. Please select a different bus.");
 		return new ResponseEntity<>(new RestResponse(customerBusTicketVO, status), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getTicketHistory/{uid}")
+	public ResponseEntity<RestResponse<List<CustomerBusTicketVO>>> getBusTicketHistory(
+			@PathVariable(name = "uid", required = true) String uid,
+			@RequestParam(name = "limit", required = false, defaultValue = "5") int limit) {
+		log.info("call search getBusTicketHistory:{}", uid);
+		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Bus Ticket booked Successfully");
+		List<CustomerBusTicketVO> customerBusTicketVOs = busRoutService.getHistoryBusTicket(uid, limit);
+		if (customerBusTicketVOs != null)
+			status = new RestStatus<>(HttpStatus.OK.toString(),
+					"There are no seats available in this bus. Please select a different bus.");
+		return new ResponseEntity<>(new RestResponse(customerBusTicketVOs, status), HttpStatus.OK);
 	}
 }

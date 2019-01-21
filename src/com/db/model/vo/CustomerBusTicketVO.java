@@ -2,6 +2,7 @@ package com.db.model.vo;
 
 public class CustomerBusTicketVO {
 
+	private String bookingid;
 	private String userid;
 	private String busname;
 	private String busnumber;
@@ -20,6 +21,19 @@ public class CustomerBusTicketVO {
 	private String idnumber;
 	private boolean islicence;
 	private String seatnumber;
+	
+	/**
+	 * @return the bookingid
+	 */
+	public String getBookingid() {
+		return bookingid;
+	}
+	/**
+	 * @param bookingid the bookingid to set
+	 */
+	public void setBookingid(String bookingid) {
+		this.bookingid = bookingid;
+	}
 	/**
 	 * @return the userid
 	 */

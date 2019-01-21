@@ -30,9 +30,10 @@ import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusInformationDetailsExtractor;
+import com.db.model.mapper.BusRoutDetailsExtrator;
 import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
-import com.db.model.mapper.BusRoutDetailsExtrator;
+import com.db.model.mapper.CustomerMapperExtrator;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 import com.db.utils.DataUtils;
@@ -56,7 +57,8 @@ public class BusRoutDao {
 	private static final String SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION = "SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION";
 	private static final String SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE = "SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE";
 	private static final String INSERT_BOOK_BUS_TICKET = "INSERT_BOOK_BUS_TICKET";
-
+	private static final String SELECT_BUS_TICKET_HISTORY = "SELECT_BUS_TICKET_HISTORY";
+	
 	@Transactional(readOnly = true)
 	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
 		String query = queriesMap.get(SELECT_BUS_AMENITIES_BY_BUSID);
@@ -158,5 +160,12 @@ public class BusRoutDao {
 		}, holder);
 		return (CustomerBusTicketVO) holder.getKeys();
 	}
+	
+	public List<CustomerBusTicketVO> getHistoryBusTicket(String uid, int limit){
+		String query = queriesMap.get(SELECT_BUS_TICKET_HISTORY);
+		log.debug("Running insert query for addUser: {}", query);
+		return jdbcTemplate.query(query, new Object[] {uid.toLowerCase(),limit}, new CustomerMapperExtrator());
+	}
+	
 
 }

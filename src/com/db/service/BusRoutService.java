@@ -37,5 +37,9 @@ public class BusRoutService {
 	public CustomerBusTicketVO bookedBusTicket(CustomerBusTicketVO busVO){
 		return busRoutDao.bookedBusTicket(busVO);
 	}
+	
+	public List<CustomerBusTicketVO> getHistoryBusTicket(String uid, int limit){
+		return busRoutDao.getHistoryBusTicket(uid, limit);
+	}
 
 }
