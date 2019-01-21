@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
 import com.db.model.User;
-import com.db.model.mapper.UserExtrator;
+import com.db.model.mapper.UserRowMapper;
 import com.db.utils.SecurityDigester;
 
 @Repository("userDetailsDao")
@@ -51,7 +51,7 @@ public class AuthenticationDao {
 	public List<User> findAllUser() {
 		String query = queriesMap.get(SELECT_USER);
 		log.debug("Running insert query for addUser: {}", query);
-		return jdbcTemplate.query(query, new UserExtrator());
+		return jdbcTemplate.query(query, new UserRowMapper());
 	}
 
 	@Transactional
@@ -98,17 +98,20 @@ public class AuthenticationDao {
 		return jdbcTemplate.update(query, userName, isLock, attempt);
 	}
 
+//	(Customer)getJdbcTemplate().queryForObject(
+//			sql, new Object[] { custId }, 
+//			new BeanPropertyRowMapper(Customer.class));
 	@Transactional(readOnly = true)
 	public User getUserDetails(String email) {
 		User user = null;
 		if (validatePhoneNumber(email)) {
 			String query = queriesMap.get(SELECT_USER_DETAIL_BY_PHONE);
 			log.debug("Running insert query for getUserDetails : {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, User.class);
+			user = jdbcTemplate.queryForObject(query, new Object[] { email },  new UserRowMapper());
 		} else {
 			String query = queriesMap.get(SELECT_USER_DETAIL_BY_EMAIL);
 			log.debug("Running insert query for getUserDetails: {}", query);
-			user = jdbcTemplate.queryForObject(query, new Object[] { email }, User.class);
+			user = jdbcTemplate.queryForObject(query, new Object[] { email },  new UserRowMapper());
 		}
 		return user;
 	}
@@ -126,12 +129,12 @@ public class AuthenticationDao {
 			String query = queriesMap.get(AUTH_USER_BY_PHONE);
 			log.debug("Running insert query for authUser {}", query);
 			user = jdbcTemplate.queryForObject(query,
-					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) }, User.class);
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) }, new UserRowMapper());
 		} else {
 			String query = queriesMap.get(AUTH_USER_BY_EMAIL);
 			log.debug("Running insert query for authUser {}", query);
 			user = jdbcTemplate.queryForObject(query,
-					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) }, User.class);
+					new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },  new UserRowMapper());
 		}
 		return user;
 	}
