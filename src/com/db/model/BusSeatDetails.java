@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class BusSeatDetails extends BaseModel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private int row;
-	private int column;
+	private String row;
+	private String column;
 	private int width;
 	private int length;
 	private String busId;
@@ -22,25 +22,25 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	/**
 	 * @return the row
 	 */
-	public int getRow() {
+	public String getRow() {
 		return row;
 	}
 	/**
 	 * @param row the row to set
 	 */
-	public void setRow(int row) {
+	public void setRow(String row) {
 		this.row = row;
 	}
 	/**
 	 * @return the column
 	 */
-	public int getColumn() {
+	public String getColumn() {
 		return column;
 	}
 	/**
 	 * @param column the column to set
 	 */
-	public void setColumn(int column) {
+	public void setColumn(String column) {
 		this.column = column;
 	}
 	/**
@@ -187,4 +187,5 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	public void setServiceTaxPercent(double serviceTaxPercent) {
 		this.serviceTaxPercent = serviceTaxPercent;
 	}
+	
 }

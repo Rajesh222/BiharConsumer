@@ -149,7 +149,7 @@
 		<entry
 			key="SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID">
 			<value>
-				select bo.* from bus_boardstop_details bo where bo.tripId= ?
+				select * from bus_boardingstopingpoint_details where busid ='1' 
 			</value>
 		</entry>
 		<entry key="SELECT_BUSTYPE_BY_BUSID">
@@ -174,5 +174,11 @@
 				(select refnumber from top_cities where displayname like ? )
 			</value>
 		</entry>
+		<entry key="SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE">
+			<value>
+				select * from bus_seat_details_transaction where busId=? and traveldate::Date = ? ::date
+			</value>
+		</entry>
+		
 	</util:map>
 </beans>

@@ -28,6 +28,7 @@ import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.RoutDetailsRowMapper;
 import com.db.model.vo.SearchBusVO;
+import com.db.utils.DataUtils;
 
 @Repository("busRoutDao")
 public class BusRoutDao {
@@ -46,6 +47,7 @@ public class BusRoutDao {
 	private static final String SELECT_CANCELLATION_POLICIES_BY_BUSID = "SELECT_CANCELLATION_POLICIES_BY_BUSID";
 	private static final String SELECT_BUS_AMENITIES_BY_BUSID = "SELECT_BUS_AMENITIES_BY_BUSID";
 	private static final String SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION = "SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION";
+	private static final String SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE = "SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE";
 
 	@Transactional(readOnly = true)
 	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
@@ -53,7 +55,7 @@ public class BusRoutDao {
 		log.debug("Running insert query for getBusAmenitiesByBusId {}", query);
 		return jdbcTemplate.query(query, new BusAmenitiesExtractor());
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<BusCancellationPolicies> getCancellationPoliciesByBusId(String bid) {
 		String query = queriesMap.get(SELECT_CANCELLATION_POLICIES_BY_BUSID);
@@ -86,12 +88,13 @@ public class BusRoutDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusDetails> getBusDetails(String source, String destination){
+	public List<BusDetails> getBusDetails(String source, String destination) {
 		String query = queriesMap.get(SELECT_BUS_DETAILS_BY_SOURCE_AND_DESTINATION);
 		log.debug("Running insert query for getCancellationPoliciesByBusId {}", query);
-		return jdbcTemplate.query(query,new Object[] { "%" + source + "%", "%" + destination + "%" }, new BusDetailsExtractor());
+		return jdbcTemplate.query(query, new Object[] { "%" + source + "%", "%" + destination + "%" },
+				new BusDetailsExtractor());
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<BusRoutDetailsAvailability> searchBusByAvailibleRout(SearchBusVO vo) {
 		String query = queriesMap.get(SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
@@ -105,14 +108,16 @@ public class BusRoutDao {
 	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String routId) {
 		String query = queriesMap.get(SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
-		return jdbcTemplate.query(query, new Object[] { routId }, new BusStopLocationDetailsRowMapper());
+		return jdbcTemplate.query(query, new BusStopLocationDetailsRowMapper());
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<BusSeatDetails> getTripsDetails(String busId, String date){
-		String query = queriesMap.get(SELECT_BUS_BOADING_AND_STOPING_POINT_DETAILS_BY_TRIPID);
+	public List<BusSeatDetails> getSeatsDetails(String busId, String date) {
+		String query = queriesMap.get(SELECT_BUS_SEATS_DETAILS_BY_BUSID_AND_DATE);
 		log.debug("Running select query for getTripsDetails: {}", query);
-		return jdbcTemplate.query(query, new Object[] { busId, date }, new BusSeatDetailsExtractor());
+		return jdbcTemplate.query(query,
+				new Object[] { busId, DataUtils.convertDateToStringFormat(date, "dd-mm-yyyy") },
+				new BusSeatDetailsExtractor());
 	}
-	
+
 }

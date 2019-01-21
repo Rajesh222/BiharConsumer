@@ -1,6 +1,5 @@
 package com.db.utils;
 
-import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,18 +78,23 @@ public class DataUtils {
 		return LocalDate.parse(dateString, dateTimeFormatter);
 	}
 
-	public Date convertStringToDateFormat(String s) {
+	public static Date convertStringToDateFormat(String date, String format) {
 		try {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			return dateFormat.parse(s);
+			DateFormat dateFormat = new SimpleDateFormat(format);
+			return dateFormat.parse(date);
 		} catch (ParseException e) {
 			return null;
 		}
 	}
 
-	public String convertDateToStringFormat(Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		return dateFormat.format(date);
+	public static String convertDateToStringFormat(String date, String format) {
+		Date dateValues = convertStringToDateFormat(date, format);
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		return dateFormat.format(dateValues);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(convertDateToStringFormat("12-01-2019", "dd-mm-yyyy"));
 	}
 
 	public static String getGenerateOTP() {

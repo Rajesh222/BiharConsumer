@@ -30,7 +30,9 @@ public class BusRoutService {
 	
 	public BusSeatDetailsAvailability getSeatAvailability(String busId, String date) {
 		BusSeatDetailsAvailability availability = new BusSeatDetailsAvailability();
-		
+		availability.setBusSeatDetails(busRoutDao.getSeatsDetails(busId, date));
+		availability.setBoardingPoints(busRoutDao.getBusBoadingAndStopingPointDetails(busId));
+		availability.setDroppingPoints(busRoutDao.getBusBoadingAndStopingPointDetails(busId));
 		return availability;
 	}
 	private List<BusRoutDetailsAvailability> getFilterBusRoutDetails(SearchBusVO busVO){
