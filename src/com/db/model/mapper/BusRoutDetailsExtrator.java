@@ -21,7 +21,7 @@ public class BusRoutDetailsExtrator implements ResultSetExtractor<List<BusRoutDe
 			busRoutDetails.setClassType("Normal");
 			busRoutDetails.setBusId(rs.getString("busid"));
 			busRoutDetails.setTravelsName(rs.getString("busname"));
-			//busRoutDetails.setBusType(rs.getString("busType"));// to map
+			busRoutDetails.setBusType((rs.getBoolean("isNonAc") == false ? "NON A/C " : "A/C ").concat(rs.getString("seattype")));// to map
 			busRoutDetails.setDuration(rs.getString("duration"));
 			//busRoutDetails.setIdProofRequired(rs.getBoolean("idProofRequired"));
 			busRoutDetails.setAc(rs.getBoolean("isNonAc"));
@@ -44,10 +44,6 @@ public class BusRoutDetailsExtrator implements ResultSetExtractor<List<BusRoutDe
 			busRoutDetails.setBoardingTime("");
 			busRoutDetails.setReportingTime("");
 			
-			busRoutDetails.setCreatedOn(rs.getDate("createdon"));
-			busRoutDetails.setCreatedBy(rs.getString("createdby"));
-			busRoutDetails.setModifyOn(rs.getDate("modifyon"));
-			busRoutDetails.setModifyBy(rs.getString("modifyby"));
 			amenitiesList.add(busRoutDetails);
 		}
 		return amenitiesList;

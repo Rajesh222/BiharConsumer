@@ -32,7 +32,7 @@ public class BusRoutController {
 	@Autowired
 	private BusRoutService busRoutService;
 
-	@PostMapping(value = "/routs")
+	@PostMapping(value = "/availableRouts")
 	public ResponseEntity<RestResponse<List<BusRoutDetailsAvailability>>> searchBusRoutDetails(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
@@ -45,15 +45,15 @@ public class BusRoutController {
 		return new ResponseEntity<>(new RestResponse(busRoutDetails, status), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/seats")
+	@PostMapping(value = "/availableSeats")
 	public ResponseEntity<RestResponse<BusSeatDetailsAvailability>> getSeatAvailability(
 			@RequestParam(name = "busId") String busId, @RequestParam(name = "date") String date) {
 		log.info("call search getSeatAvailability:{} {}", busId, date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		BusSeatDetailsAvailability busSeatDetailsAvailability = busRoutService.getSeatAvailability(busId, date);
-		if (busSeatDetailsAvailability != null)
-			status = new RestStatus<>(HttpStatus.OK.toString(),
-					"There are no seats available in this bus. Please select a different bus.");
+		if (busSeatDetailsAvailability != null) {
+			status = new RestStatus<>(HttpStatus.OK.toString(),	"There are no seats available in this bus. Please select a different bus.");
+		}
 		return new ResponseEntity<>(new RestResponse(busSeatDetailsAvailability, status), HttpStatus.OK);
 	}
 

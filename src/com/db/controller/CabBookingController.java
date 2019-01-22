@@ -38,6 +38,8 @@ public class CabBookingController {
 			@PathVariable(name = "type", required = true) String type) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		CabBookingPrice bookingPrices = cabBookingService.getCabBookingPrice(type);		
+		if(bookingPrices == null)
+			status = new RestStatus<>(HttpStatus.OK.toString(), "Sorry, we’re unable to provide a fare estimate for that trip.");
 		log.debug("Data fetched successfully from Top cities table");
 		return new ResponseEntity<>(new RestResponse(bookingPrices, status), HttpStatus.OK);
 	}

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusRoutDetailsAvailability extends BaseModel implements Serializable {
+public class BusRoutDetailsAvailability implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<BusBoadingStopingDetails> boardingLocations = new ArrayList<>();
