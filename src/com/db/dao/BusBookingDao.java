@@ -39,9 +39,9 @@ import com.db.model.vo.SearchBusVO;
 import com.db.utils.DataUtils;
 
 @Repository("busRoutDao")
-public class BusRoutDao {
+public class BusBookingDao {
 
-	private static final Logger log = LoggerFactory.getLogger(BusRoutDao.class);
+	private static final Logger log = LoggerFactory.getLogger(BusBookingDao.class);
 
 	@Resource(name = "queriesMap")
 	private Map<String, String> queriesMap;

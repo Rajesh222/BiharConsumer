@@ -25,7 +25,7 @@ public class WalletService {
 
 	public Wallet getWalletDetails(String uid) {
 		log.info("call getWalletDetails {}", uid);
-		return (Wallet) walletDao.getWalletDetails(uid);
+		return walletDao.getWalletDetails(uid);
 	}
 
 	public int updateWallet(double addedAmount, String uid) {

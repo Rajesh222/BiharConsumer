@@ -16,20 +16,20 @@ public class TopCityService {
 	private static final Logger log = LoggerFactory.getLogger(TopCityService.class);
 	
 	@Autowired
-	private TopCityDao searchStationDao;
+	private TopCityDao topCityDao;
 	
 	public List<TopCities> getAllStation() {
 		log.info("call getAllStation()");
-		return searchStationDao.getAllStation();
+		return topCityDao.getAllStation();
 	}
 	
 	public List<TopCities> searchStationByStationName(String stationName) {
 		log.info("call searchStationByStationName [{}]",stationName);
-		return searchStationDao.searchStationByStationName(stationName);
+		return topCityDao.searchStationByStationName(stationName);
 	}
 	
 	public long addStationName(TopCities searchStation) {
 		log.info("call addStationName [{}]",searchStation);
-		return searchStationDao.addStationName(searchStation);
+		return topCityDao.addStationName(searchStation);
 	}
 }

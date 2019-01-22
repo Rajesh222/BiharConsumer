@@ -19,25 +19,25 @@ import com.db.model.BusRoutDetailsAvailability;
 import com.db.model.BusSeatDetailsAvailability;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
-import com.db.service.BusRoutService;
+import com.db.service.BusBookingService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 
 @RestController
 @RequestMapping(value = "/api/v0/search")
-public class BusRoutController {
+public class BusBookingController {
 
-	private static final Logger log = LoggerFactory.getLogger(BusRoutController.class);
+	private static final Logger log = LoggerFactory.getLogger(BusBookingController.class);
 
 	@Autowired
-	private BusRoutService busRoutService;
+	private BusBookingService busBookingService;
 
 	@PostMapping(value = "/availableRouts")
 	public ResponseEntity<RestResponse<List<BusRoutDetailsAvailability>>> searchBusRoutDetails(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<BusRoutDetailsAvailability> busRoutDetails = busRoutService.searchBusRoutDetails(searchBusVO);
+		List<BusRoutDetailsAvailability> busRoutDetails = busBookingService.searchBusRoutDetails(searchBusVO);
 		if (busRoutDetails == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
@@ -50,7 +50,7 @@ public class BusRoutController {
 			@RequestParam(name = "busId") String busId, @RequestParam(name = "date") String date) {
 		log.info("call search getSeatAvailability:{} {}", busId, date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		BusSeatDetailsAvailability busSeatDetailsAvailability = busRoutService.getSeatAvailability(busId, date);
+		BusSeatDetailsAvailability busSeatDetailsAvailability = busBookingService.getSeatAvailability(busId, date);
 		if (busSeatDetailsAvailability != null) {
 			status = new RestStatus<>(HttpStatus.OK.toString(),	"There are no seats available in this bus. Please select a different bus.");
 		}
@@ -62,7 +62,7 @@ public class BusRoutController {
 			@RequestBody(required = true) CustomerBusTicketVO busTicketVO) {
 		log.info("call search bookedBusTicket:{}", busTicketVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Bus Ticket booked Successfully");
-		CustomerBusTicketVO customerBusTicketVO = busRoutService.bookedBusTicket(busTicketVO);
+		CustomerBusTicketVO customerBusTicketVO = busBookingService.bookedBusTicket(busTicketVO);
 		if (customerBusTicketVO != null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					"There are no seats available in this bus. Please select a different bus.");
@@ -75,7 +75,7 @@ public class BusRoutController {
 			@RequestParam(name = "limit", required = false, defaultValue = "5") int limit) {
 		log.info("call search getBusTicketHistory:{}", uid);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Bus Ticket booked Successfully");
-		List<CustomerBusTicketVO> customerBusTicketVOs = busRoutService.getHistoryBusTicket(uid, limit);
+		List<CustomerBusTicketVO> customerBusTicketVOs = busBookingService.getHistoryBusTicket(uid, limit);
 		if (customerBusTicketVOs != null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					"There are no seats available in this bus. Please select a different bus.");
