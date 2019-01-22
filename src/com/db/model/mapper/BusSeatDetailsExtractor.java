@@ -14,6 +14,7 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 	@Override
 	public List<BusSeatDetails> extractData(ResultSet rs) throws SQLException {
 		List<BusSeatDetails> busSeatDetails = new ArrayList<>();
+		
 		while (rs.next()) {
 			BusSeatDetails seatDetails = new BusSeatDetails();
 			seatDetails.setRow(rs.getString("rowname"));
