@@ -43,6 +43,9 @@ public class BusRoutDetailsExtrator implements ResultSetExtractor<List<BusRoutDe
 			busRoutDetails.setDestination(rs.getString("destcityname"));
 			busRoutDetails.setBoardingTime("");
 			busRoutDetails.setReportingTime("");
+			List<Double> list = new ArrayList<>();
+			list.add(rs.getDouble("totalfare"));
+			busRoutDetails.setFare(list);
 			
 			amenitiesList.add(busRoutDetails);
 		}
