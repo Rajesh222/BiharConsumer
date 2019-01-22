@@ -1,12 +1,17 @@
 package com.db.model;
 
-public class CabBookingPrice {
+public class CabBookingPrice extends BaseModel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String kilometer;
 	private double farerate;
 	private String city;
 	private String state;
 	private String country;
+	private String cabtype;
 	/**
 	 * @return the id
 	 */
@@ -78,5 +83,17 @@ public class CabBookingPrice {
 	 */
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	/**
+	 * @return the cabtype
+	 */
+	public String getCabtype() {
+		return cabtype;
+	}
+	/**
+	 * @param cabtype the cabtype to set
+	 */
+	public void setCabtype(String cabtype) {
+		this.cabtype = cabtype;
 	}
 }

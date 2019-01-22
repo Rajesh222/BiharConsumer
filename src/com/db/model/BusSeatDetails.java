@@ -2,7 +2,7 @@ package com.db.model;
 
 import java.io.Serializable;
 
-public class BusSeatDetails extends BaseModel implements Serializable{
+public class BusSeatDetails implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String row;
@@ -12,6 +12,7 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	private String busId;
 	private String seatType;
 	private String seatNumber;
+	private String seatName;
 	private boolean isAvailable;
 	private boolean isLadiesSeat;
 	private boolean isMenSeat;
@@ -186,6 +187,18 @@ public class BusSeatDetails extends BaseModel implements Serializable{
 	 */
 	public void setServiceTaxPercent(double serviceTaxPercent) {
 		this.serviceTaxPercent = serviceTaxPercent;
+	}
+	/**
+	 * @return the seatName
+	 */
+	public String getSeatName() {
+		return seatName;
+	}
+	/**
+	 * @param seatName the seatName to set
+	 */
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
 	}
 	
 }

@@ -14,14 +14,15 @@ public class CabBookingPriceExtrator implements ResultSetExtractor<List<CabBooki
 	public List<CabBookingPrice> extractData(ResultSet rs) throws SQLException {
 		List<CabBookingPrice> bookingPrices =  new ArrayList<>();
 		while(rs.next()) {
-			CabBookingPrice locationDetails = new CabBookingPrice();
-			locationDetails.setId(rs.getString("id"));
-			locationDetails.setKilometer(rs.getString("kilometer"));
-			locationDetails.setFarerate(rs.getDouble("farerate"));
-			locationDetails.setCity(rs.getString("city"));
-			locationDetails.setState(rs.getString("state"));
-			locationDetails.setCountry(rs.getString("country"));
-			bookingPrices.add(locationDetails);
+			CabBookingPrice bookingPrice = new CabBookingPrice();
+			bookingPrice.setId(rs.getString("id"));
+			bookingPrice.setKilometer(rs.getString("kilometer"));
+			bookingPrice.setFarerate(rs.getDouble("farerate"));
+			bookingPrice.setCity(rs.getString("city"));
+			bookingPrice.setState(rs.getString("state"));
+			bookingPrice.setCountry(rs.getString("country"));
+			bookingPrice.setCabtype(rs.getString("cabtype"));
+			bookingPrices.add(bookingPrice);
 		}
 		return bookingPrices;
 	}

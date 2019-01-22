@@ -33,7 +33,7 @@ public class CabBookingController {
 		return new ResponseEntity<>(new RestResponse(bookingPrices, status), HttpStatus.OK);
 	}
 
-	@GetMapping("/cabPrices/{type}")
+	@GetMapping("/category-availability/{type}")
 	public ResponseEntity<RestResponse<CabBookingPrice>> getAllStation(
 			@PathVariable(name = "type", required = true) String type) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
