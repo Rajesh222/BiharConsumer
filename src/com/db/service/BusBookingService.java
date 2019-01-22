@@ -17,13 +17,14 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	
-	public List<BusRoutDetailsAvailability> getTrip() {
-		return null;
-	}
-
 	public List<BusRoutDetailsAvailability> searchBusRoutDetails(SearchBusVO busVO) {
-		return busBookingDao.searchBusByAvailibleRout(busVO);
+		List<BusRoutDetailsAvailability> availabilities = busBookingDao.searchBusByAvailibleRout(busVO);
+		for(BusRoutDetailsAvailability availability : availabilities) {
+			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
+			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
+			//availability.setBusInfo(busBookingDao.getBusDetails(busVO.getSourceName(), busVO.getDestinationName()));
+		}
+		return availabilities;
 	}
 	
 	public BusSeatDetailsAvailability getSeatAvailability(String busId, String date) {
