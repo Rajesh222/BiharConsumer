@@ -105,10 +105,10 @@ public class AuthenticationController {
 		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/logOut/{uid}/{ip}")
+	@PutMapping(value = "/logout/{uid}")
 	public ResponseEntity<RestResponse<Object>> logOut(
 			@PathVariable(name = "uid", required = true) String uid,
-			@PathVariable(name = "ip", required = false) String ip) {
+			@RequestParam(name = "ip", required = false, defaultValue="127.0.0.0") String ip) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Logout Successfully");
 		int i = authService.logOut(ip, uid);
 		if(i == 0 ) {
