@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db.dao.AuthenticationDao;
+import com.db.model.Login;
 import com.db.model.User;
 
 @Service("authenticationService")
@@ -48,8 +49,11 @@ public class AuthenticationService {
 		log.info("call getUsers()");
 		return authenticationDao.findAllUser();
 	}
-	
-	
+
+	public void auditing(Login login) {
+		authenticationDao.auditing(login);
+	}
+
 	public int logOut(String ip, String uid) {
 		log.info("call logOut()");
 		return authenticationDao.logOut(ip, uid);

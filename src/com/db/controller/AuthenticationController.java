@@ -71,6 +71,7 @@ public class AuthenticationController {
 						"Unauthorized User. Please login with your valid credential!");
 				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+			authService.auditing(null);
 		}
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
+import com.db.model.Login;
 import com.db.model.User;
 import com.db.model.mapper.UserRowMapper;
 import com.db.utils.SecurityDigester;
@@ -92,6 +93,13 @@ public class AuthenticationDao {
 		return user;
 	}
 
+	@Transactional
+	public void auditing(Login user) {
+		String query = queriesMap.get(INSERT_USER_LOGS);
+		log.debug("Running insert query for addUser: {}", query);
+		KeyHolder holder = new GeneratedKeyHolder();
+	}
+	
 	@Transactional
 	public int lockUser(String userName, boolean isLock, int attempt) {
 		String query = queriesMap.get(UPDATE_LOCK_USER);
