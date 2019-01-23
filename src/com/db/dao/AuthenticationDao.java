@@ -151,7 +151,7 @@ public class AuthenticationDao {
 	public int logOut(String ip, String uid) {
 		String query = queriesMap.get(LOGOUT_USER);
 		log.debug("Running insert query for addUser {}", query);
-		return jdbcTemplate.update(query, ip, uid);
+		return jdbcTemplate.update(query, new Object[] {ip, uid});
 	}
 
 	private static boolean validatePhoneNumber(String phoneNo) {

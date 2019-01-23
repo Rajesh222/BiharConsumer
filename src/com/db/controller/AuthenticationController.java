@@ -111,11 +111,11 @@ public class AuthenticationController {
 			@RequestParam(name = "ip", required = false, defaultValue="127.0.0.0") String ip) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Logout Successfully");
 		int i = authService.logOut(ip, uid);
-		if(i == 0 ) {
-			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
-			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+//		if(i == 0 ) {
+//			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+//					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
+//			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 

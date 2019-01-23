@@ -49,6 +49,7 @@ public class AuthenticationService {
 		return authenticationDao.findAllUser();
 	}
 	
+	
 	public int logOut(String ip, String uid) {
 		log.info("call logOut()");
 		return authenticationDao.logOut(ip, uid);
