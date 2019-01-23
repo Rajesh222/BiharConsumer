@@ -40,8 +40,8 @@ public class TopCityController {
 	public ResponseEntity<RestResponse<List<TopCities>>> addSearchStation(@RequestBody TopCities busStop,
 			Principal principal) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "Top Cities Station Added Successfully");
-		long integer = topCityService.addStationName(busStop);
-		if (integer == 0) {
+		String integer = topCityService.addStationName(busStop);
+		if (integer == null) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Top Cities not Registered Successfully");
 			return new ResponseEntity<>(new RestResponse(integer, status), HttpStatus.INTERNAL_SERVER_ERROR);

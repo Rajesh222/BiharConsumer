@@ -15,8 +15,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -62,5 +64,12 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addCorsMappings(final CorsRegistry registry) {
 		registry.addMapping("/**");
 	}
-
+	
+	@Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        AntPathMatcher matcher = new AntPathMatcher();
+        matcher.setCaseSensitive(false);
+        configurer.setPathMatcher(matcher);
+    }
+	
 }

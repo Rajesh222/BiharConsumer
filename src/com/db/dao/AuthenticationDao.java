@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.enums.PrevilageType;
 import com.db.model.Login;
+import com.db.model.TopCities;
 import com.db.model.User;
 import com.db.model.mapper.UserRowMapper;
 import com.db.utils.SecurityDigester;
@@ -48,6 +49,7 @@ public class AuthenticationDao {
 	private static final String AUTH_USER_BY_PHONE = "AUTH_USER_BY_PHONE";
 	private static final String LOGOUT_USER = "LOGOUT_USER";
 	private static final String SELECT_USER = "SELECT_USER";
+	private static final String INSERT_LOGIN_LOGS = "INSERT_LOGIN_LOGS";
 
 	@Transactional(readOnly = true)
 	public List<User> findAllUser() {
@@ -94,11 +96,25 @@ public class AuthenticationDao {
 	}
 
 	@Transactional
-	public void auditing(Login user) {
-		String query = queriesMap.get(INSERT_USER_LOGS);
-		log.debug("Running insert query for addUser: {}", query);
+	public void auditing(Login login) {
+		String query = queriesMap.get(INSERT_LOGIN_LOGS);
+		log.debug("Running insert query for auditing: {}", query);
 		KeyHolder holder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, login.getUid());
+				ps.setString(2, login.getName());
+				ps.setString(3, login.getSessionId());
+				ps.setString(4, login.getAddress());
+				ps.setString(5, login.getClientIP());
+				ps.setString(6, "127.0.0.0");
+				return ps;
+			}
+		}, holder);
 	}
+	
 	
 	@Transactional
 	public int lockUser(String userName, boolean isLock, int attempt) {

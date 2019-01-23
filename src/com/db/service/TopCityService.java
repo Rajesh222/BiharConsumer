@@ -28,7 +28,7 @@ public class TopCityService {
 		return topCityDao.searchStationByStationName(stationName);
 	}
 	
-	public long addStationName(TopCities searchStation) {
+	public String addStationName(TopCities searchStation) {
 		log.info("call addStationName [{}]",searchStation);
 		return topCityDao.addStationName(searchStation);
 	}

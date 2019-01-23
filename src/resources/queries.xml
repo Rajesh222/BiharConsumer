@@ -27,6 +27,15 @@
 				Session_user, CURRENT_TIMESTAMP)
 			</value>
 		</entry>
+
+		<entry key="INSERT_LOGIN_LOGS">
+			<value>
+				INSERT INTO user_login
+				(userid,username,sessionid,logindate,address,clientip,clienthost)
+				values(?,?,?,CURRENT_TIMESTAMP,?,?,?)
+			</value>
+		</entry>
+
 		<entry key="INSERT_MODULE_LOGS">
 			<value>
 				INSERT INTO user_module (userid,
@@ -103,8 +112,9 @@
 		</entry>
 		<entry key="INSERT_TOP_CITIES">
 			<value>
-				INSERT INTO top_cities (cityname,displayname,statename)
-				VALUES(?,?,?)
+				INSERT INTO top_cities
+				(cityname,displayname,statename,country)
+				VALUES(?,?,?,?)
 			</value>
 		</entry>
 
@@ -192,14 +202,16 @@
 		</entry>
 		<entry key="SELECT_BUS_TICKET_HISTORY">
 			<value>
-				select * from customer_bus_booking_details where lower(userid)=? limit ?
+				select * from customer_bus_booking_details where
+				lower(userid)=? limit ?
 			</value>
 		</entry>
 		<entry key="SELECT_CAB_TICKET_PRICE">
 			<value>
 				select * from cab_booking_price_details
 			</value>
-		</entry><entry key="SELECT_CAB_TICKET_PRICE_BY_TYPE">
+		</entry>
+		<entry key="SELECT_CAB_TICKET_PRICE_BY_TYPE">
 			<value>
 				select * from cab_booking_price_details where cabtype=?
 			</value>

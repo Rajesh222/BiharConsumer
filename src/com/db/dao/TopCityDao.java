@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -52,10 +53,13 @@ public class TopCityDao {
 	}
 
 	@Transactional
-	public Long addStationName(TopCities topCities) {
+	public String addStationName(TopCities topCities) {
 		String query = queriesMap.get(INSERT_TOP_CITIES);
 		log.debug("Running insert query for addStationName {}", query);
 		KeyHolder holder = new GeneratedKeyHolder();
+		//BeanPropertySqlParameterSource parameters = new BeanPropertySqlParameterSource(topCities);
+		//jdbcTemplate.update(query, parameters, holder);
+		//return (holder.getKey() == null) ? 0 : holder.getKey().longValue();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -63,9 +67,10 @@ public class TopCityDao {
 				ps.setString(1, topCities.getCityName());
 				ps.setString(2, topCities.getDisplayName());
 				ps.setString(3, topCities.getStateName());
+				ps.setString(4, topCities.getCountry());
 				return ps;
 			}
 		}, holder);
-		return (Long) holder.getKeys().get("refnumber");
+		return (String) holder.getKeys().get("refnumber");
 	}
 }

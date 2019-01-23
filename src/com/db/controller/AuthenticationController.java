@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.db.model.Login;
 import com.db.model.User;
 import com.db.service.AuthenticationService;
 import com.db.service.EmailService;
@@ -48,7 +49,7 @@ public class AuthenticationController {
 					"A user with this phone number already exist into system!");
 		} else {
 			user = authService.addUser(user);
-			if (user != null) {
+			if (user == null) {
 				status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 						"User not Registered Successfully");
 				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -56,6 +57,7 @@ public class AuthenticationController {
 		}
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
+	
 
 	@PostMapping(value = "/serviceLoginAuth")
 	public ResponseEntity<RestResponse<Object>> authUser(@RequestBody(required = true) User user)
@@ -71,7 +73,13 @@ public class AuthenticationController {
 						"Unauthorized User. Please login with your valid credential!");
 				return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			authService.auditing(null);
+			Login login = new Login();
+			login.setUid(user.getUserId());
+			login.setName(user.getName());
+			login.setSessionId(null);
+			login.setAddress(user.getAddress());
+			login.setClientIP("localhost");
+			authService.auditing(login);
 		}
 		return new ResponseEntity<>(new RestResponse(user, status), HttpStatus.OK);
 	}
@@ -112,11 +120,11 @@ public class AuthenticationController {
 			@RequestParam(name = "ip", required = false, defaultValue="127.0.0.0") String ip) {
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "User Logout Successfully");
 		int i = authService.logOut(ip, uid);
-//		if(i == 0 ) {
-//			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-//					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
-//			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
+		if(i == 0 ) {
+			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
+			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
 	}
 
