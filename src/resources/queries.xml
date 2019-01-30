@@ -143,18 +143,22 @@
 		<!-- START ROUT SERVICE QUERY -->
 		<entry key="SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC">
 			<value>
-				select *,
-				(select string_agg(distinct seattype,'/') from
-				bus_seat_details_transaction
-				where busid=bus.busid and travelDate
-				::Date = ? ::date) seattype
-				from bus_rout_details_transaction rout
-				inner join
-				bus_details_transaction bus on rout.busid=bus.busid
-				where
-				lower(rout.srccityname) like ? or lower(rout.destcityname)
-				like ? and
-				travaldate::date = ? ::date
+				
+select tab.busId,tab.busname, tab.availableseats, tab.totalseats, tab.direction, tab.rating, tab.bustype, sum(rout.distance) distance,
+sum(rout.basefare)+tab.fare totalfare, tab.seatType from (
+select distinct(rout.busid) busId, bus.busname, bus.availableseats, bus.totalseats, bus.direction, bus.rating, bus.bustype, 
+MAX(rout.orderby) lastStation, MIN(rout.orderby) startStation,
+fare.fare fare , fare.seattype seatType from 
+bus_rout_details_transaction rout inner join bus_details_transaction bus on rout.busid = bus.busid 
+inner join bus_seat_details_transaction fare on bus.busid = fare.busid where
+lower(rout.srccityname) like '%delhi%' or lower(rout.destcityname) like '%kanpur%' and travaldate::date = '21-01-2019' ::date
+group by rout.busid,fare.fare,fare.seattype,bus.busname, bus.availableseats, bus.totalseats, bus.direction, bus.rating, bus.bustype
+) 
+as tab inner join bus_rout_details_transaction rout on rout.busid = tab.busId where 
+rout.orderby <= tab.lastStation and rout.orderby >= tab.startStation 
+group by tab.busId,tab.fare,tab.seatType,tab.busname, tab.availableseats, tab.totalseats, tab.direction, tab.rating, tab.bustype; --, rout.distance;
+
+
 			</value>
 		</entry>
 		<entry
