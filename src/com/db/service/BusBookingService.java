@@ -18,7 +18,7 @@ public class BusBookingService {
 	private BusBookingDao busBookingDao;
 
 	public List<BusRoutDetailsObject> searchBusRoutDetails(SearchBusVO busVO) {
-		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusByAvailibleRout(busVO);
+		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusBySrcDescAndDate(busVO);
 		for(BusRoutDetailsObject availability : availabilities) {
 			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
 			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));

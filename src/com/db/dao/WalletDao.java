@@ -1,13 +1,11 @@
 package com.db.dao;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,35 +18,32 @@ public class WalletDao {
 
 	private static final Logger log = LoggerFactory.getLogger(WalletDao.class);
 
-	@Resource(name = "queriesMap")
-	private Map<String, String> queriesMap;
+	@Value("${select_wallet_details_by_user}")
+    private String selectWallletByUserQuery;
+	@Value("${select_updated_wallet}")
+    private String selectUpdateWalletQuery;
+	@Value("${update_wallet}")
+    private String updateWalletQuery;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String GET_WALLET_HISTORY_DETAILS = "GET_WALLET_HISTORY_DETAILS";
-	private static final String GET_WALLET_DETAILS = "GET_WALLET_DETAILS";
-	private static final String UPDATE_WALLET_DETAILS = "UPDATE_WALLET_DETAILS";
-
 	@Transactional(readOnly = true)
 	public List<Wallet> getWalletHistory(String uid) {
-		String query = queriesMap.get(GET_WALLET_HISTORY_DETAILS);
-		log.debug("Running insert query for getWalletHistory: {}", query);
-		return jdbcTemplate.query(query, new Object[] { uid }, new WalletRowMapper());
+		log.debug("Running insert query for getWalletHistory: {}", selectWallletByUserQuery);
+		return jdbcTemplate.query(selectWallletByUserQuery, new Object[] { uid }, new WalletRowMapper());
 	}
 
 	@Transactional(readOnly = true)
 	public Wallet getWalletDetails(String uid) {
-		String query = queriesMap.get(GET_WALLET_DETAILS);
-		log.debug("Running insert query for getWalletDetails: {}", query);
-		return jdbcTemplate.queryForObject(query, new Object[] { uid }, new WalletRowMapper());
+		log.debug("Running insert query for getWalletDetails: {}", selectUpdateWalletQuery);
+		return jdbcTemplate.queryForObject(selectUpdateWalletQuery, new Object[] { uid }, new WalletRowMapper());
 	}
 
 	@Transactional
 	public int updateWallet(double addedAmount, String uid) {
-		String query = queriesMap.get(UPDATE_WALLET_DETAILS);
-		log.debug("Running insert query for updateWallet: {}", query);
-		return jdbcTemplate.update(query, addedAmount,uid);
+		log.debug("Running insert query for updateWallet: {}", updateWalletQuery);
+		return jdbcTemplate.update(updateWalletQuery, addedAmount,uid);
 	}
 
 }

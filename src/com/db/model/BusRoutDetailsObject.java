@@ -16,20 +16,21 @@ public class BusRoutDetailsObject implements Serializable {
 	private List<Double> fare = new ArrayList<>();
 	private boolean inclTaxes = true;
 	private String classType;
-	private String busId;
-	private String travelsName;
-	private String busType;
-	private String duration;
+	private String busId;  //
+	private String travelsName;//
+	private String busType;//
+	private String duration;//
 	private boolean idProofRequired = false;
-	private boolean isAc = false;
-	private boolean isRefundable= false;
-	private String rating;
-	private boolean isSleaper = false;
-	private String sourceId;
-	private String destinationId;
+	private boolean isAc = false;//
+	private boolean isRefundable= false;//
+	private String rating;//
+	private boolean isSleaper = false;//
+	private String sourceId;//
+	private String destinationId;//
 	private String routId;
-	private double totalSeats;
+	private double totalSeats;//
 	private double avalableSeats;
+	private double distance;
 	private int travelDurationDays;
 	private String arrivalDate;
 	private String arrivalTime;
@@ -37,8 +38,6 @@ public class BusRoutDetailsObject implements Serializable {
 	private String departureTime;
 	private String travelDate;
 	private String seatType;
-	private String boardingTime;
-	private String reportingTime;
 	private String source;
 	private String destination;
 	private String busNumber;
@@ -319,6 +318,18 @@ public class BusRoutDetailsObject implements Serializable {
 		this.avalableSeats = avalableSeats;
 	}
 	/**
+	 * @return the distance
+	 */
+	public double getDistance() {
+		return distance;
+	}
+	/**
+	 * @param distance the distance to set
+	 */
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+	/**
 	 * @return the travelDurationDays
 	 */
 	public int getTravelDurationDays() {
@@ -403,30 +414,6 @@ public class BusRoutDetailsObject implements Serializable {
 		this.seatType = seatType;
 	}
 	/**
-	 * @return the boardingTime
-	 */
-	public String getBoardingTime() {
-		return boardingTime;
-	}
-	/**
-	 * @param boardingTime the boardingTime to set
-	 */
-	public void setBoardingTime(String boardingTime) {
-		this.boardingTime = boardingTime;
-	}
-	/**
-	 * @return the reportingTime
-	 */
-	public String getReportingTime() {
-		return reportingTime;
-	}
-	/**
-	 * @param reportingTime the reportingTime to set
-	 */
-	public void setReportingTime(String reportingTime) {
-		this.reportingTime = reportingTime;
-	}
-	/**
 	 * @return the source
 	 */
 	public String getSource() {
@@ -462,4 +449,5 @@ public class BusRoutDetailsObject implements Serializable {
 	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
+	
 }

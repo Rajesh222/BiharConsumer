@@ -26,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = "com.db")
 @ImportResource("classpath:/queries.xml")
 @EnableTransactionManagement
-@PropertySource({"classpath:application.properties"})
+@PropertySource({"classpath:application.properties","classpath:sql.properties"})
 public class WebConfig implements WebMvcConfigurer {
 
 	@Autowired
