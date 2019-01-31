@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class BusSeatDetails implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String row;
-	private String column;
+	private int row;
+	private int column;
 	private int width;
 	private int length;
 	private String busId;
@@ -23,25 +23,25 @@ public class BusSeatDetails implements Serializable{
 	/**
 	 * @return the row
 	 */
-	public String getRow() {
+	public int getRow() {
 		return row;
 	}
 	/**
 	 * @param row the row to set
 	 */
-	public void setRow(String row) {
+	public void setRow(int row) {
 		this.row = row;
 	}
 	/**
 	 * @return the column
 	 */
-	public String getColumn() {
+	public int getColumn() {
 		return column;
 	}
 	/**
 	 * @param column the column to set
 	 */
-	public void setColumn(String column) {
+	public void setColumn(int column) {
 		this.column = column;
 	}
 	/**
@@ -103,6 +103,18 @@ public class BusSeatDetails implements Serializable{
 	 */
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
+	}
+	/**
+	 * @return the seatName
+	 */
+	public String getSeatName() {
+		return seatName;
+	}
+	/**
+	 * @param seatName the seatName to set
+	 */
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
 	}
 	/**
 	 * @return the isAvailable
@@ -188,17 +200,4 @@ public class BusSeatDetails implements Serializable{
 	public void setServiceTaxPercent(double serviceTaxPercent) {
 		this.serviceTaxPercent = serviceTaxPercent;
 	}
-	/**
-	 * @return the seatName
-	 */
-	public String getSeatName() {
-		return seatName;
-	}
-	/**
-	 * @param seatName the seatName to set
-	 */
-	public void setSeatName(String seatName) {
-		this.seatName = seatName;
-	}
-	
 }
