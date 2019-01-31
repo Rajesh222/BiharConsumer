@@ -17,8 +17,8 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 		
 		while (rs.next()) {
 			BusSeatDetails seatDetails = new BusSeatDetails();
-			//seatDetails.setRow(rs.getString("rowname"));
-			//seatDetails.setColumn(rs.getString("columnname"));
+			seatDetails.setRow(Integer.parseInt(rs.getString("rowname").replaceAll("R", "")));
+			seatDetails.setColumn(Integer.parseInt(rs.getString("columnname").replaceAll("C", "")));
 			seatDetails.setLength(rs.getInt("length"));
 			seatDetails.setWidth(rs.getInt("width"));
 			seatDetails.setBusId(rs.getString("busid"));
