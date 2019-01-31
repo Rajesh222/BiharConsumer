@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusRoutDetailsAvailability implements Serializable {
+public class BusRoutDetailsObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<BusBoadingStopingDetails> boardingLocations = new ArrayList<>();
@@ -14,6 +14,7 @@ public class BusRoutDetailsAvailability implements Serializable {
 	private List<String> amenities = new ArrayList<>();
 	private List<BusType> busTypes = new ArrayList<>();
 	private List<Double> fare = new ArrayList<>();
+	private boolean inclTaxes = true;
 	private String classType;
 	private String busId;
 	private String travelsName;
@@ -21,6 +22,7 @@ public class BusRoutDetailsAvailability implements Serializable {
 	private String duration;
 	private boolean idProofRequired = false;
 	private boolean isAc = false;
+	private boolean isRefundable= false;
 	private String rating;
 	private boolean isSleaper = false;
 	private String sourceId;
@@ -125,6 +127,18 @@ public class BusRoutDetailsAvailability implements Serializable {
 		this.fare = fare;
 	}
 	/**
+	 * @return the inclTaxes
+	 */
+	public boolean isInclTaxes() {
+		return inclTaxes;
+	}
+	/**
+	 * @param inclTaxes the inclTaxes to set
+	 */
+	public void setInclTaxes(boolean inclTaxes) {
+		this.inclTaxes = inclTaxes;
+	}
+	/**
 	 * @return the classType
 	 */
 	public String getClassType() {
@@ -207,6 +221,18 @@ public class BusRoutDetailsAvailability implements Serializable {
 	 */
 	public void setAc(boolean isAc) {
 		this.isAc = isAc;
+	}
+	/**
+	 * @return the isRefundable
+	 */
+	public boolean isRefundable() {
+		return isRefundable;
+	}
+	/**
+	 * @param isRefundable the isRefundable to set
+	 */
+	public void setRefundable(boolean isRefundable) {
+		this.isRefundable = isRefundable;
 	}
 	/**
 	 * @return the rating
@@ -436,5 +462,4 @@ public class BusRoutDetailsAvailability implements Serializable {
 	public void setBusNumber(String busNumber) {
 		this.busNumber = busNumber;
 	}
-	
 }

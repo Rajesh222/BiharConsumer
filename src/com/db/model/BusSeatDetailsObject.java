@@ -2,7 +2,7 @@ package com.db.model;
 
 import java.util.List;
 
-public class BusSeatDetailsAvailability {
+public class BusSeatDetailsObject {
 
 	private List<BusSeatDetails> busSeatDetails;
 	private List<BusBoadingStopingDetails> boardingPoints;

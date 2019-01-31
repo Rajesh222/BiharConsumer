@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db.dao.BusBookingDao;
-import com.db.model.BusRoutDetailsAvailability;
-import com.db.model.BusSeatDetailsAvailability;
+import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 
@@ -17,9 +17,9 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	public List<BusRoutDetailsAvailability> searchBusRoutDetails(SearchBusVO busVO) {
-		List<BusRoutDetailsAvailability> availabilities = busBookingDao.searchBusByAvailibleRout(busVO);
-		for(BusRoutDetailsAvailability availability : availabilities) {
+	public List<BusRoutDetailsObject> searchBusRoutDetails(SearchBusVO busVO) {
+		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusByAvailibleRout(busVO);
+		for(BusRoutDetailsObject availability : availabilities) {
 			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
 			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
 			//availability.setBusInfo(busBookingDao.getBusDetails(busVO.getSourceName(), busVO.getDestinationName()));
@@ -27,8 +27,8 @@ public class BusBookingService {
 		return availabilities;
 	}
 	
-	public BusSeatDetailsAvailability getSeatAvailability(String busId, String date) {
-		BusSeatDetailsAvailability availability = new BusSeatDetailsAvailability();
+	public BusSeatDetailsObject getSeatAvailability(String busId, String date) {
+		BusSeatDetailsObject availability = new BusSeatDetailsObject();
 		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(busId, date));
 		availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
 		availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));

@@ -25,7 +25,7 @@ import com.db.model.BusAmenities;
 import com.db.model.BusBoadingStopingDetails;
 import com.db.model.BusCancellationPolicies;
 import com.db.model.BusDetails;
-import com.db.model.BusRoutDetailsAvailability;
+import com.db.model.BusRoutDetailsObject;
 import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
@@ -106,7 +106,7 @@ public class BusBookingDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusRoutDetailsAvailability> searchBusByAvailibleRout(SearchBusVO vo) {
+	public List<BusRoutDetailsObject> searchBusByAvailibleRout(SearchBusVO vo) {
 		String query = queriesMap.get(SELECT_BUS_ROUT_DETAILS_BY_SRC_AND_DESC);
 		log.debug("Running select query for searchBusByAvailibleRout: {}", query);
 		return jdbcTemplate.query(query, new Object[] { vo.getDate(), "%" + vo.getSourceName() + "%",

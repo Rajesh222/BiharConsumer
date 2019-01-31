@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.db.model.BusRoutDetailsAvailability;
-import com.db.model.BusSeatDetailsAvailability;
+import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
 import com.db.service.BusBookingService;
@@ -33,11 +33,11 @@ public class BusBookingController {
 	private BusBookingService busBookingService;
 
 	@PostMapping(value = "/availableRouts")
-	public ResponseEntity<RestResponse<List<BusRoutDetailsAvailability>>> searchBusRoutDetails(
+	public ResponseEntity<RestResponse<List<BusRoutDetailsObject>>> searchBusRoutDetails(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<BusRoutDetailsAvailability> busRoutDetails = busBookingService.searchBusRoutDetails(searchBusVO);
+		List<BusRoutDetailsObject> busRoutDetails = busBookingService.searchBusRoutDetails(searchBusVO);
 		if (busRoutDetails == null)
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
@@ -46,11 +46,11 @@ public class BusBookingController {
 	}
 
 	@PostMapping(value = "/availableSeats")
-	public ResponseEntity<RestResponse<BusSeatDetailsAvailability>> getSeatAvailability(
+	public ResponseEntity<RestResponse<BusSeatDetailsObject>> getSeatAvailability(
 			@RequestParam(name = "busId") String busId, @RequestParam(name = "date") String date) {
 		log.info("call search getSeatAvailability:{} {}", busId, date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		BusSeatDetailsAvailability busSeatDetailsAvailability = busBookingService.getSeatAvailability(busId, date);
+		BusSeatDetailsObject busSeatDetailsAvailability = busBookingService.getSeatAvailability(busId, date);
 		if (busSeatDetailsAvailability != null) {
 			status = new RestStatus<>(HttpStatus.OK.toString(),	"There are no seats available in this bus. Please select a different bus.");
 		}
