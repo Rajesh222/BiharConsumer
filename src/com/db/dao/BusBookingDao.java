@@ -71,9 +71,9 @@ public class BusBookingDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String routId) {
+	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String busId, String sourceName) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectBoadingStoppingDetailQuery);
-		return jdbcTemplate.query(selectBoadingStoppingDetailQuery, new BusStopLocationDetailsRowMapper());
+		return jdbcTemplate.query(selectBoadingStoppingDetailQuery, new Object[] { sourceName , busId}, new BusStopLocationDetailsRowMapper());
 	}
 	
 	@Transactional(readOnly = true)

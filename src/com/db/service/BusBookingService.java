@@ -19,19 +19,19 @@ public class BusBookingService {
 
 	public List<BusRoutDetailsObject> searchBusRoutDetails(SearchBusVO busVO) {
 		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusBySrcDescAndDate(busVO);
-		/*for(BusRoutDetailsObject availability : availabilities) {
-			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
-			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
+		for(BusRoutDetailsObject availability : availabilities) {
+			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getBusId(),busVO.getSourceName().toLowerCase()));
+			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getBusId(),busVO.getDestinationName().toLowerCase()));
 			//availability.setBusInfo(busBookingDao.getBusDetails(busVO.getSourceName(), busVO.getDestinationName()));
-		}*/
+		}
 		return availabilities;
 	}
 	
 	public BusSeatDetailsObject getSeatAvailability(String busId, String date) {
 		BusSeatDetailsObject availability = new BusSeatDetailsObject();
 		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(busId, date));
-		availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
-		availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
+		//availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
+		//availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
 		return availability;
 	}
 	

@@ -17,14 +17,16 @@ public class BusStopLocationDetailsRowMapper implements ResultSetExtractor<List<
 		while(rs.next()) {
 			BusBoadingStopingDetails locationDetails = new BusBoadingStopingDetails();
 			locationDetails.setLocationId(rs.getString("id"));
-			locationDetails.setLocationName(rs.getString("locationName"));
-			locationDetails.setLocationAddress(rs.getString("locationAddress"));
+			locationDetails.setCityId(rs.getString("cityid"));
+			locationDetails.setLocationName(rs.getString("locationname"));
+			locationDetails.setLocationAddress(rs.getString("locationaddress"));
 			locationDetails.setLandmark(rs.getString("landmark"));
 			locationDetails.setLat(rs.getDouble("lat"));
 			locationDetails.setLng(rs.getDouble("lng"));
 			locationDetails.setBoardingDate(rs.getDate("boardingDate"));
 			locationDetails.setReportingTime(rs.getDate("reportingtime"));
 			locationDetails.setContactNumber(rs.getString("contactNumber"));
+			locationDetails.setBusid(rs.getString("busid"));
 			boadingStopingDetails.add(locationDetails);
 		}
 		return boadingStopingDetails;

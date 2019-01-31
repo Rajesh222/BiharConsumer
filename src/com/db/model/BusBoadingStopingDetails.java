@@ -7,6 +7,7 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 
 	private static final long serialVersionUID = 1L;
 	private String locationId;
+	private String cityId;
 	private String displayName;
 	private String locationName;
 	private String locationAddress;
@@ -14,11 +15,36 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	private String dateTime;
 	private double lat;
 	private double lng;
+	private String busid;
 	private Date boardingDate;
 	private Date reportingTime;
 	private String contactNumber;
 	
     	
+	/**
+	 * @return the busid
+	 */
+	public String getBusid() {
+		return busid;
+	}
+	/**
+	 * @param busid the busid to set
+	 */
+	public void setBusid(String busid) {
+		this.busid = busid;
+	}
+	/**
+	 * @return the cityId
+	 */
+	public String getCityId() {
+		return cityId;
+	}
+	/**
+	 * @param cityId the cityId to set
+	 */
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
 	/**
 	 * @return the locationId
 	 */
