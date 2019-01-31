@@ -1,5 +1,7 @@
 package com.db.model.vo;
 
+import java.util.Date;
+
 public class SearchBusVO {
 
 	private String date;

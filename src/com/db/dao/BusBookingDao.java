@@ -28,7 +28,7 @@ import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusInformationDetailsExtractor;
-import com.db.model.mapper.BusRoutDetailsExtrator;
+import com.db.model.mapper.BusRouteDetailsExtrator;
 import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.CustomerMapperExtrator;
@@ -66,8 +66,8 @@ public class BusBookingDao {
 	@Transactional(readOnly = true)
 	public List<BusRoutDetailsObject> searchBusBySrcDescAndDate(SearchBusVO vo) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
-		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery, new Object[] { vo.getDate(), "%" + vo.getSourceName() + "%",
-				"%" + vo.getDestinationName() + "%", vo.getDate() }, new BusRoutDetailsExtrator());
+		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery, new Object[] { "%" + vo.getSourceName() + "%",
+				"%" + vo.getDestinationName() + "%", vo.getDate() }, new BusRouteDetailsExtrator());
 	}
 
 	@Transactional(readOnly = true)

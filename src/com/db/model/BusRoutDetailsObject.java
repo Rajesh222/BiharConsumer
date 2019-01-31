@@ -19,28 +19,23 @@ public class BusRoutDetailsObject implements Serializable {
 	private String busId;  //
 	private String travelsName;//
 	private String busType;//
-	private String duration;//
+	private double duration;//
 	private boolean idProofRequired = false;
 	private boolean isAc = false;//
 	private boolean isRefundable= false;//
-	private String rating;//
+	private double rating;//
 	private boolean isSleaper = false;//
-	private String sourceId;//
-	private String destinationId;//
 	private String routId;
 	private double totalSeats;//
 	private double avalableSeats;
-	private double distance;
-	private int travelDurationDays;
-	private String arrivalDate;
-	private String arrivalTime;
-	private String departureDate;
-	private String departureTime;
-	private String travelDate;
-	private String seatType;
-	private String source;
-	private String destination;
-	private String busNumber;
+	private double distance; //
+	private String arrivalDate;//
+	private String arrivalTime;//
+	private String departureDate;//
+	private String departureTime;//
+	private String seatType; 
+	private String source; //
+	private String destination; //
 	/**
 	 * @return the boardingLocations
 	 */
@@ -188,13 +183,13 @@ public class BusRoutDetailsObject implements Serializable {
 	/**
 	 * @return the duration
 	 */
-	public String getDuration() {
+	public double getDuration() {
 		return duration;
 	}
 	/**
 	 * @param duration the duration to set
 	 */
-	public void setDuration(String duration) {
+	public void setDuration(double duration) {
 		this.duration = duration;
 	}
 	/**
@@ -236,13 +231,13 @@ public class BusRoutDetailsObject implements Serializable {
 	/**
 	 * @return the rating
 	 */
-	public String getRating() {
+	public double getRating() {
 		return rating;
 	}
 	/**
 	 * @param rating the rating to set
 	 */
-	public void setRating(String rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	/**
@@ -256,30 +251,6 @@ public class BusRoutDetailsObject implements Serializable {
 	 */
 	public void setSleaper(boolean isSleaper) {
 		this.isSleaper = isSleaper;
-	}
-	/**
-	 * @return the sourceId
-	 */
-	public String getSourceId() {
-		return sourceId;
-	}
-	/**
-	 * @param sourceId the sourceId to set
-	 */
-	public void setSourceId(String sourceId) {
-		this.sourceId = sourceId;
-	}
-	/**
-	 * @return the destinationId
-	 */
-	public String getDestinationId() {
-		return destinationId;
-	}
-	/**
-	 * @param destinationId the destinationId to set
-	 */
-	public void setDestinationId(String destinationId) {
-		this.destinationId = destinationId;
 	}
 	/**
 	 * @return the routId
@@ -330,18 +301,6 @@ public class BusRoutDetailsObject implements Serializable {
 		this.distance = distance;
 	}
 	/**
-	 * @return the travelDurationDays
-	 */
-	public int getTravelDurationDays() {
-		return travelDurationDays;
-	}
-	/**
-	 * @param travelDurationDays the travelDurationDays to set
-	 */
-	public void setTravelDurationDays(int travelDurationDays) {
-		this.travelDurationDays = travelDurationDays;
-	}
-	/**
 	 * @return the arrivalDate
 	 */
 	public String getArrivalDate() {
@@ -390,18 +349,6 @@ public class BusRoutDetailsObject implements Serializable {
 		this.departureTime = departureTime;
 	}
 	/**
-	 * @return the travelDate
-	 */
-	public String getTravelDate() {
-		return travelDate;
-	}
-	/**
-	 * @param travelDate the travelDate to set
-	 */
-	public void setTravelDate(String travelDate) {
-		this.travelDate = travelDate;
-	}
-	/**
 	 * @return the seatType
 	 */
 	public String getSeatType() {
@@ -436,18 +383,6 @@ public class BusRoutDetailsObject implements Serializable {
 	 */
 	public void setDestination(String destination) {
 		this.destination = destination;
-	}
-	/**
-	 * @return the busNumber
-	 */
-	public String getBusNumber() {
-		return busNumber;
-	}
-	/**
-	 * @param busNumber the busNumber to set
-	 */
-	public void setBusNumber(String busNumber) {
-		this.busNumber = busNumber;
 	}
 	
 }

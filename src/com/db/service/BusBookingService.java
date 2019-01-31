@@ -19,11 +19,11 @@ public class BusBookingService {
 
 	public List<BusRoutDetailsObject> searchBusRoutDetails(SearchBusVO busVO) {
 		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusBySrcDescAndDate(busVO);
-		for(BusRoutDetailsObject availability : availabilities) {
+		/*for(BusRoutDetailsObject availability : availabilities) {
 			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
 			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getRoutId()));
 			//availability.setBusInfo(busBookingDao.getBusDetails(busVO.getSourceName(), busVO.getDestinationName()));
-		}
+		}*/
 		return availabilities;
 	}
 	
