@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusDetailsObject;
 import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
@@ -33,16 +33,16 @@ public class BusBookingController {
 	private BusBookingService busBookingService;
 
 	@PostMapping(value = "/availableRouts")
-	public ResponseEntity<RestResponse<List<BusRoutDetailsObject>>> searchBusRoutDetails(
+	public ResponseEntity<RestResponse<BusDetailsObject>> searchBusRoutDetails(
 			@RequestBody(required = true) SearchBusVO searchBusVO) {
 		log.info("call search searchBusRoutDetails:{}", searchBusVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		List<BusRoutDetailsObject> busRoutDetails = busBookingService.searchBusRoutDetails(searchBusVO);
-		if (busRoutDetails == null)
+		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(searchBusVO);
+		if (busDetailsObject.getFilterRouteList() == null || busDetailsObject.getFilterRouteList().isEmpty())
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
 							searchBusVO.getDestinationName(), searchBusVO.getDate()));
-		return new ResponseEntity<>(new RestResponse(busRoutDetails, status), HttpStatus.OK);
+		return new ResponseEntity<>(new RestResponse(busDetailsObject, status), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/availableSeats")

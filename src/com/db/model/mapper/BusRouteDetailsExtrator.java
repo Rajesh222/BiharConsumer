@@ -7,16 +7,16 @@ import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusRouteDetails;
 
-public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRoutDetailsObject>> {
+public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRouteDetails>> {
 
 	@Override
-	public List<BusRoutDetailsObject> extractData(ResultSet rs) throws SQLException {
+	public List<BusRouteDetails> extractData(ResultSet rs) throws SQLException {
 
-		List<BusRoutDetailsObject> amenitiesList = new ArrayList<>();
+		List<BusRouteDetails> amenitiesList = new ArrayList<>();
 		while (rs.next()) {
-			BusRoutDetailsObject busRoutDetails = new BusRoutDetailsObject();
+			BusRouteDetails busRoutDetails = new BusRouteDetails();
 			busRoutDetails.setInclTaxes(true);
 			busRoutDetails.setClassType("Normal");
 			busRoutDetails.setBusId(rs.getString("busid"));

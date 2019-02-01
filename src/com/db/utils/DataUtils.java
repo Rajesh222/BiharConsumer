@@ -52,6 +52,15 @@ public class DataUtils {
 		return idTypes;
 	}
 
+	public static List<String> getTimeList() {
+		List<String> busTypes = new ArrayList<>();
+		busTypes.add("Before 6 am");
+		busTypes.add("6 am to 12 pm");
+		busTypes.add("12 pm to 6 pm");
+		busTypes.add("After 6 pm");
+		return busTypes;
+	}
+	
 	public static List<String> getBusType() {
 		List<String> busTypes = new ArrayList<>();
 		busTypes.add("AC");

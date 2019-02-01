@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.db.dao.BusBookingDao;
-import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusDetailsObject;
+import com.db.model.BusRouteDetails;
 import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchBusVO;
+import com.db.utils.DataUtils;
 
 @Service("busRoutService")
 public class BusBookingService {
@@ -17,14 +19,20 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	public List<BusRoutDetailsObject> searchBusRoutDetails(SearchBusVO busVO) {
-		List<BusRoutDetailsObject> availabilities = busBookingDao.searchBusBySrcDescAndDate(busVO);
-		for(BusRoutDetailsObject availability : availabilities) {
-			availability.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getBusId(),busVO.getSourceName().toLowerCase()));
-			availability.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(availability.getBusId(),busVO.getDestinationName().toLowerCase()));
-			//availability.setBusInfo(busBookingDao.getBusDetails(busVO.getSourceName(), busVO.getDestinationName()));
+	public BusDetailsObject searchBusRoutDetails(SearchBusVO busVO) {
+		BusDetailsObject busDetailsObject = new BusDetailsObject();
+		List<BusRouteDetails> filterRoutes = busBookingDao.searchBusBySrcDescAndDate(busVO);
+		for(BusRouteDetails route : filterRoutes) {
+			route.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getBusId(),busVO.getSourceName().toLowerCase()));
+			route.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getBusId(),busVO.getDestinationName().toLowerCase()));
+		    route.setCancellationPolicy(busBookingDao.getCancellationPolicy());
 		}
-		return availabilities;
+		
+		busDetailsObject.setAmenityList(busBookingDao.getAllAmenities());
+		List<String> timeList = DataUtils.getTimeList();
+		busDetailsObject.setArrivalTimeList(timeList);
+		busDetailsObject.setArrivalTimeList(timeList);
+		return busDetailsObject;
 	}
 	
 	public BusSeatDetailsObject getSeatAvailability(String busId, String date) {

@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusRoutDetailsObject implements Serializable {
+public class BusRouteDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<BusBoadingStopingDetails> boardingLocations = new ArrayList<>();
 	private List<BusBoadingStopingDetails> droppingLocations = new ArrayList<>();
 	private List<BusDetails> busInfo = new ArrayList<>();
 	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
-	private List<String> amenities = new ArrayList<>();
-	private List<BusType> busTypes = new ArrayList<>();
+	private List<String> routeAmenitiesList = new ArrayList<>();
+	private List<BusType> bustypes = new ArrayList<>();
 	private List<Double> fare = new ArrayList<>();
 	private boolean inclTaxes = true;
 	private String classType;
@@ -22,9 +22,10 @@ public class BusRoutDetailsObject implements Serializable {
 	private double duration;//
 	private boolean idProofRequired = false;
 	private boolean isAc = false;//
+	private boolean isSleaper = false;//
+	private boolean isSeater = true;
 	private boolean isRefundable= false;//
 	private double rating;//
-	private boolean isSleaper = false;//
 	private String routId;
 	private double totalSeats;//
 	private double avalableSeats;
@@ -85,28 +86,28 @@ public class BusRoutDetailsObject implements Serializable {
 		this.cancellationPolicy = cancellationPolicy;
 	}
 	/**
-	 * @return the amenities
+	 * @return the routeAmenitiesList
 	 */
-	public List<String> getAmenities() {
-		return amenities;
+	public List<String> getRouteAmenitiesList() {
+		return routeAmenitiesList;
 	}
 	/**
-	 * @param amenities the amenities to set
+	 * @param routeAmenitiesList the routeAmenitiesList to set
 	 */
-	public void setAmenities(List<String> amenities) {
-		this.amenities = amenities;
+	public void setRouteAmenitiesList(List<String> routeAmenitiesList) {
+		this.routeAmenitiesList = routeAmenitiesList;
 	}
 	/**
 	 * @return the busTypes
 	 */
 	public List<BusType> getBusTypes() {
-		return busTypes;
+		return bustypes;
 	}
 	/**
 	 * @param busTypes the busTypes to set
 	 */
 	public void setBusTypes(List<BusType> busTypes) {
-		this.busTypes = busTypes;
+		this.bustypes = busTypes;
 	}
 	/**
 	 * @return the fare
@@ -217,6 +218,30 @@ public class BusRoutDetailsObject implements Serializable {
 		this.isAc = isAc;
 	}
 	/**
+	 * @return the isSleaper
+	 */
+	public boolean isSleaper() {
+		return isSleaper;
+	}
+	/**
+	 * @param isSleaper the isSleaper to set
+	 */
+	public void setSleaper(boolean isSleaper) {
+		this.isSleaper = isSleaper;
+	}
+	/**
+	 * @return the isSeater
+	 */
+	public boolean isSeater() {
+		return isSeater;
+	}
+	/**
+	 * @param isSeater the isSeater to set
+	 */
+	public void setSeater(boolean isSeater) {
+		this.isSeater = isSeater;
+	}
+	/**
 	 * @return the isRefundable
 	 */
 	public boolean isRefundable() {
@@ -239,18 +264,6 @@ public class BusRoutDetailsObject implements Serializable {
 	 */
 	public void setRating(double rating) {
 		this.rating = rating;
-	}
-	/**
-	 * @return the isSleaper
-	 */
-	public boolean isSleaper() {
-		return isSleaper;
-	}
-	/**
-	 * @param isSleaper the isSleaper to set
-	 */
-	public void setSleaper(boolean isSleaper) {
-		this.isSleaper = isSleaper;
 	}
 	/**
 	 * @return the routId
@@ -384,5 +397,4 @@ public class BusRoutDetailsObject implements Serializable {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-	
 }

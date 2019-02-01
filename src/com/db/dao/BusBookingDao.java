@@ -19,11 +19,11 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.db.model.BusAmenities;
+import com.db.model.BusAmenity;
 import com.db.model.BusBoadingStopingDetails;
 import com.db.model.BusCancellationPolicies;
 import com.db.model.BusDetails;
-import com.db.model.BusRoutDetailsObject;
+import com.db.model.BusRouteDetails;
 import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
@@ -49,8 +49,10 @@ public class BusBookingDao {
     private String selectBusTypeQuery;
 	@Value("${select_bus_cancellation}")
     private String selectBusCancellationPolicyQuery;
-	@Value("${select_bus_aminities}")
-    private String selectBusAminitiesQuery;
+	@Value("${select_filter_aminities}")
+    private String selectFilterAminitiesQuery;
+	@Value("${select_all_aminities}")
+    private String selectAllAminitiesQuery;
 	@Value("${select_businfomation_detail}")
     private String selectBusInfoQuery;
 	@Value("${insert_customer_ticket}")
@@ -64,7 +66,7 @@ public class BusBookingDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(readOnly = true)
-	public List<BusRoutDetailsObject> searchBusBySrcDescAndDate(SearchBusVO vo) {
+	public List<BusRouteDetails> searchBusBySrcDescAndDate(SearchBusVO vo) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
 		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery, new Object[] { "%" + vo.getSourceName() + "%",
 				"%" + vo.getDestinationName() + "%", vo.getDate() }, new BusRouteDetailsExtrator());
@@ -91,7 +93,7 @@ public class BusBookingDao {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<BusCancellationPolicies> getCancellationPoliciesByBusId(String bid) {
+	public List<BusCancellationPolicies> getCancellationPolicy() {
 		log.debug("Running insert query for getCancellationPoliciesByBusId {}", selectBusCancellationPolicyQuery);
 		return jdbcTemplate.query(selectBusCancellationPolicyQuery, new RowMapper<BusCancellationPolicies>() {
 			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -106,9 +108,15 @@ public class BusBookingDao {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<BusAmenities> getBusAmenitiesByBusId(String bid) {
-		log.debug("Running insert query for getBusAmenitiesByBusId {}", selectBusAminitiesQuery);
-		return jdbcTemplate.query(selectBusAminitiesQuery, new BusAmenitiesExtractor());
+	public List<BusAmenity> getBusAmenitiesByBusId(String bid) {
+		log.debug("Running insert query for getBusAmenitiesByBusId {}", selectFilterAminitiesQuery);
+		return jdbcTemplate.query(selectFilterAminitiesQuery, new BusAmenitiesExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<BusAmenity> getAllAmenities() {
+		log.debug("Running insert query for getBusAmenitiesByBusId {}", selectAllAminitiesQuery);
+		return jdbcTemplate.query(selectFilterAminitiesQuery, new BusAmenitiesExtractor());
 	}
 	
 	@Transactional(readOnly = true)

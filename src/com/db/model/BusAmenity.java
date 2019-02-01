@@ -1,6 +1,6 @@
 package com.db.model;
 
-public class BusAmenities {
+public class BusAmenity {
 
 	private String id;
 	private String busid;

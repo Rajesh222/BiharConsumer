@@ -7,15 +7,15 @@ import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import com.db.model.BusAmenities;
+import com.db.model.BusAmenity;
 
-public class BusAmenitiesExtractor implements ResultSetExtractor<List<BusAmenities>> {
+public class BusAmenitiesExtractor implements ResultSetExtractor<List<BusAmenity>> {
 
 	@Override
-	public List<BusAmenities> extractData(ResultSet rs) throws SQLException {
-		List<BusAmenities> amenitiesList = new ArrayList<>();
+	public List<BusAmenity> extractData(ResultSet rs) throws SQLException {
+		List<BusAmenity> amenitiesList = new ArrayList<>();
 		while (rs.next()) {
-			BusAmenities busAmenities = new BusAmenities();
+			BusAmenity busAmenities = new BusAmenity();
 			busAmenities.setId(rs.getString("id"));
 			busAmenities.setBusid(rs.getString("busid"));
 			busAmenities.setLabel(rs.getString("label"));
