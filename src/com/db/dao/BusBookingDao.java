@@ -94,6 +94,7 @@ public class BusBookingDao {
 	
 	@Transactional(readOnly = true)
 	public List<BusCancellationPolicies> getCancellationPolicy() {
+		
 		log.debug("Running insert query for getCancellationPoliciesByBusId {}", selectBusCancellationPolicyQuery);
 		return jdbcTemplate.query(selectBusCancellationPolicyQuery, new RowMapper<BusCancellationPolicies>() {
 			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
