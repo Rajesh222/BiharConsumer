@@ -26,12 +26,13 @@ public class BusBookingService {
 			route.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getBusId(),busVO.getSourceName().toLowerCase()));
 			route.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getBusId(),busVO.getDestinationName().toLowerCase()));
 		    route.setCancellationPolicy(busBookingDao.getCancellationPolicy());
+		    route.setAmenities(busBookingDao.getBusFilterAmenitiesByBusId(route.getBusId()));
 		}
-		
+		busDetailsObject.setFilterRouteList(filterRoutes);
 		busDetailsObject.setAmenityList(busBookingDao.getAllAmenities());
 		List<String> timeList = DataUtils.getTimeList();
 		busDetailsObject.setArrivalTimeList(timeList);
-		busDetailsObject.setArrivalTimeList(timeList);
+		busDetailsObject.setDepartureTimeList(timeList);
 		return busDetailsObject;
 	}
 	

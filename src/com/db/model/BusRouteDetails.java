@@ -11,9 +11,9 @@ public class BusRouteDetails implements Serializable {
 	private List<BusBoadingStopingDetails> droppingLocations = new ArrayList<>();
 	private List<BusDetails> busInfo = new ArrayList<>();
 	private List<BusCancellationPolicies> cancellationPolicy = new ArrayList<>();
-	private List<String> routeAmenitiesList = new ArrayList<>();
+	private List<Integer> amenities = new ArrayList<>();
 	private List<BusType> bustypes = new ArrayList<>();
-	private List<Double> fare = new ArrayList<>();
+	private List<Double> fares = new ArrayList<>();
 	private boolean inclTaxes = true;
 	private String classType;
 	private String busId;  //
@@ -28,7 +28,7 @@ public class BusRouteDetails implements Serializable {
 	private double rating;//
 	private String routId;
 	private double totalSeats;//
-	private double avalableSeats;
+	private double availableSeats;//available_seat_count
 	private double distance; //
 	private String arrivalDate;//
 	private String arrivalTime;//
@@ -86,40 +86,40 @@ public class BusRouteDetails implements Serializable {
 		this.cancellationPolicy = cancellationPolicy;
 	}
 	/**
-	 * @return the routeAmenitiesList
+	 * @return the amenities
 	 */
-	public List<String> getRouteAmenitiesList() {
-		return routeAmenitiesList;
+	public List<Integer> getAmenities() {
+		return amenities;
 	}
 	/**
-	 * @param routeAmenitiesList the routeAmenitiesList to set
+	 * @param amenities the amenities to set
 	 */
-	public void setRouteAmenitiesList(List<String> routeAmenitiesList) {
-		this.routeAmenitiesList = routeAmenitiesList;
+	public void setAmenities(List<Integer> amenities) {
+		this.amenities = amenities;
 	}
 	/**
-	 * @return the busTypes
+	 * @return the bustypes
 	 */
-	public List<BusType> getBusTypes() {
+	public List<BusType> getBustypes() {
 		return bustypes;
 	}
 	/**
-	 * @param busTypes the busTypes to set
+	 * @param bustypes the bustypes to set
 	 */
-	public void setBusTypes(List<BusType> busTypes) {
-		this.bustypes = busTypes;
+	public void setBustypes(List<BusType> bustypes) {
+		this.bustypes = bustypes;
 	}
 	/**
-	 * @return the fare
+	 * @return the fares
 	 */
-	public List<Double> getFare() {
-		return fare;
+	public List<Double> getFares() {
+		return fares;
 	}
 	/**
-	 * @param fare the fare to set
+	 * @param fares the fares to set
 	 */
-	public void setFare(List<Double> fare) {
-		this.fare = fare;
+	public void setFares(List<Double> fares) {
+		this.fares = fares;
 	}
 	/**
 	 * @return the inclTaxes
@@ -290,16 +290,16 @@ public class BusRouteDetails implements Serializable {
 		this.totalSeats = totalSeats;
 	}
 	/**
-	 * @return the avalableSeats
+	 * @return the availableSeats
 	 */
-	public double getAvalableSeats() {
-		return avalableSeats;
+	public double getAvailableSeats() {
+		return availableSeats;
 	}
 	/**
-	 * @param avalableSeats the avalableSeats to set
+	 * @param availableSeats the availableSeats to set
 	 */
-	public void setAvalableSeats(double avalableSeats) {
-		this.avalableSeats = avalableSeats;
+	public void setAvailableSeats(double availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 	/**
 	 * @return the distance
@@ -397,4 +397,5 @@ public class BusRouteDetails implements Serializable {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+	
 }

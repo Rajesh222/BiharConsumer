@@ -6,7 +6,7 @@ import java.util.Date;
 public class BusBoadingStopingDetails extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String locationId;
+	private String id;
 	private String cityId;
 	private String displayName;
 	private String locationName;
@@ -16,22 +16,20 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	private double lat;
 	private double lng;
 	private String busid;
-	private Date boardingDate;
-	private Date reportingTime;
+	private Date date;
+	private Date time;
 	private String contactNumber;
-	
-    	
 	/**
-	 * @return the busid
+	 * @return the id
 	 */
-	public String getBusid() {
-		return busid;
+	public String getId() {
+		return id;
 	}
 	/**
-	 * @param busid the busid to set
+	 * @param id the id to set
 	 */
-	public void setBusid(String busid) {
-		this.busid = busid;
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * @return the cityId
@@ -44,18 +42,6 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	 */
 	public void setCityId(String cityId) {
 		this.cityId = cityId;
-	}
-	/**
-	 * @return the locationId
-	 */
-	public String getLocationId() {
-		return locationId;
-	}
-	/**
-	 * @param locationId the locationId to set
-	 */
-	public void setLocationId(String locationId) {
-		this.locationId = locationId;
 	}
 	/**
 	 * @return the displayName
@@ -142,28 +128,40 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 		this.lng = lng;
 	}
 	/**
-	 * @return the boardingDate
+	 * @return the busid
 	 */
-	public Date getBoardingDate() {
-		return boardingDate;
+	public String getBusid() {
+		return busid;
 	}
 	/**
-	 * @param boardingDate the boardingDate to set
+	 * @param busid the busid to set
 	 */
-	public void setBoardingDate(Date boardingDate) {
-		this.boardingDate = boardingDate;
+	public void setBusid(String busid) {
+		this.busid = busid;
 	}
 	/**
-	 * @return the reportingTime
+	 * @return the date
 	 */
-	public Date getReportingTime() {
-		return reportingTime;
+	public Date getDate() {
+		return date;
 	}
 	/**
-	 * @param reportingTime the reportingTime to set
+	 * @param date the date to set
 	 */
-	public void setReportingTime(Date reportingTime) {
-		this.reportingTime = reportingTime;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	/**
+	 * @return the time
+	 */
+	public Date getTime() {
+		return time;
+	}
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(Date time) {
+		this.time = time;
 	}
 	/**
 	 * @return the contactNumber
@@ -177,4 +175,6 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+	
+	
 }

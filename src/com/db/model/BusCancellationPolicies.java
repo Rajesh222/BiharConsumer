@@ -2,7 +2,7 @@ package com.db.model;
 
 import java.io.Serializable;
 
-public class BusCancellationPolicies extends BaseModel implements Serializable{
+public class BusCancellationPolicies implements Serializable{
 
 	private static final long serialVersionUID = -7267795731820416481L;
 	private String ruleId;

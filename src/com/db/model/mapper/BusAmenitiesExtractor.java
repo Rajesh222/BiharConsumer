@@ -17,7 +17,6 @@ public class BusAmenitiesExtractor implements ResultSetExtractor<List<BusAmenity
 		while (rs.next()) {
 			BusAmenity busAmenities = new BusAmenity();
 			busAmenities.setId(rs.getString("id"));
-			busAmenities.setBusid(rs.getString("busid"));
 			busAmenities.setLabel(rs.getString("label"));
 			busAmenities.setName(rs.getString("name"));
 			busAmenities.setIcon(rs.getString("icon"));

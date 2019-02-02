@@ -30,7 +30,7 @@ public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRoute
 			busRoutDetails.setSleaper(true);
 			busRoutDetails.setRoutId(rs.getString("routid"));
 			busRoutDetails.setTotalSeats(rs.getDouble("totalseats"));
-			busRoutDetails.setAvalableSeats(rs.getDouble("availableseats"));
+			//busRoutDetails.setAvailableSeats(rs.getDouble("availableseats"));
 			busRoutDetails.setArrivalDate(rs.getDate("arrivaldate").toString());
 			busRoutDetails.setArrivalTime(rs.getTime("arrivaltime").toString());
 			busRoutDetails.setDepartureDate(rs.getDate("departuredate").toString());
@@ -38,8 +38,8 @@ public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRoute
 			busRoutDetails.setSource(rs.getString("srccityname"));
 			busRoutDetails.setDestination(rs.getString("destcityname"));
 			List<Double> list = new ArrayList<>();
-			list.add(rs.getDouble("totalBaseFare"));
-			busRoutDetails.setFare(list);
+			list.add(rs.getDouble("basefare"));
+			busRoutDetails.setFares(list);
 
 			amenitiesList.add(busRoutDetails);
 		}

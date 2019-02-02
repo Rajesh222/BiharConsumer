@@ -3,7 +3,6 @@ package com.db.model;
 public class BusAmenity {
 
 	private String id;
-	private String busid;
 	private String name;
 	private String label;
 	private String icon;
@@ -18,18 +17,6 @@ public class BusAmenity {
 	 */
 	public void setId(String id) {
 		this.id = id;
-	}
-	/**
-	 * @return the busid
-	 */
-	public String getBusid() {
-		return busid;
-	}
-	/**
-	 * @param busid the busid to set
-	 */
-	public void setBusid(String busid) {
-		this.busid = busid;
 	}
 	/**
 	 * @return the name
