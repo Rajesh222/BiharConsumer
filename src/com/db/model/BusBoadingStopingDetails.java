@@ -3,21 +3,19 @@ package com.db.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BusBoadingStopingDetails extends BaseModel implements Serializable {
+public class BusBoadingStopingDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private String cityId;
-	private String displayName;
+	private String cityName;
 	private String locationName;
 	private String locationAddress;
 	private String landmark;
-	private String dateTime;
 	private double lat;
 	private double lng;
 	private String busid;
-	private Date date;
-	private Date time;
+	private String date;
+	private String time;
 	private String contactNumber;
 	/**
 	 * @return the id
@@ -32,28 +30,16 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 		this.id = id;
 	}
 	/**
-	 * @return the cityId
+	 * @return the cityName
 	 */
-	public String getCityId() {
-		return cityId;
+	public String getCityName() {
+		return cityName;
 	}
 	/**
-	 * @param cityId the cityId to set
+	 * @param cityName the cityName to set
 	 */
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
-	}
-	/**
-	 * @return the displayName
-	 */
-	public String getDisplayName() {
-		return displayName;
-	}
-	/**
-	 * @param displayName the displayName to set
-	 */
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 	/**
 	 * @return the locationName
@@ -90,18 +76,6 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	 */
 	public void setLandmark(String landmark) {
 		this.landmark = landmark;
-	}
-	/**
-	 * @return the dateTime
-	 */
-	public String getDateTime() {
-		return dateTime;
-	}
-	/**
-	 * @param dateTime the dateTime to set
-	 */
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
 	}
 	/**
 	 * @return the lat
@@ -142,25 +116,25 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	/**
 	 * @return the time
 	 */
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 	/**
 	 * @param time the time to set
 	 */
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	/**
@@ -175,6 +149,4 @@ public class BusBoadingStopingDetails extends BaseModel implements Serializable 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	
-	
 }

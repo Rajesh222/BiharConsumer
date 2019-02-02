@@ -34,7 +34,7 @@ public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRoute
 			busRoutDetails.setArrivalDate(rs.getDate("arrivaldate").toString());
 			busRoutDetails.setArrivalTime(rs.getTime("arrivaltime").toString());
 			busRoutDetails.setDepartureDate(rs.getDate("departuredate").toString());
-			busRoutDetails.setDepartureTime(rs.getTimestamp("departuretime").toString());
+			busRoutDetails.setDepartureTime(rs.getTime("departuretime").toString());
 			busRoutDetails.setSource(rs.getString("srccityname"));
 			busRoutDetails.setDestination(rs.getString("destcityname"));
 			List<Double> list = new ArrayList<>();
