@@ -40,8 +40,7 @@ public class BusBookingController {
 		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(searchBusVO);
 		if (busDetailsObject.getFilterRouteList() == null || busDetailsObject.getFilterRouteList().isEmpty())
 			status = new RestStatus<>(HttpStatus.OK.toString(),
-					String.format("No bus found between '%s' and '%s' on '%s", searchBusVO.getSourceName(),
-							searchBusVO.getDestinationName(), searchBusVO.getDate()));
+					String.format("There are no buses between these two cities. Please try a different date or search with an alternate route."));
 		return new ResponseEntity<>(new RestResponse(busDetailsObject, status), HttpStatus.OK);
 	}
 
