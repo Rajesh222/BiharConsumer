@@ -1,13 +1,8 @@
 package com.db.utils;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,9 +79,23 @@ public class DataUtils {
 		return simpleDateFormat.format(date);
 	}
 	
+	public static Date convertStringToDateFormat(String date, String format) {
+		try {
+			DateFormat dateFormat = new SimpleDateFormat(format);
+			return dateFormat.parse(date);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+
+	public static String convertFormat(String date) {
+		Date dateValues = convertStringToDateFormat(date, "yyyy-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.format(dateValues);
+	}
+	
 	
 	public static void main(String[] args) {
-		System.out.println(parseBusDate("12-01-2019"));
 	}
 
 

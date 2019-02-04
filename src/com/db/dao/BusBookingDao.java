@@ -71,7 +71,7 @@ public class BusBookingDao {
 	public List<BusRouteDetails> searchBusBySrcDescAndDate(SearchBusVO vo) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
 		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery,
-				new Object[] { "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%", DataUtils.parseBusDate(vo.getDate()) },
+				new Object[] { "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%", DataUtils.convertFormat(vo.getDate()) },
 				new BusRouteDetailsExtrator());
 	}
 
@@ -144,7 +144,7 @@ public class BusBookingDao {
 	public List<BusSeatDetails> getSeatsDetails(String busId, String date) {
 		log.debug("Running select query for getTripsDetails: {}", selectBusSeatDetailsQuery);
 		return jdbcTemplate.query(selectBusSeatDetailsQuery,
-				new Object[] { busId, DataUtils.parseBusDate(date) },
+				new Object[] { busId, DataUtils.convertFormat(date) },
 				new BusSeatDetailsExtractor());
 	}
 
