@@ -19,13 +19,13 @@ public class WalletService {
 	@Autowired
 	private WalletDao walletDao;
 
-	@Cacheable(value="walletHistory", key="#uid")
+	//@Cacheable(value="walletHistory", key="#uid")
 	public List<Wallet> getWalletHistory(String uid) {
 		log.info("call getWalletHistory {}", uid);
 		return walletDao.getWalletHistory(uid);
 	}
 
-	@Cacheable(value="walletDetails", key="#uid")
+	//@Cacheable(value="walletDetails", key="#uid")
 	public Wallet getWalletDetails(String uid) {
 		log.info("call getWalletDetails {}", uid);
 		return walletDao.getWalletDetails(uid);

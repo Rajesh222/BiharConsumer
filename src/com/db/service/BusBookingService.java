@@ -20,7 +20,7 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	@Cacheable("routesDetails")
+	//@Cacheable("routesDetails")
 	public BusDetailsObject searchBusRoutDetails(SearchBusVO busVO) {
 		BusDetailsObject busDetailsObject = new BusDetailsObject();
 		List<BusRouteDetails> filterRoutes = busBookingDao.searchBusBySrcDescAndDate(busVO);
@@ -38,7 +38,7 @@ public class BusBookingService {
 		return busDetailsObject;
 	}
 	
-	@Cacheable("tripsDetails")
+	//@Cacheable("tripsDetails")
 	public BusSeatDetailsObject getSeatAvailability(String busId, String date) {
 		BusSeatDetailsObject availability = new BusSeatDetailsObject();
 		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(busId, date));

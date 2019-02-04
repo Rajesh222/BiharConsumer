@@ -6,7 +6,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.db.dao.AuthenticationDao;
@@ -21,7 +20,7 @@ public class AuthenticationService {
 	@Autowired
 	private AuthenticationDao authenticationDao;
 
-	@Cacheable("authUser")
+	//@Cacheable("authUser")
 	public User authUser(User user) throws UnsupportedEncodingException {
 		log.info("call authUser()");
 		return authenticationDao.authUser(user);
@@ -32,7 +31,7 @@ public class AuthenticationService {
 		return authenticationDao.addUser(user);
 	}
 
-	@Cacheable(value="userDetails", key="#email")
+	//@Cacheable(value="userDetails", key="#email")
 	public User getUserDetails(String email) {
 		log.info("call forgotPassword()");
 		return authenticationDao.getUserDetails(email);
@@ -48,7 +47,7 @@ public class AuthenticationService {
 		return authenticationDao.lockUser(userName, isLock, attempt);
 	}
 
-	@Cacheable("userAllData")
+	//@Cacheable("userAllData")
 	public List<User> getUsers() {
 		log.info("call getUsers()");
 		return authenticationDao.findAllUser();

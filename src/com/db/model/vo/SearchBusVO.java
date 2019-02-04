@@ -1,9 +1,14 @@
 package com.db.model.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SearchBusVO {
+public class SearchBusVO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String date;
 	private String destinationName;
 	private String sourceName;
