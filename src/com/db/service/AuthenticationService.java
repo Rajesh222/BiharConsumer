@@ -32,7 +32,7 @@ public class AuthenticationService {
 		return authenticationDao.addUser(user);
 	}
 
-	@Cacheable("userDetails")
+	@Cacheable(value="userDetails", key="#email")
 	public User getUserDetails(String email) {
 		log.info("call forgotPassword()");
 		return authenticationDao.getUserDetails(email);
@@ -48,7 +48,7 @@ public class AuthenticationService {
 		return authenticationDao.lockUser(userName, isLock, attempt);
 	}
 
-	@Cacheable("userData")
+	@Cacheable("userAllData")
 	public List<User> getUsers() {
 		log.info("call getUsers()");
 		return authenticationDao.findAllUser();
