@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,48 +71,24 @@ public class DataUtils {
 		busTypes.add("Sleeper");
 		return busTypes;
 	}
-
-	public static Date convertTimeStampToDate(Timestamp timestamp) {
-		Date date=new Date(timestamp.getTime());
-		return date;
+	
+	
+	public static String parseBusDate(String str) {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		Date date = null;
+		try {
+			date = dateFormat.parse(str);
+		} catch (ParseException e) {
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return simpleDateFormat.format(date);
 	}
 	
-	public Date convertLocalDateToDateFormat(LocalDate localDate) {
-		DateFormat dateFormatLD = new SimpleDateFormat("yyyy-MM-dd");
-		String strDate = dateFormatLD.format(localDate);
-		try {
-			DateFormat dateFormatDL = new SimpleDateFormat("yyyy-MM-dd");
-			return dateFormatDL.parse(strDate);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
-
-	public LocalDate convertDateToLocalDateFormat(Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String dateString = dateFormat.format(date);
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-		return LocalDate.parse(dateString, dateTimeFormatter);
-	}
-
-	public static Date convertStringToDateFormat(String date, String format) {
-		try {
-			DateFormat dateFormat = new SimpleDateFormat(format);
-			return dateFormat.parse(date);
-		} catch (ParseException e) {
-			return null;
-		}
-	}
-
-	public static String convertDateToStringFormat(String date, String format) {
-		Date dateValues = convertStringToDateFormat(date, format);
-		DateFormat dateFormat = new SimpleDateFormat(format);
-		return dateFormat.format(dateValues);
-	}
 	
 	public static void main(String[] args) {
-		System.out.println(convertDateToStringFormat("12-01-2019", "dd-mm-yyyy"));
+		System.out.println(parseBusDate("12-01-2019"));
 	}
+
 
 	public static String getGenerateOTP() {
 		Random rnd = new Random();
