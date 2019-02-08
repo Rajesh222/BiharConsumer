@@ -123,9 +123,9 @@ public class AuthenticationController {
 		if(i == 0 ) {
 			status = new RestStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.toString(),
 					"Currently this service is unavailable. We regret the inconvenience caused. Please try after some time.");
-			return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(new RestResponse(null, status), HttpStatus.OK);
+		return new ResponseEntity<>(new RestResponse(true, status), HttpStatus.OK);
 	}
 
 }
