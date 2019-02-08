@@ -2,8 +2,8 @@ package com.db.config;
 
 import javax.sql.DataSource;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -52,11 +52,13 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public DataSource dataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
+		DataSource dataSource = DataSourceBuilder.create().driverClassName(env.getProperty("jdbc.driverClassName"))
+				.url(env.getProperty("jdbc.url")).username(env.getProperty("jdbc.username")).password(env.getProperty("jdbc.password")).build();
+		/*BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.url"));
 		dataSource.setUsername(env.getProperty("jdbc.username"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));*/
 		return dataSource;
 	}
 

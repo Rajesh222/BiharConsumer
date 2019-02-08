@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db.model.BusDetailsObject;
 import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
-import com.db.model.vo.SearchBusVO;
+import com.db.model.vo.SearchTripVO;
 import com.db.service.BusBookingService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 
 @RestController
-@RequestMapping(value = "/api/v0/search")
+@RequestMapping(value = "/api/v0/bus")
 public class BusBookingController {
 
 	private static final Logger log = LoggerFactory.getLogger(BusBookingController.class);
@@ -32,24 +32,26 @@ public class BusBookingController {
 	@Autowired
 	private BusBookingService busBookingService;
 
-	@PostMapping(value = "/availableRouts")
+	@GetMapping(value = "/route/{source}/{destination}/{date}")
 	public ResponseEntity<RestResponse<BusDetailsObject>> searchBusRoutDetails(
-			@RequestBody(required = true) SearchBusVO searchBusVO) {
-		log.info("call search searchBusRoutDetails:{}", searchBusVO);
+			@PathVariable(name = "source", required = true) String source,
+			@PathVariable(name = "destination", required = true) String destination,
+			@PathVariable(name = "date", required = true) String date) {
+		log.info("call search searchBusRoutDetails:{},{},{}", source,destination,date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(searchBusVO);
+		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(source, destination, date);
 		if (busDetailsObject.getFilterRouteList() == null || busDetailsObject.getFilterRouteList().isEmpty())
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("There are no buses between these two cities. Please try a different date or search with an alternate route."));
 		return new ResponseEntity<>(new RestResponse(busDetailsObject, status), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/availableSeats")
+	@PostMapping(value = "/trip")
 	public ResponseEntity<RestResponse<BusSeatDetailsObject>> getSeatAvailability(
-			@RequestParam(name = "busId") String busId, @RequestParam(name = "date") String date) {
-		log.info("call search getSeatAvailability:{} {}", busId, date);
+			@RequestBody(required=true) SearchTripVO tripVO) {
+		log.info("call search getSeatAvailability:{} ", tripVO);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
-		BusSeatDetailsObject busSeatDetailsAvailability = busBookingService.getSeatAvailability(busId, date);
+		BusSeatDetailsObject busSeatDetailsAvailability = busBookingService.getSeatAvailability(tripVO);
 		if (busSeatDetailsAvailability != null) {
 			status = new RestStatus<>(HttpStatus.OK.toString(),	"There are no seats available in this bus. Please select a different bus.");
 		}

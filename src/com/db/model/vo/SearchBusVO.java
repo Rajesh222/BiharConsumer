@@ -1,7 +1,6 @@
 package com.db.model.vo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class SearchBusVO implements Serializable{
 
@@ -10,43 +9,24 @@ public class SearchBusVO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String date;
-	private String destinationName;
-	private String sourceName;
-	
-	/**
-	 * @return the date
-	 */
+	private String destination;
+	private String source;
 	public String getDate() {
 		return date;
 	}
-	/**
-	 * @param date the date to set
-	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
-	/**
-	 * @return the destinationName
-	 */
-	public String getDestinationName() {
-		return destinationName;
+	public String getDestination() {
+		return destination;
 	}
-	/**
-	 * @param destinationName the destinationName to set
-	 */
-	public void setDestinationName(String destinationName) {
-		this.destinationName = destinationName;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
-	/**
-	 * @return the sourceName
-	 */
-	public String getSourceName() {
-		return sourceName;
+	public String getSource() {
+		return source;
 	}
-	/**
-	 * @param sourceName the sourceName to set
-	 */
-	public void setSourceName(String sourceName) {
-		this.sourceName = sourceName;
+	public void setSource(String source) {
+		this.source = source;
 	}
 }

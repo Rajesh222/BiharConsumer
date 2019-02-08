@@ -35,7 +35,7 @@ import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.CustomerMapperExtrator;
 import com.db.model.vo.CustomerBusTicketVO;
-import com.db.model.vo.SearchBusVO;
+import com.db.model.vo.SearchTripVO;
 import com.db.utils.DataUtils;
 
 @Repository("busRoutDao")
@@ -68,10 +68,10 @@ public class BusBookingDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(readOnly = true)
-	public List<BusRouteDetails> searchBusBySrcDescAndDate(SearchBusVO vo) {
+	public List<BusRouteDetails> searchBusBySrcDescAndDate(String source,String destination, String date) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
 		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery,
-				new Object[] { "%" + vo.getSourceName() + "%", "%" + vo.getDestinationName() + "%", DataUtils.convertFormat(vo.getDate()) },
+				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.convertFormat(date) },
 				new BusRouteDetailsExtrator());
 	}
 
@@ -97,14 +97,13 @@ public class BusBookingDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusCancellationPolicies> getCancellationPolicy() {
-
+	public List<BusCancellationPolicies> getCancellationPolicy(String operatorId) {
 		log.debug("Running insert query for getCancellationPoliciesByBusId {}", selectBusCancellationPolicyQuery);
-		return jdbcTemplate.query(selectBusCancellationPolicyQuery, new RowMapper<BusCancellationPolicies>() {
+		return jdbcTemplate.query(selectBusCancellationPolicyQuery,new Object[] {operatorId}, new RowMapper<BusCancellationPolicies>() {
 			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
 				BusCancellationPolicies busCancellation = new BusCancellationPolicies();
 				busCancellation.setRuleId(rs.getString("ruleid"));
-				busCancellation.setBusid(rs.getString("busid"));
+				busCancellation.setBusid(rs.getString("operatorid"));
 				busCancellation.setDepartureheading(rs.getString("departureheading"));
 				busCancellation.setPolicyheading(rs.getString("policyheading"));
 				return busCancellation;
@@ -141,10 +140,10 @@ public class BusBookingDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusSeatDetails> getSeatsDetails(String busId, String date) {
+	public List<BusSeatDetails> getSeatsDetails(SearchTripVO tripVO) {
 		log.debug("Running select query for getTripsDetails: {}", selectBusSeatDetailsQuery);
-		return jdbcTemplate.query(selectBusSeatDetailsQuery,
-				new Object[] { busId, DataUtils.convertFormat(date) },
+		return jdbcTemplate.query(selectBusSeatDetailsQuery,//, DataUtils.convertFormat(date)
+				new Object[] { tripVO.getOperatorId() },
 				new BusSeatDetailsExtractor());
 	}
 
