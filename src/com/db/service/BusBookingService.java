@@ -28,8 +28,8 @@ public class BusBookingService {
 		    route.setCancellationPolicy(busBookingDao.getCancellationPolicy(route.getOperatorId()));
 		    route.setAmenities(busBookingDao.getBusFilterAmenitiesByBusId(route.getOperatorId()));
 		}
-		busDetailsObject.setFilterRouteList(filterRoutes);
-		busDetailsObject.setAmenityList(busBookingDao.getAllAmenities());
+		busDetailsObject.setAvailableRoutes(filterRoutes);
+		busDetailsObject.setAmenitiesList(busBookingDao.getAllAmenities());
 		List<String> timeList = DataUtils.getTimeList();
 		busDetailsObject.setArrivalTimeList(timeList);
 		busDetailsObject.setDepartureTimeList(timeList);

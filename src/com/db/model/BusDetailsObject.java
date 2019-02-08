@@ -5,22 +5,22 @@ import java.util.List;
 
 public class BusDetailsObject {
 	
-	private List<BusRouteDetails> filterRouteList = new ArrayList<>();
+	private List<BusRouteDetails> availableRoutes = new ArrayList<>();
 	private List<String> departureTimeList = new ArrayList<>();
 	private List<String> arrivalTimeList = new ArrayList<>();
 	private List<BusAmenity> amenitiesList = new ArrayList<>();
-	
+	private List<String> busOperators = new ArrayList<>();
 	/**
-	 * @return the filterRouteList
+	 * @return the availableRoutes
 	 */
-	public List<BusRouteDetails> getFilterRouteList() {
-		return filterRouteList;
+	public List<BusRouteDetails> getAvailableRoutes() {
+		return availableRoutes;
 	}
 	/**
-	 * @param filterRouteList the filterRouteList to set
+	 * @param availableRoutes the availableRoutes to set
 	 */
-	public void setFilterRouteList(List<BusRouteDetails> filterRouteList) {
-		this.filterRouteList = filterRouteList;
+	public void setAvailableRoutes(List<BusRouteDetails> availableRoutes) {
+		this.availableRoutes = availableRoutes;
 	}
 	/**
 	 * @return the departureTimeList
@@ -55,8 +55,19 @@ public class BusDetailsObject {
 	/**
 	 * @param amenitiesList the amenitiesList to set
 	 */
-	public void setAmenityList(List<BusAmenity> amenitiesList) {
+	public void setAmenitiesList(List<BusAmenity> amenitiesList) {
 		this.amenitiesList = amenitiesList;
 	}
-	
+	/**
+	 * @return the busOperators
+	 */
+	public List<String> getBusOperators() {
+		return busOperators;
+	}
+	/**
+	 * @param busOperators the busOperators to set
+	 */
+	public void setBusOperators(List<String> busOperators) {
+		this.busOperators = busOperators;
+	}
 }

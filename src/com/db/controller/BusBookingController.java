@@ -40,7 +40,7 @@ public class BusBookingController {
 		log.info("call search searchBusRoutDetails:{},{},{}", source,destination,date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(source, destination, date);
-		if (busDetailsObject.getFilterRouteList() == null || busDetailsObject.getFilterRouteList().isEmpty())
+		if (busDetailsObject.getAvailableRoutes() == null || busDetailsObject.getAvailableRoutes().isEmpty())
 			status = new RestStatus<>(HttpStatus.OK.toString(),
 					String.format("There are no buses between these two cities. Please try a different date or search with an alternate route."));
 		return new ResponseEntity<>(new RestResponse(busDetailsObject, status), HttpStatus.OK);
