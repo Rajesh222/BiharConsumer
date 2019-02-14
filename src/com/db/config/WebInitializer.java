@@ -11,7 +11,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { WebConfig.class, EhCacheConfig.class, MailConfig.class };
+		return new Class[] { LeadServiceConfiguration.class, EhCacheConfig.class, MailConfig.class };
 	}
 
 	@Override
@@ -26,7 +26,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] { new CorsFilter() };
+		return new Filter[] {
+				new CorsFilter(), new PerformanceFilter()
+		};
 	}
 
 }

@@ -3,7 +3,7 @@ package com.db.exception;
  * @author Satyam Kumar
  *
  */
-public abstract class BaseException extends Exception {
+public class BaseException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
