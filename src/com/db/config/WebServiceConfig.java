@@ -31,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableTransactionManagement
 @EnableScheduling
 @PropertySource({"classpath:application.properties","classpath:sql.properties"})
-public class LeadServiceConfiguration implements WebMvcConfigurer  {
+public class WebServiceConfig implements WebMvcConfigurer  {
 
 	@Autowired
 	private Environment env;
@@ -67,7 +67,7 @@ public class LeadServiceConfiguration implements WebMvcConfigurer  {
 	}
 	
 	@Bean
-	public RestTemplate marketoRestTemplate() {
+	public RestTemplate digitalRestTemplate() {
 		return new RestTemplate();
 	}
 
