@@ -9,7 +9,10 @@ import java.util.List;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.db.model.BusDetails;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusInformationDetailsExtractor implements ResultSetExtractor<List<BusDetails>> {
 
 	@Override

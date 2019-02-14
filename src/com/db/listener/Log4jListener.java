@@ -11,7 +11,10 @@ import javax.servlet.annotation.WebListener;
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @WebListener
 public class Log4jListener implements ServletContextListener {
 	

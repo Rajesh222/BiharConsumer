@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.db.dao.WalletDao;
 import com.db.model.Wallet;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Service("walletService")
 public class WalletService {
 

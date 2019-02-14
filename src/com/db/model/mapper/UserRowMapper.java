@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.db.model.User;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class UserRowMapper implements RowMapper<User> {
 
 	@Override

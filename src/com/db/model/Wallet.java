@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class Wallet extends BaseModel implements Serializable{
 	
 	private static final long serialVersionUID = 7198033653493021478L;

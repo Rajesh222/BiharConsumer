@@ -2,7 +2,10 @@ package com.db.model;
 
 import java.util.Date;
 
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class Login {
 	
 	private String id;

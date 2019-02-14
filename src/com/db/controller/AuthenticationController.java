@@ -24,7 +24,10 @@ import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 import com.db.utils.Constants;
 import com.db.utils.DataUtils;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/v0/auth")
 public class AuthenticationController {

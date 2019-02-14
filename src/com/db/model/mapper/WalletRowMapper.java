@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import com.db.model.Wallet;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class WalletRowMapper implements RowMapper<Wallet> {
 	
 	@Override

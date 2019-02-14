@@ -1,7 +1,10 @@
 package com.db.spring.model;
 
 import java.util.Date;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class RestStatus<T> {
 
 	private String code;

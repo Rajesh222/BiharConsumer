@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.model.Payment;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @RestController
 @RequestMapping("/api/v0/payment")
 public class PaymentController {

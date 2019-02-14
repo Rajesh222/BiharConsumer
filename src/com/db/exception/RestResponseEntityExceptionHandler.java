@@ -39,7 +39,10 @@ import com.db.service.EmailService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 import com.db.utils.Constants;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 

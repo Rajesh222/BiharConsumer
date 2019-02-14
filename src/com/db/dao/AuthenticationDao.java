@@ -24,7 +24,10 @@ import com.db.model.Login;
 import com.db.model.User;
 import com.db.model.mapper.UserRowMapper;
 import com.db.utils.SecurityDigester;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Repository("userDetailsDao")
 public class AuthenticationDao {
 

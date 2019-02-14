@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import com.db.dao.AuthenticationDao;
 import com.db.model.Login;
 import com.db.model.User;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Service("authenticationService")
 public class AuthenticationService {
 

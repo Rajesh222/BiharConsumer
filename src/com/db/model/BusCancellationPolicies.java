@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusCancellationPolicies implements Serializable{
 
 	private static final long serialVersionUID = -7267795731820416481L;

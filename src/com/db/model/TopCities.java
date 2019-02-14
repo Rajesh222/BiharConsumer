@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class TopCities extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = -950330307004124256L;

@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class UserModule extends BaseModel implements Serializable {
 
 	/**

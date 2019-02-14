@@ -1,8 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusBoadingStopingDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;

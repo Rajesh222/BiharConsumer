@@ -2,7 +2,10 @@ package com.db.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public abstract class BaseModel implements Serializable {
 
 	protected static final long serialVersionUID = 1L;

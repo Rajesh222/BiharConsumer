@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusSeatDetails implements Serializable{
 
 	private static final long serialVersionUID = 1L;

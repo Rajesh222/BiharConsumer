@@ -3,7 +3,10 @@ package com.db.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusRouteDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.Wallet;
 import com.db.model.mapper.WalletRowMapper;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Repository("walletDao")
 public class WalletDao {
 

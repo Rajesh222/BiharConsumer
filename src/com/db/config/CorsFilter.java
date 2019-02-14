@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * @author Jose Aleman
+ * @author Satyam Kumar
  *
  */
 @CrossOrigin

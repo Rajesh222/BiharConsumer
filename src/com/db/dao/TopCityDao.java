@@ -19,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.db.model.TopCities;
 import com.db.model.mapper.TopCityRowMapper;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Repository("topCityDao")
 public class TopCityDao {
 

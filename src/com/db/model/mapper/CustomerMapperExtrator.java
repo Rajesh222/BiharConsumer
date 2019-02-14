@@ -8,7 +8,10 @@ import java.util.List;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.db.model.vo.CustomerBusTicketVO;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class CustomerMapperExtrator implements ResultSetExtractor<List<CustomerBusTicketVO>> {
 
 	@Override

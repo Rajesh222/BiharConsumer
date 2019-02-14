@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.db.model.TopCities;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class TopCityRowMapper implements RowMapper<TopCities> {
 	
 	@Override

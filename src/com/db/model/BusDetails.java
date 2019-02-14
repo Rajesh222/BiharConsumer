@@ -1,5 +1,8 @@
 package com.db.model;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusDetails {
 
 	private String busId;

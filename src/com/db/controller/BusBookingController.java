@@ -22,7 +22,10 @@ import com.db.model.vo.SearchTripVO;
 import com.db.service.BusBookingService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/v0/bus")
 public class BusBookingController {

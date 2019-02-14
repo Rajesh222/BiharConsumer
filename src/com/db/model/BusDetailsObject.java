@@ -2,7 +2,10 @@ package com.db.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusDetailsObject {
 	
 	private List<BusRouteDetails> availableRoutes = new ArrayList<>();

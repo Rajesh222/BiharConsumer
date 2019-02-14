@@ -1,5 +1,8 @@
 package com.db.utils;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class Constants {
 
 	private Constants() {

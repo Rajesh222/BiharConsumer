@@ -8,8 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 /**
+ * @author Satyam Kumar
  *
- * @author lepton
  */
 public class SecurityDigester {
 

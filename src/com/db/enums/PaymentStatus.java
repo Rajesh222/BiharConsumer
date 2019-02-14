@@ -1,5 +1,8 @@
 package com.db.enums;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public enum PaymentStatus {
 
 	PENDING("Pending"), FAILED("Failed"), SUCCESS("Success");

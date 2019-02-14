@@ -12,7 +12,10 @@ import com.db.model.BusSeatDetailsObject;
 import com.db.model.vo.CustomerBusTicketVO;
 import com.db.model.vo.SearchTripVO;
 import com.db.utils.DataUtils;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Service
 public class BusBookingService {
 

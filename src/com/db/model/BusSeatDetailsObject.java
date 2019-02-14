@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.util.List;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusSeatDetailsObject {
 
 	private List<BusSeatDetails> busSeatDetails;

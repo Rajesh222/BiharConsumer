@@ -1,5 +1,8 @@
 package com.db.spring.model;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class RestResponse<T> {
 
 	private RestStatus<T> status;

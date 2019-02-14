@@ -1,5 +1,8 @@
 package com.db.model;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class Payment {
 	private String chargeAmount;
 	private String nonce;

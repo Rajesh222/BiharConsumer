@@ -1,7 +1,10 @@
 package com.db.model;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class Complain implements Serializable {
 	
 	private static final long serialVersionUID = 5387952680835296398L;

@@ -8,7 +8,10 @@ import java.util.List;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.db.model.BusRouteDetails;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class BusRouteDetailsExtrator implements ResultSetExtractor<List<BusRouteDetails>> {
 
 	@Override

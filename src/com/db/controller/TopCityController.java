@@ -18,7 +18,10 @@ import com.db.model.TopCities;
 import com.db.service.TopCityService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/v0")
 public class TopCityController {

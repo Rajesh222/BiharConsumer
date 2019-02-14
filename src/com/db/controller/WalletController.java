@@ -18,7 +18,10 @@ import com.db.model.Wallet;
 import com.db.service.WalletService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 @Controller
 @RequestMapping(value = "/api/v0/wallet")
 public class WalletController {

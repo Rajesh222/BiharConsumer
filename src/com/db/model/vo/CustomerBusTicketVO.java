@@ -1,5 +1,8 @@
 package com.db.model.vo;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class CustomerBusTicketVO {
 
 	private String bookingid;

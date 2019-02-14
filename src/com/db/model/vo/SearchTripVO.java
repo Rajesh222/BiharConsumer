@@ -1,7 +1,10 @@
 package com.db.model.vo;
 
 import java.io.Serializable;
-
+/**
+ * @author Satyam Kumar
+ *
+ */
 public class SearchTripVO implements Serializable{
 
 	/**
