@@ -42,7 +42,7 @@ public class BusBookingService {
 	//@Cacheable("tripsDetails")
 	public BusSeatDetailsObject getSeatAvailability(SearchTripVO tripVO) {
 		BusSeatDetailsObject availability = new BusSeatDetailsObject();
-		//availability.setBusSeatDetails(busBookingDao.getSeatsDetails(busId, date));
+		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(tripVO));
 		//availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
 		//availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
 		return availability;
