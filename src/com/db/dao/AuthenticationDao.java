@@ -23,6 +23,7 @@ import com.db.enums.PrevilageType;
 import com.db.model.Login;
 import com.db.model.User;
 import com.db.model.mapper.UserRowMapper;
+import com.db.utils.DataUtils;
 import com.db.utils.SecurityDigester;
 /**
  * @author Satyam Kumar
@@ -129,7 +130,7 @@ public class AuthenticationDao {
 	public User getUserDetails(String email) {
 		try {
 			User user = null;
-			if (validatePhoneNumber(email)) {
+			if (DataUtils.validatePhoneNumber(email)) {
 				log.debug("Running insert query for getUserDetails : {}", selectUserDetailsByPhoneQuery);
 				user = jdbcTemplate.queryForObject(selectUserDetailsByPhoneQuery, new Object[] { email }, new UserRowMapper());
 			} else {
@@ -151,7 +152,7 @@ public class AuthenticationDao {
 	@Transactional
 	public User authUser(User user) throws UnsupportedEncodingException {
 		try {
-			if (validatePhoneNumber(user.getEmail())) {
+			if (DataUtils.validatePhoneNumber(user.getEmail())) {
 				log.debug("Running insert query for authUser {}", selectUserAuthByPhoneQuery);
 				user = jdbcTemplate.queryForObject(selectUserAuthByPhoneQuery,
 						new Object[] { user.getEmail(), SecurityDigester.encrypt(user.getPassword()) },
@@ -174,22 +175,6 @@ public class AuthenticationDao {
 		return jdbcTemplate.update(updateLoginLogoutTimeQuery, new Object[] {ip, uid});
 	}
 
-	private static boolean validatePhoneNumber(String phoneNo) {
-		// validate phone numbers of format "1234567890"
-		if (phoneNo.matches("\\d{10}"))
-			return true;
-		// validating phone number with -, . or spaces
-		else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}"))
-			return true;
-		// validating phone number with extension length from 3 to 5
-		else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}"))
-			return true;
-		// validating phone number where area code is in braces ()
-		else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}"))
-			return true;
-		// return false if nothing matches the input
-		else
-			return false;
-	}
+	
 
 }
