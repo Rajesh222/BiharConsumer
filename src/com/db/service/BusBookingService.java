@@ -1,5 +1,6 @@
 package com.db.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	public BusDetailsObject searchBusRoutDetails(String source, String destination, String date) {
+	public BusDetailsObject searchBusRoutDetails(String source, String destination, Date date) {
 		BusDetailsObject busDetailsObject = new BusDetailsObject();
 		List<BusRouteDetails> filterRoutes = busBookingDao.searchBusBySrcDescAndDate(source, destination, date);
 		for(BusRouteDetails route : filterRoutes) {

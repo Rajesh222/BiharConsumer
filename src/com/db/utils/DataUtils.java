@@ -4,11 +4,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 /**
@@ -115,8 +117,20 @@ public class DataUtils {
 	}
 	
 	
-	public static void main(String[] args) {
+	public static String formatDateToString(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return sdf.format(date);
 	}
+
+	public static void main(String[] args) {
+		//Test formatDateToString method
+		Date date = new Date();
+		System.out.println("Default Date:"+date.toString());
+		System.out.println("System Date in GMT: "+formatDateToString(date));
+	}
+
+
 
 
 	public static String getGenerateOTP() {

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -71,10 +72,10 @@ public class BusBookingDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(readOnly = true)
-	public List<BusRouteDetails> searchBusBySrcDescAndDate(String source,String destination, String date) {
+	public List<BusRouteDetails> searchBusBySrcDescAndDate(String source,String destination, Date date) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
 		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery,
-				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.convertFormat(date) },
+				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.formatDateToString(date) },
 				new BusRouteDetailsExtrator());
 	}
 
