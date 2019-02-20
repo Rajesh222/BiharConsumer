@@ -33,7 +33,6 @@ public class BusRouteDetails implements Serializable {
 	private String layoutType;
 	private boolean isSeater = true;
 	private boolean isRefundable= false;
-	private String routId;
 	private double totalSeats;
 	private double availableSeats;
 	private double distance; 
@@ -44,6 +43,7 @@ public class BusRouteDetails implements Serializable {
 	private String seatType; 
 	private String source; 
 	private String destination;
+	private String tripid;
 	/**
 	 * @return the boardingLocations
 	 */
@@ -321,18 +321,6 @@ public class BusRouteDetails implements Serializable {
 		this.isRefundable = isRefundable;
 	}
 	/**
-	 * @return the routId
-	 */
-	public String getRoutId() {
-		return routId;
-	}
-	/**
-	 * @param routId the routId to set
-	 */
-	public void setRoutId(String routId) {
-		this.routId = routId;
-	}
-	/**
 	 * @return the totalSeats
 	 */
 	public double getTotalSeats() {
@@ -451,5 +439,11 @@ public class BusRouteDetails implements Serializable {
 	 */
 	public void setDestination(String destination) {
 		this.destination = destination;
+	}
+	public String getTripid() {
+		return tripid;
+	}
+	public void setTripid(String tripid) {
+		this.tripid = tripid;
 	}
 }

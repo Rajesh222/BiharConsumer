@@ -1,6 +1,5 @@
 package com.db.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,12 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
-	public BusDetailsObject searchBusRoutDetails(String source, String destination, Date date) {
+	public BusDetailsObject searchBusRoutDetails(String source, String destination, String date) {
 		BusDetailsObject busDetailsObject = new BusDetailsObject();
-		List<BusRouteDetails> filterRoutes = busBookingDao.searchBusBySrcDescAndDate(source, destination, date);
+		List<BusRouteDetails> filterRoutes = busBookingDao.searchTriBySrcDescAndDate(source, destination, date);
 		for(BusRouteDetails route : filterRoutes) {
-			//route.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getOperatorId(),busVO.getSourceName().toLowerCase()));
-			//route.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getBusId(),busVO.getDestinationName().toLowerCase()));
+			route.setBoardingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getTripid().split("::")[0]));
+			route.setDroppingLocations(busBookingDao.getBusBoadingAndStopingPointDetails(route.getTripid().split("::")[1]));
 		    route.setCancellationPolicy(busBookingDao.getCancellationPolicy(route.getOperatorId()));
 		    route.setAmenities(busBookingDao.getBusFilterAmenitiesByBusId(route.getOperatorId()));
 		}

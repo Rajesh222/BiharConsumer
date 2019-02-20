@@ -40,7 +40,7 @@ public class BusBookingController {
 	public ResponseEntity<RestResponse<BusDetailsObject>> searchBusRoutDetails(
 			@PathVariable(name = "source", required = true) String source,
 			@PathVariable(name = "destination", required = true) String destination,
-			@PathVariable(name = "date", required = true) Date date) {
+			@PathVariable(name = "date", required = true) String date) {
 		log.info("call search searchBusRoutDetails:{},{},{}", source,destination,date);
 		RestStatus<String> status = new RestStatus<>(HttpStatus.OK.toString(), "All Records Fetched Successfully");
 		BusDetailsObject busDetailsObject = busBookingService.searchBusRoutDetails(source, destination, date);

@@ -31,7 +31,7 @@ import com.db.model.BusSeatDetails;
 import com.db.model.BusType;
 import com.db.model.mapper.BusAmenitiesExtractor;
 import com.db.model.mapper.BusInformationDetailsExtractor;
-import com.db.model.mapper.BusRouteDetailsExtrator;
+import com.db.model.mapper.BusTripDetailsExtrator;
 import com.db.model.mapper.BusSeatDetailsExtractor;
 import com.db.model.mapper.BusStopLocationDetailsRowMapper;
 import com.db.model.mapper.CustomerMapperExtrator;
@@ -47,8 +47,9 @@ public class BusBookingDao {
 
 	private static final Logger log = LoggerFactory.getLogger(BusBookingDao.class);
 
-	@Value("${select_route_by_src_desc}")
-	private String selectSearchBusBySrcAndDescDateQuery;
+	//@Value("${select_route_by_src_desc}")
+	@Value("${select_trip_by_city}")
+	private String selectSearchTripBySrcAndDescDateQuery;
 	@Value("${select_boadingstopping_details}")
 	private String selectBoadingStoppingDetailQuery;
 	@Value("${select_bustype}")
@@ -72,17 +73,17 @@ public class BusBookingDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(readOnly = true)
-	public List<BusRouteDetails> searchBusBySrcDescAndDate(String source,String destination, Date date) {
-		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchBusBySrcAndDescDateQuery);
-		return jdbcTemplate.query(selectSearchBusBySrcAndDescDateQuery,
-				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.formatDateToString(date) },
-				new BusRouteDetailsExtrator());
+	public List<BusRouteDetails> searchTriBySrcDescAndDate(String source,String destination, String date) {
+		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchTripBySrcAndDescDateQuery);
+		return jdbcTemplate.query(selectSearchTripBySrcAndDescDateQuery,
+				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.convertFormat(date) },
+				new BusTripDetailsExtrator());
 	}
 
 	@Transactional(readOnly = true)
-	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String busId, String sourceName) {
+	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String trip) {
 		log.debug("Running select query for searchBusByAvailibleRout: {}", selectBoadingStoppingDetailQuery);
-		return jdbcTemplate.query(selectBoadingStoppingDetailQuery, new Object[] { busId, sourceName },
+		return jdbcTemplate.query(selectBoadingStoppingDetailQuery, new Object[] { trip },
 				new BusStopLocationDetailsRowMapper());
 	}
 
@@ -106,8 +107,8 @@ public class BusBookingDao {
 		return jdbcTemplate.query(selectBusCancellationPolicyQuery,new Object[] {operatorId}, new RowMapper<BusCancellationPolicies>() {
 			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
 				BusCancellationPolicies busCancellation = new BusCancellationPolicies();
-				busCancellation.setRuleId(rs.getString("ruleid"));
-				busCancellation.setBusid(rs.getString("operatorid"));
+				busCancellation.setRuleId(rs.getString("policyid"));
+				busCancellation.setBusid(rs.getString("busid"));
 				busCancellation.setDepartureheading(rs.getString("departureheading"));
 				busCancellation.setPolicyheading(rs.getString("policyheading"));
 				return busCancellation;
