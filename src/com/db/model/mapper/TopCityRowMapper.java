@@ -15,7 +15,7 @@ public class TopCityRowMapper implements RowMapper<TopCities> {
 	@Override
 	public TopCities mapRow(ResultSet rs, int rowNum) throws SQLException {
 		TopCities user = new TopCities();
-		user.setId(rs.getInt("refnumber"));
+		user.setId(rs.getInt("stopid"));
 		user.setDisplayName(rs.getString("displayname"));
 		user.setCityName(rs.getString("cityname"));
 		user.setStateName(rs.getString("statename"));
