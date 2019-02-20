@@ -9,10 +9,8 @@ public class BusBoadingStopingDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private String cityName;
 	private String locationName;
 	private String locationAddress;
-	private String landmark;
 	private double lat;
 	private double lng;
 	private String busid;
@@ -30,18 +28,6 @@ public class BusBoadingStopingDetails implements Serializable {
 	 */
 	public void setId(String id) {
 		this.id = id;
-	}
-	/**
-	 * @return the cityName
-	 */
-	public String getCityName() {
-		return cityName;
-	}
-	/**
-	 * @param cityName the cityName to set
-	 */
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
 	}
 	/**
 	 * @return the locationName
@@ -66,18 +52,6 @@ public class BusBoadingStopingDetails implements Serializable {
 	 */
 	public void setLocationAddress(String locationAddress) {
 		this.locationAddress = locationAddress;
-	}
-	/**
-	 * @return the landmark
-	 */
-	public String getLandmark() {
-		return landmark;
-	}
-	/**
-	 * @param landmark the landmark to set
-	 */
-	public void setLandmark(String landmark) {
-		this.landmark = landmark;
 	}
 	/**
 	 * @return the lat

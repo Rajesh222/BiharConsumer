@@ -14,6 +14,7 @@ public class SearchTripVO implements Serializable{
 	private String journeyDate;
 	private String operatorId;
 	private String providerId;
+	private String tripId;
 	/**
 	 * @return the journeyDate
 	 */
@@ -50,6 +51,16 @@ public class SearchTripVO implements Serializable{
 	public void setProviderId(String providerId) {
 		this.providerId = providerId;
 	}
-	
-	
+	/**
+	 * @return the tripId
+	 */
+	public String getTripId() {
+		return tripId;
+	}
+	/**
+	 * @param tripId the tripId to set
+	 */
+	public void setTripId(String tripId) {
+		this.tripId = tripId;
+	}
 }

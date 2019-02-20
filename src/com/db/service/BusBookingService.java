@@ -43,8 +43,8 @@ public class BusBookingService {
 	public BusSeatDetailsObject getSeatAvailability(SearchTripVO tripVO) {
 		BusSeatDetailsObject availability = new BusSeatDetailsObject();
 		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(tripVO));
-		//availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
-		//availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(busId));
+		availability.setBoardingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(tripVO.getTripId().split("::")[0]));
+		availability.setDroppingPoints(busBookingDao.getBusBoadingAndStopingPointDetails(tripVO.getTripId().split("::")[1]));
 		return availability;
 	}
 	

@@ -147,8 +147,8 @@ public class BusBookingDao {
 	@Transactional(readOnly = true)
 	public List<BusSeatDetails> getSeatsDetails(SearchTripVO tripVO) {
 		log.debug("Running select query for getTripsDetails: {}", selectBusSeatDetailsQuery);
-		return jdbcTemplate.query(selectBusSeatDetailsQuery,//, DataUtils.convertFormat(date)
-				new Object[] { tripVO.getOperatorId() },
+		return jdbcTemplate.query(selectBusSeatDetailsQuery,
+				new Object[] { tripVO.getOperatorId().toLowerCase() },
 				new BusSeatDetailsExtractor());
 	}
 

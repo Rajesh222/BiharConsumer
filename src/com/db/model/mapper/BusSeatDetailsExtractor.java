@@ -32,8 +32,8 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 			seatDetails.setLadiesSeat(rs.getBoolean("isladiesseat"));
 			seatDetails.setMenSeat(rs.getBoolean("ismenseat"));
 			seatDetails.setLowerBerth(rs.getBoolean("islowerberth"));
-			seatDetails.setReservedForLadies(rs.getBoolean("isreservedforladies"));
-			seatDetails.setFare(rs.getDouble("fare"));
+			//seatDetails.setReservedForLadies(rs.getBoolean("isreservedforladies"));
+			//seatDetails.setFare(rs.getDouble("fare"));
 			seatDetails.setServiceTaxPercent(0);
 			busSeatDetails.add(seatDetails);
 		}
