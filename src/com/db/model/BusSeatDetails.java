@@ -12,7 +12,7 @@ public class BusSeatDetails implements Serializable{
 	private int column;
 	private int width;
 	private int length;
-	private String busId;
+	private String layoutId;
 	private String seatType;
 	private String seatNumber;
 	private String seatName;
@@ -71,17 +71,18 @@ public class BusSeatDetails implements Serializable{
 	public void setLength(int length) {
 		this.length = length;
 	}
+	
 	/**
-	 * @return the busId
+	 * @return the layoutId
 	 */
-	public String getBusId() {
-		return busId;
+	public String getLayoutId() {
+		return layoutId;
 	}
 	/**
-	 * @param busId the busId to set
+	 * @param layoutId the layoutId to set
 	 */
-	public void setBusId(String busId) {
-		this.busId = busId;
+	public void setLayoutId(String layoutId) {
+		this.layoutId = layoutId;
 	}
 	/**
 	 * @return the seatType
@@ -203,4 +204,5 @@ public class BusSeatDetails implements Serializable{
 	public void setServiceTaxPercent(double serviceTaxPercent) {
 		this.serviceTaxPercent = serviceTaxPercent;
 	}
+	
 }

@@ -46,6 +46,12 @@ public class BusTripDetailsExtrator implements ResultSetExtractor<List<BusRouteD
 			busRoutDetails.setDestination(rs.getString("destination"));
 			List<Double> list = new ArrayList<>();
 			list.add(rs.getDouble("basefare"));
+			if (rs.getDouble("sleaperFare") != 0) {
+				list.add(rs.getDouble("basefare")+rs.getDouble("sleaperFare"));
+			}
+			if (rs.getDouble("seaterFare") != 0) {
+				list.add(rs.getDouble("basefare")+rs.getDouble("seaterFare"));
+			}
 			busRoutDetails.setFares(list);
 
 			amenitiesList.add(busRoutDetails);

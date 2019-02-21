@@ -20,11 +20,11 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 		
 		while (rs.next()) {
 			BusSeatDetails seatDetails = new BusSeatDetails();
-			seatDetails.setRow(Integer.parseInt(rs.getString("rowname").replaceAll("R", "")));
-			seatDetails.setColumn(Integer.parseInt(rs.getString("columnname").replaceAll("C", "")));
+			seatDetails.setRow(Integer.parseInt(rs.getString("rowname")));
+			seatDetails.setColumn(Integer.parseInt(rs.getString("columnname")));
 			seatDetails.setLength(rs.getInt("length"));
 			seatDetails.setWidth(rs.getInt("width"));
-			//seatDetails.setBusId(rs.getString("busid"));
+			seatDetails.setLayoutId(rs.getString("seatlayoutid"));
 			seatDetails.setSeatType(rs.getString("seattype"));
 			seatDetails.setSeatNumber(rs.getString("seatnumber"));
 			seatDetails.setSeatName(rs.getString("seatnumber"));
@@ -33,7 +33,7 @@ public class BusSeatDetailsExtractor implements ResultSetExtractor<List<BusSeatD
 			seatDetails.setMenSeat(rs.getBoolean("ismenseat"));
 			seatDetails.setLowerBerth(rs.getBoolean("islowerberth"));
 			//seatDetails.setReservedForLadies(rs.getBoolean("isreservedforladies"));
-			//seatDetails.setFare(rs.getDouble("fare"));
+			seatDetails.setFare(rs.getDouble("fare"));
 			seatDetails.setServiceTaxPercent(0);
 			busSeatDetails.add(seatDetails);
 		}

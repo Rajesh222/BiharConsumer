@@ -147,8 +147,10 @@ public class BusBookingDao {
 	@Transactional(readOnly = true)
 	public List<BusSeatDetails> getSeatsDetails(SearchTripVO tripVO) {
 		log.debug("Running select query for getTripsDetails: {}", selectBusSeatDetailsQuery);
+		Integer startStop = Integer.parseInt(tripVO.getTripId().split("::")[2]);
+		Integer endStop = Integer.parseInt(tripVO.getTripId().split("::")[3]);
 		return jdbcTemplate.query(selectBusSeatDetailsQuery,
-				new Object[] { tripVO.getOperatorId().toLowerCase() },
+				new Object[] { startStop, endStop, startStop, endStop, tripVO.getOperatorId().toLowerCase() },
 				new BusSeatDetailsExtractor());
 	}
 

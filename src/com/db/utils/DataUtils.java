@@ -124,10 +124,8 @@ public class DataUtils {
 	}
 
 	public static void main(String[] args) {
-		//Test formatDateToString method
-		Date date = new Date();
-		System.out.println("Default Date:"+date.toString());
-		System.out.println("System Date in GMT: "+formatDateToString(date));
+		String str = "1::2::3::4";
+		System.out.println(str.split("::")[2]);
 	}
 
 
