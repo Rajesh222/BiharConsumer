@@ -34,7 +34,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.db.service.EmailService;
+import com.db.service.MailService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 import com.db.utils.Constants;
@@ -47,7 +47,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	private static final Logger log = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
 	@Autowired
-    private EmailService emailService;
+    private MailService emailService;
     
 	@ExceptionHandler(javax.persistence.EntityNotFoundException.class)
 	protected ResponseEntity<Object> handleEntityNotFound(javax.persistence.EntityNotFoundException ex) {

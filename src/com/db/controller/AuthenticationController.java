@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db.model.Login;
 import com.db.model.User;
 import com.db.service.AuthenticationService;
-import com.db.service.EmailService;
+import com.db.service.MailService;
 import com.db.spring.model.RestResponse;
 import com.db.spring.model.RestStatus;
 import com.db.utils.Constants;
@@ -38,7 +38,7 @@ public class AuthenticationController {
 	private AuthenticationService authService;
 	
 	@Autowired
-	private EmailService emailService;
+	private MailService emailService;
 
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<RestResponse<Object>> registration(@RequestBody(required = true) User user) {

@@ -1,5 +1,6 @@
 package com.db.service;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -10,34 +11,46 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 /**
  * @author Satyam Kumar
  *
  */
 @Component
-public class EmailService {
+public class MailService {
 
-	private static final Logger log = LoggerFactory.getLogger(EmailService.class);
+	private static final Logger log = LoggerFactory.getLogger(MailService.class);
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
-	@Value("${isOffline}") 
+
+	@Value("${isOffline}")
 	private boolean isOffLine;
 
-	public void sendEmail(String headerValue, String to, String body) {
+	public void sendEmail(String Subject, String emailTo, String Content) {
 		log.info("call sendEmail()");
-		if(!isOffLine)
+		if (!isOffLine)
 			return;
+		sendMail(emailTo, null, null, Subject, Content);
+	}
+
+	public void sendMail(final String emailTo, final String emailCC, final String emailBcc, final String Subject,
+			final String Content) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-				helper.setSubject(headerValue);
-				helper.setTo(to);
-				helper.setText(body, true);
+				if (emailCC != null && !"".equals(emailCC.trim())) {
+					helper.setCc(InternetAddress.parse(emailCC));
+				}
+				if (emailBcc != null && !"".equals(emailBcc.trim())) {
+					helper.setBcc(InternetAddress.parse(emailBcc));
+				}
+				helper.setSubject(Subject);
+				helper.setTo(InternetAddress.parse(emailTo));
+				helper.setText(Content, true);
 			}
 		};
 		mailSender.send(preparator);
+		log.info("Sent Mail Message to : {}", emailTo);
 	}
 }
