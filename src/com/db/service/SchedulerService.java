@@ -12,13 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class SchedulerService {
 
-	@Scheduled(fixedRate = 5000) // for every 5 minutes
+	//@Scheduled(fixedRate = 5000) // for every 5 minutes
 	public void run2() {
 		System.out.println("I am called by Spring scheduler " + new Date());
 	}
 
 	@Scheduled(cron = "0 0 0 * * ?") // every night 12 AM
-	// @Scheduled(fixedRate=5000) for every 5 minutes
 	public void run() {
 		System.out.println("I am called by Spring scheduler " + new Date());
 	}
