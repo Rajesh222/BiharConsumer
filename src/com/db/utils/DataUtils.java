@@ -12,11 +12,17 @@ import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Satyam Kumar
  *
  */
 public class DataUtils {
+
+	private static final Logger log = LoggerFactory.getLogger(DataUtils.class);
 
 	private DataUtils() {
 	}
@@ -95,6 +101,7 @@ public class DataUtils {
 		try {
 			date = dateFormat.parse(str);
 		} catch (ParseException e) {
+			log.error(e.getMessage());
 		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return simpleDateFormat.format(date);
@@ -105,6 +112,7 @@ public class DataUtils {
 			DateFormat dateFormat = new SimpleDateFormat(format);
 			return dateFormat.parse(date);
 		} catch (ParseException e) {
+			log.error(e.getMessage());
 			return null;
 		}
 	}

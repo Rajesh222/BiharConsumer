@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +45,6 @@ public class BusBookingDao {
 
 	private static final Logger log = LoggerFactory.getLogger(BusBookingDao.class);
 
-	//@Value("${select_route_by_src_desc}")
 	@Value("${select_trip_by_city}")
 	private String selectSearchTripBySrcAndDescDateQuery;
 	@Value("${select_boadingstopping_details}")
@@ -74,7 +71,7 @@ public class BusBookingDao {
 
 	@Transactional(readOnly = true)
 	public List<BusRouteDetails> searchTriBySrcDescAndDate(String source,String destination, String date) {
-		log.debug("Running select query for searchBusByAvailibleRout: {}", selectSearchTripBySrcAndDescDateQuery);
+		log.debug("Running select query for searchTriBySrcDescAndDate: {}", selectSearchTripBySrcAndDescDateQuery);
 		return jdbcTemplate.query(selectSearchTripBySrcAndDescDateQuery,
 				new Object[] { "%" + source.toLowerCase() + "%", "%" + destination.toLowerCase() + "%", DataUtils.convertFormat(date) },
 				new BusTripDetailsExtrator());
@@ -82,7 +79,7 @@ public class BusBookingDao {
 
 	@Transactional(readOnly = true)
 	public List<BusBoadingStopingDetails> getBusBoadingAndStopingPointDetails(String trip) {
-		log.debug("Running select query for searchBusByAvailibleRout: {}", selectBoadingStoppingDetailQuery);
+		log.debug("Running select query for getBusBoadingAndStopingPointDetails: {}", selectBoadingStoppingDetailQuery);
 		return jdbcTemplate.query(selectBoadingStoppingDetailQuery, new Object[] { trip },
 				new BusStopLocationDetailsRowMapper());
 	}
@@ -103,7 +100,7 @@ public class BusBookingDao {
 
 	@Transactional(readOnly = true)
 	public List<BusCancellationPolicies> getCancellationPolicy(String operatorId) {
-		log.debug("Running insert query for getCancellationPoliciesByBusId {}", selectBusCancellationPolicyQuery);
+		log.debug("Running insert query for getCancellationPolicy {}", selectBusCancellationPolicyQuery);
 		return jdbcTemplate.query(selectBusCancellationPolicyQuery,new Object[] {operatorId}, new RowMapper<BusCancellationPolicies>() {
 			public BusCancellationPolicies mapRow(ResultSet rs, int rowNum) throws SQLException {
 				BusCancellationPolicies busCancellation = new BusCancellationPolicies();
@@ -133,20 +130,20 @@ public class BusBookingDao {
 
 	@Transactional(readOnly = true)
 	public List<BusAmenity> getAllAmenities() {
-		log.debug("Running insert query for getBusAmenitiesByBusId {}", selectAllAminitiesQuery);
+		log.debug("Running insert query for getAllAmenities {}", selectAllAminitiesQuery);
 		return jdbcTemplate.query(selectAllAminitiesQuery, new BusAmenitiesExtractor());
 	}
 
 	@Transactional(readOnly = true)
 	public List<BusDetails> getBusDetails(String source, String destination) {
-		log.debug("Running insert query for getCancellationPoliciesByBusId {}", selectBusInfoQuery);
+		log.debug("Running insert query for getBusDetails {}", selectBusInfoQuery);
 		return jdbcTemplate.query(selectBusInfoQuery, new Object[] { "%" + source + "%", "%" + destination + "%" },
 				new BusInformationDetailsExtractor());
 	}
 
 	@Transactional(readOnly = true)
 	public List<BusSeatDetails> getSeatsDetails(SearchTripVO tripVO) {
-		log.debug("Running select query for getTripsDetails: {}", selectBusSeatDetailsQuery);
+		log.debug("Running select query for getSeatsDetails: {}", selectBusSeatDetailsQuery);
 		Integer startStop = Integer.parseInt(tripVO.getTripId().split("::")[2]);
 		Integer endStop = Integer.parseInt(tripVO.getTripId().split("::")[3]);
 		return jdbcTemplate.query(selectBusSeatDetailsQuery,
@@ -156,7 +153,7 @@ public class BusBookingDao {
 
 	@Transactional
 	public CustomerBusTicketVO bookedBusTicket(CustomerBusTicketVO busVO) {
-		log.debug("Running insert query for addUser: {}", insertCustomerBookTicketQuery);
+		log.debug("Running insert query for bookedBusTicket: {}", insertCustomerBookTicketQuery);
 		KeyHolder holder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
@@ -187,7 +184,7 @@ public class BusBookingDao {
 	}
 
 	public List<CustomerBusTicketVO> getHistoryBusTicket(String uid, int limit) {
-		log.debug("Running insert query for addUser: {}", selectCustomerBookTicketQuery);
+		log.debug("Running insert query for getHistoryBusTicket: {}", selectCustomerBookTicketQuery);
 		return jdbcTemplate.query(selectCustomerBookTicketQuery, new Object[] { uid.toLowerCase(), limit },
 				new CustomerMapperExtrator());
 	}
