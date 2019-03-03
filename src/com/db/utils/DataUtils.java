@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +38,7 @@ public class DataUtils {
 		else
 			return false;
 	}
+	
 	public static String getBaseURl(HttpServletRequest request) {
 		String scheme = request.getScheme();
 		String serverName = request.getServerName();
@@ -89,7 +89,6 @@ public class DataUtils {
 		return busTypes;
 	}
 	
-	
 	public static String parseBusDate(String str) {
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = null;
@@ -116,7 +115,6 @@ public class DataUtils {
 		return dateFormat.format(dateValues);
 	}
 	
-	
 	public static String formatDateToString(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -127,9 +125,6 @@ public class DataUtils {
 		String str = "1::2::3::4";
 		System.out.println(str.split("::")[2]);
 	}
-
-
-
 
 	public static String getGenerateOTP() {
 		Random rnd = new Random();
