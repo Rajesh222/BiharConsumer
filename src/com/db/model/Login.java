@@ -1,13 +1,18 @@
 package com.db.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Satyam Kumar
  *
  */
-public class Login {
+public class Login implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3576009501244716303L;
 	private String id;
 	private String uid;
 	private String name;

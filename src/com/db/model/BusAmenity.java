@@ -1,10 +1,17 @@
 package com.db.model;
+
+import java.io.Serializable;
+
 /**
  * @author Satyam Kumar
  *
  */
-public class BusAmenity {
+public class BusAmenity implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7081507500727075917L;
 	private String id;
 	private String name;
 	private String label;

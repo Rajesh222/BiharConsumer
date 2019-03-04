@@ -1,10 +1,14 @@
 package com.db.model;
+
+import java.io.Serializable;
+
 /**
  * @author Satyam Kumar
  *
  */
-public class BusDetails {
+public class BusDetails implements Serializable{
 
+	private static final long serialVersionUID = -6508045063085127065L;
 	private String busId;
 	private String ownerId;
 	private String travelsName;

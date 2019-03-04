@@ -1,10 +1,17 @@
 package com.db.model;
+
+import java.io.Serializable;
+
 /**
  * @author Satyam Kumar
  *
  */
-public class BusType {
+public class BusType implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6242482537486686384L;
 	private int id;
 	private String busType;
 	/**

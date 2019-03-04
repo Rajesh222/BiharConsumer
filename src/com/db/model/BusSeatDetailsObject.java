@@ -1,12 +1,14 @@
 package com.db.model;
 
+import java.io.Serializable;
 import java.util.List;
 /**
  * @author Satyam Kumar
  *
  */
-public class BusSeatDetailsObject {
+public class BusSeatDetailsObject implements Serializable{
 
+	private static final long serialVersionUID = 8700716073667499536L;
 	private List<BusSeatDetails> busSeatDetails;
 	private List<BusBoadingStopingDetails> boardingPoints;
 	private List<BusBoadingStopingDetails> droppingPoints;

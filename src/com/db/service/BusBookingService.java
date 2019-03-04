@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.cache.annotation.Cacheable;
 import com.db.dao.BusBookingDao;
 import com.db.model.BusDetailsObject;
 import com.db.model.BusRouteDetails;
@@ -22,6 +22,7 @@ public class BusBookingService {
 	@Autowired
 	private BusBookingDao busBookingDao;
 
+	@Cacheable("routesDetails")
 	public BusDetailsObject searchBusRoutDetails(String source, String destination, String date) {
 		BusDetailsObject busDetailsObject = new BusDetailsObject();
 		List<BusRouteDetails> filterRoutes = busBookingDao.searchTriBySrcDescAndDate(source, destination, date);
@@ -39,7 +40,7 @@ public class BusBookingService {
 		return busDetailsObject;
 	}
 	
-	//@Cacheable("tripsDetails")
+	@Cacheable("tripsDetails")
 	public BusSeatDetailsObject getSeatAvailability(SearchTripVO tripVO) {
 		BusSeatDetailsObject availability = new BusSeatDetailsObject();
 		availability.setBusSeatDetails(busBookingDao.getSeatsDetails(tripVO));
